@@ -231,6 +231,44 @@ body.target{cursor:crosshair !important}
 .kbd-row .desc{color:var(--dim);font-size:.7rem;letter-spacing:.04em}
 kbd{display:inline-block;background:var(--brd2);border:1px solid var(--brd);border-radius:3px;padding:3px 8px;font-family:var(--fd);font-size:.66rem;margin:0 2px;color:var(--tx);font-weight:600;min-width:18px;text-align:center}
 
+/* ── System indicator HUD ── */
+#sys-ind{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:11;display:flex;align-items:center;gap:10px;background:oklch(8% .022 250/.85);border:1px solid var(--brd2);border-radius:var(--r-lg);padding:7px 16px;pointer-events:none;font-family:var(--fd)}
+#sys-ind-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc);animation:sysPulse 2.2s ease-in-out infinite}
+@keyframes sysPulse{0%,100%{opacity:.6}50%{opacity:1}}
+#sys-ind-name{font-size:.7rem;font-weight:700;letter-spacing:.2em;color:var(--tx);text-transform:uppercase}
+#sys-ind-sub{font-size:.55rem;letter-spacing:.12em;color:var(--dim);text-transform:uppercase;border-left:1px solid var(--brd2);padding-left:10px}
+
+/* ── Warp HUD overlay ── */
+#warp-hud{position:fixed;inset:0;z-index:90;pointer-events:none;display:none}
+#warp-hud.show{display:block}
+#warp-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 30%,oklch(0% 0 0/.7) 75%,oklch(0% 0 0/.95) 100%);opacity:0;animation:warpVig 3.5s ease-in-out forwards}
+@keyframes warpVig{0%,100%{opacity:0}10%,90%{opacity:1}}
+#warp-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--fd);font-size:1.4rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--acc);text-shadow:0 0 24px var(--acc),0 0 4px var(--acc);text-align:center;animation:warpTxt 3.5s ease-in-out}
+@keyframes warpTxt{0%,100%{opacity:0}10%,90%{opacity:1}}
+#warp-sub{position:absolute;top:calc(50% + 38px);left:50%;transform:translateX(-50%);font-family:var(--fd);font-size:.65rem;letter-spacing:.32em;text-transform:uppercase;color:var(--dim);text-align:center}
+#warp-flash{position:absolute;inset:0;background:radial-gradient(ellipse at center,oklch(95% .12 240/.4),transparent 60%);opacity:0;animation:warpFlash 3.5s ease-in-out forwards}
+@keyframes warpFlash{0%,30%{opacity:0}50%{opacity:1}80%,100%{opacity:0}}
+
+/* ── Habitability meter ── */
+.hab-meter{margin-bottom:18px;padding-top:12px;border-top:1px solid var(--brd2)}
+.hab-lbl{font-family:var(--fd);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;display:flex;justify-content:space-between;align-items:baseline}
+.hab-lbl strong{font-size:.78rem;font-weight:700;letter-spacing:.05em}
+.hab-bar{position:relative;height:6px;background:var(--brd2);border-radius:3px;overflow:hidden}
+.hab-fill{position:absolute;top:0;left:0;height:100%;border-radius:3px;transition:width .6s cubic-bezier(.22,1,.36,1)}
+.hab-scale{display:flex;justify-content:space-between;margin-top:5px;font-family:var(--fd);font-size:.55rem;letter-spacing:.08em;color:oklch(40% .01 250);text-transform:uppercase}
+.hab-fill.good{background:linear-gradient(90deg,oklch(70% .19 145),oklch(75% .2 140))}
+.hab-fill.mid{background:linear-gradient(90deg,oklch(72% .17 70),oklch(78% .18 60))}
+.hab-fill.bad{background:linear-gradient(90deg,oklch(58% .2 25),oklch(62% .22 20))}
+
+/* ── TRAPPIST accent override ── */
+html[data-system="trappist"]{--acc:oklch(64% .22 30);--acc2:oklch(48% .16 30)}
+html[data-system="trappist"] #sys-ind-name{color:var(--acc)}
+
+/* ── Warp button ── */
+#warp-btn{font-family:var(--fd);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;background:oklch(75% .18 70/.15);border:1px solid var(--acc);border-radius:var(--r-sm);color:var(--acc);cursor:pointer;transition:all .2s}
+#warp-btn:hover{background:oklch(75% .18 70/.28)}
+#warp-btn:disabled{opacity:.4;cursor:wait}
+
 /* ── Onboarding ── */
 #onb{position:fixed;inset:0;z-index:80;pointer-events:none}
 .onb-card{position:absolute;background:oklch(10% .025 250/.97);border:1px solid var(--acc);border-radius:var(--r-lg);padding:14px 18px;font-family:var(--fd);font-size:.72rem;letter-spacing:.06em;color:var(--tx);max-width:220px;opacity:0;line-height:1.5}
@@ -259,7 +297,21 @@ kbd{display:inline-block;background:var(--brd2);border:1px solid var(--brd);bord
   <div id="top-btns">
     <button class="hdr-btn" id="scale-btn">⬡ Realistic Scale</button>
     <button class="hdr-btn" id="compare-btn">◎ Compare Mode</button>
+    <button id="warp-btn">🚀 Travel to TRAPPIST-1</button>
   </div>
+</div>
+
+<div id="sys-ind">
+  <div id="sys-ind-dot"></div>
+  <div id="sys-ind-name">SOL SYSTEM</div>
+  <div id="sys-ind-sub">YOUR HOME STAR</div>
+</div>
+
+<div id="warp-hud">
+  <div id="warp-flash"></div>
+  <div id="warp-vignette"></div>
+  <div id="warp-text">INITIATING WARP DRIVE</div>
+  <div id="warp-sub">— 39 LIGHT YEARS —</div>
 </div>
 
 <button id="help-btn" title="Shortcuts (?)">?</button>
@@ -1200,6 +1252,7 @@ function animate(){
     visual.scale.setScalar(visual.userData.hS);
   });
 
+  if(typeof updateWarp==='function')updateWarp();
   renderer.render(scene,camera);
   if(typeof settings==='undefined'||settings.lens)drawLensFlare();
   if(typeof settings==='undefined'||settings.labels)drawLabels();
@@ -1431,6 +1484,278 @@ try{
     setTimeout(()=>{const o=document.getElementById('onb');if(o)o.remove()},14000);
   }
 }catch(e){}
+
+// ════════ TRAPPIST-1 SYSTEM ════════
+const TRAPPIST_OFFSET=new THREE.Vector3(0,0,-800000);
+
+function trappistStarTex(){
+  const{c,x}=mk(512,512);
+  x.fillStyle='#BA1F08';x.fillRect(0,0,512,512);
+  for(let i=0;i<1500;i++){const px=Math.random()*512,py=Math.random()*512,r=4+Math.random()*20;x.beginPath();x.arc(px,py,r,0,Math.PI*2);x.fillStyle=Math.random()>.55?`rgba(60,8,0,${.25+Math.random()*.35})`:`rgba(255,90,30,${.1+Math.random()*.2})`;x.fill()}
+  for(let i=0;i<6;i++){const a=Math.random()*Math.PI*2,d=60+Math.random()*150,sx=256+Math.cos(a)*d,sy=256+Math.sin(a)*d,r=12+Math.random()*22;const g=x.createRadialGradient(sx,sy,0,sx,sy,r);g.addColorStop(0,'rgba(20,0,0,.9)');g.addColorStop(1,'rgba(60,0,0,0)');x.beginPath();x.arc(sx,sy,r,0,Math.PI*2);x.fillStyle=g;x.fill()}
+  const ld=x.createRadialGradient(256,256,180,256,256,260);ld.addColorStop(0,'rgba(0,0,0,0)');ld.addColorStop(1,'rgba(40,0,0,.7)');x.fillStyle=ld;x.fillRect(0,0,512,512);
+  return tex(c);
+}
+function tpTex(type){
+  const{c,x}=mk(256,256);
+  if(type==='magma'){x.fillStyle='#2A0805';x.fillRect(0,0,256,256);for(let i=0;i<70;i++){const py=Math.random()*256;x.beginPath();x.moveTo(0,py);for(let p=0;p<=256;p+=8)x.lineTo(p,py+Math.sin(p*.04+i)*7);x.strokeStyle=`rgba(255,${80+Math.random()*100},${10+Math.random()*40},${.3+Math.random()*.4})`;x.lineWidth=1+Math.random()*5;x.stroke()}for(let i=0;i<120;i++){x.beginPath();x.arc(Math.random()*256,Math.random()*256,1+Math.random()*4,0,Math.PI*2);x.fillStyle='rgba(255,180,40,.6)';x.fill()}}
+  else if(type==='venus'){x.fillStyle='#A89888';x.fillRect(0,0,256,256);for(let i=0;i<50;i++){x.beginPath();x.ellipse(Math.random()*256,Math.random()*256,12+Math.random()*44,5+Math.random()*14,0,0,Math.PI*2);x.fillStyle=`rgba(${200+Math.random()*40},${180+Math.random()*30},60,${.15+Math.random()*.3})`;x.fill()}}
+  else if(type==='desert'){x.fillStyle='#B89060';x.fillRect(0,0,256,256);for(let i=0;i<350;i++){const px=Math.random()*256,py=Math.random()*256,r=2+Math.random()*10;x.beginPath();x.arc(px,py,r,0,Math.PI*2);x.fillStyle=`rgba(${100+Math.random()*100},${70+Math.random()*60},${30+Math.random()*30},${.15+Math.random()*.3})`;x.fill()}x.fillStyle='rgba(150,180,210,.18)';x.beginPath();x.ellipse(128,128,140,40,0,0,Math.PI*2);x.fill()}
+  else if(type==='earthlike'){x.fillStyle='#1A6080';x.fillRect(0,0,256,256);[[[40,40],[100,30],[120,70],[110,110],[60,100]],[[160,50],[220,60],[230,120],[200,150],[170,120]],[[60,160],[140,170],[150,210],[80,220],[40,200]],[[180,180],[230,170],[240,210],[210,230]]].forEach(pts=>{x.beginPath();x.moveTo(pts[0][0],pts[0][1]);pts.forEach(p=>x.lineTo(p[0],p[1]));x.closePath();x.fillStyle='#3A8A4A';x.fill()});for(let i=0;i<22;i++){x.beginPath();x.ellipse(Math.random()*256,Math.random()*256,15+Math.random()*40,6+Math.random()*12,0,0,Math.PI*2);x.fillStyle='rgba(255,255,255,.35)';x.fill()}}
+  else if(type==='ice'){x.fillStyle='#C8DCE8';x.fillRect(0,0,256,256);for(let i=0;i<90;i++){x.beginPath();x.arc(Math.random()*256,Math.random()*256,5+Math.random()*30,0,Math.PI*2);x.fillStyle=`rgba(255,255,255,${.2+Math.random()*.4})`;x.fill()}for(let i=0;i<60;i++){x.beginPath();x.arc(Math.random()*256,Math.random()*256,1+Math.random()*5,0,Math.PI*2);x.fillStyle='rgba(160,200,220,.4)';x.fill()}}
+  else if(type==='haze'){x.fillStyle='#9F88C8';x.fillRect(0,0,256,256);for(let i=0;i<45;i++){const py=Math.random()*256;x.beginPath();x.moveTo(0,py);for(let p=0;p<=256;p+=12)x.lineTo(p,py+Math.sin(p*.04+i)*4);x.strokeStyle=`rgba(${100+Math.random()*60},${70+Math.random()*30},${130+Math.random()*60},${.12+Math.random()*.2})`;x.lineWidth=2+Math.random()*7;x.stroke()}}
+  else if(type==='frozen'){x.fillStyle='#D8E4EC';x.fillRect(0,0,256,256);for(let i=0;i<220;i++){x.beginPath();x.arc(Math.random()*256,Math.random()*256,1+Math.random()*4,0,Math.PI*2);x.fillStyle=`rgba(150,180,200,${.15+Math.random()*.3})`;x.fill()}x.fillStyle='rgba(255,255,255,.85)';x.beginPath();x.ellipse(128,6,70,18,0,0,Math.PI*2);x.fill();x.beginPath();x.ellipse(128,250,70,18,0,0,Math.PI*2);x.fill()}
+  return tex(c);
+}
+
+const TRAPPIST_STAR_DATA={
+  name:'TRAPPIST-1',type:'Ultra-cool Red Dwarf (M8V)',hexColor:'#FF5530',gravityMS2:268.6,
+  stats:[{l:'Diameter',v:'163,000 km'},{l:'Mass',v:'0.089 M☉'},{l:'Surface Temp',v:'2,566 K'},{l:'Age',v:'7.6 billion yrs'},{l:'Distance',v:'39.46 ly'},{l:'Type',v:'M8V Dwarf'}],
+  desc:'TRAPPIST-1 is an ultra-cool red dwarf 39 light-years away in the constellation Aquarius. It hosts seven known Earth-sized rocky planets, three of which lie in the habitable zone — the most of any single star system discovered to date.',
+  fact:'TRAPPIST-1 is so small and cool that all 7 planets fit within the orbit of Mercury!'
+};
+
+const TRAPPIST_DATA=[
+  {name:'TRAPPIST-1b',type:'Volcanic Rocky World',hexColor:'#FF6633',texType:'magma',radius:.56,orbitR:3,orbitSpeed:2.4,rotSpeed:.03,gravityMS2:9.5,esi:0.60,
+   stats:[{l:'Diameter',v:'14,210 km'},{l:'Mass',v:'1.37 M⊕'},{l:'Period',v:'1.51 Earth days'},{l:'Distance',v:'0.0115 AU'},{l:'Surface Temp',v:'~400°C'},{l:'Atmosphere',v:'Likely none / thin'}],
+   desc:'The innermost TRAPPIST-1 planet. So close to its star that tidal forces likely drive intense volcanism. The dayside may be a sea of molten rock.',
+   fact:'TRAPPIST-1b orbits its star in just 36 hours — faster than the Moon orbits Earth!'},
+  {name:'TRAPPIST-1c',type:'Venus-like Rocky World',hexColor:'#D4B860',texType:'venus',radius:.55,orbitR:4.2,orbitSpeed:1.5,rotSpeed:.025,gravityMS2:9.8,esi:0.75,
+   stats:[{l:'Diameter',v:'13,980 km'},{l:'Mass',v:'1.31 M⊕'},{l:'Period',v:'2.42 Earth days'},{l:'Distance',v:'0.0158 AU'},{l:'Surface Temp',v:'~107°C'},{l:'Atmosphere',v:'Possible bare rock'}],
+   desc:"The second TRAPPIST-1 planet. JWST observations suggest little to no atmosphere — likely a bare rock world stripped by its star's radiation.",
+   fact:"JWST detected no thick atmosphere on TRAPPIST-1c — a clue to whether M-dwarf planets can hold air."},
+  {name:'TRAPPIST-1d',type:'Hot Rocky World',hexColor:'#C89060',texType:'desert',radius:.39,orbitR:5.6,orbitSpeed:1.0,rotSpeed:.022,gravityMS2:6.3,esi:0.88,
+   stats:[{l:'Diameter',v:'10,030 km'},{l:'Mass',v:'0.39 M⊕'},{l:'Period',v:'4.05 Earth days'},{l:'Distance',v:'0.0223 AU'},{l:'Surface Temp',v:'~15°C'},{l:'Atmosphere',v:'Possible thin atmosphere'}],
+   desc:'Sits right at the inner edge of the habitable zone. Could host water on its night side or in cooler regions if it retains an atmosphere.',
+   fact:'TRAPPIST-1d is small and rocky — about 40% the mass of Earth.'},
+  {name:'TRAPPIST-1e',type:'Habitable Rocky World',hexColor:'#3E9BB0',texType:'earthlike',radius:.46,orbitR:7,orbitSpeed:.66,rotSpeed:.02,gravityMS2:9.1,esi:0.92,
+   stats:[{l:'Diameter',v:'11,720 km'},{l:'Mass',v:'0.69 M⊕'},{l:'Period',v:'6.10 Earth days'},{l:'Distance',v:'0.0293 AU'},{l:'Surface Temp',v:'-22°C'},{l:'Atmosphere',v:'Possible — water-bearing'}],
+   desc:'The most Earth-like planet beyond our solar system. Sits comfortably in the habitable zone and is the prime candidate for liquid water on its surface.',
+   fact:'TRAPPIST-1e has the highest Earth Similarity Index (0.92) of any confirmed exoplanet!'},
+  {name:'TRAPPIST-1f',type:'Habitable Icy World',hexColor:'#A8C8D8',texType:'ice',radius:.52,orbitR:8.8,orbitSpeed:.43,rotSpeed:.018,gravityMS2:7.6,esi:0.89,
+   stats:[{l:'Diameter',v:'13,290 km'},{l:'Mass',v:'1.04 M⊕'},{l:'Period',v:'9.21 Earth days'},{l:'Distance',v:'0.0385 AU'},{l:'Surface Temp',v:'-54°C'},{l:'Atmosphere',v:'Possibly water-rich'}],
+   desc:'In the middle of the habitable zone. Likely covered in ice with possible liquid oceans beneath, similar to a much warmer Europa.',
+   fact:'TRAPPIST-1f may be up to 5% water by mass — far wetter than Earth!'},
+  {name:'TRAPPIST-1g',type:'Habitable Hazy World',hexColor:'#9F88C8',texType:'haze',radius:.57,orbitR:10.5,orbitSpeed:.31,rotSpeed:.016,gravityMS2:9.4,esi:0.85,
+   stats:[{l:'Diameter',v:'14,610 km'},{l:'Mass',v:'1.32 M⊕'},{l:'Period',v:'12.35 Earth days'},{l:'Distance',v:'0.0468 AU'},{l:'Surface Temp',v:'-77°C'},{l:'Atmosphere',v:'Possible thick haze'}],
+   desc:'The outer edge of the habitable zone. The largest of the seven planets, possibly with a thick atmosphere that could trap heat.',
+   fact:'TRAPPIST-1g is the largest planet in the system — slightly bigger than Earth.'},
+  {name:'TRAPPIST-1h',type:'Frozen Rocky World',hexColor:'#D0DCE4',texType:'frozen',radius:.38,orbitR:12.5,orbitSpeed:.18,rotSpeed:.014,gravityMS2:5.7,esi:0.60,
+   stats:[{l:'Diameter',v:'9,830 km'},{l:'Mass',v:'0.33 M⊕'},{l:'Period',v:'18.77 Earth days'},{l:'Distance',v:'0.0619 AU'},{l:'Surface Temp',v:'-105°C'},{l:'Atmosphere',v:'Unlikely'}],
+   desc:'The outermost known planet — too cold for liquid water on the surface. Likely a frozen world preserving a record of the system’s early history.',
+   fact:"TRAPPIST-1h was confirmed last among the seven — completing the most populous Earth-sized system known."}
+];
+
+// Add texFn so buildPreview works
+TRAPPIST_STAR_DATA.texFn=trappistStarTex;
+TRAPPIST_DATA.forEach(pd=>{pd.texFn=()=>tpTex(pd.texType)});
+
+// Build the TRAPPIST-1 system
+const trappistGroup=new THREE.Group();
+trappistGroup.position.copy(TRAPPIST_OFFSET);
+scene.add(trappistGroup);
+
+const trappistStarMesh=new THREE.Mesh(new THREE.SphereGeometry(1.4,40,40),new THREE.MeshBasicMaterial({map:trappistStarTex()}));
+trappistGroup.add(trappistStarMesh);
+TRAPPIST_STAR_DATA.mesh=trappistStarMesh;
+// Trappist glow sprites
+[3,5,7.5].forEach((s,i)=>{const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0xFF3311,transparent:true,blending:THREE.AdditiveBlending,opacity:.32-i*.08,depthWrite:false}));sp.scale.set(s*2,s*2,1);trappistGroup.add(sp)});
+// Trappist point light
+const trappistLight=new THREE.PointLight(0xFF4520,4,800,0.55);
+trappistGroup.add(trappistLight);
+clickables.push({mesh:trappistStarMesh,data:TRAPPIST_STAR_DATA});
+
+TRAPPIST_DATA.forEach(pd=>{
+  pd.currentOrbitR=pd.orbitR;pd.visualOrbitR=pd.orbitR;pd.realisticOrbitR=pd.orbitR;
+  const pivot=new THREE.Object3D();pivot.rotation.y=Math.random()*Math.PI*2;trappistGroup.add(pivot);
+  // orbit line
+  const pts=[];for(let i=0;i<=128;i++){const a=i/128*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*pd.orbitR,0,Math.sin(a)*pd.orbitR))}
+  const ogeo=new THREE.BufferGeometry().setFromPoints(pts);
+  const ocol=parseInt(pd.hexColor.replace('#',''),16);
+  const oline=new THREE.Line(ogeo,new THREE.LineBasicMaterial({color:ocol,transparent:true,opacity:.28}));
+  oline.userData.isOrbit=true;trappistGroup.add(oline);pd.orbitLineGeo=ogeo;
+  // mesh
+  const mesh=new THREE.Mesh(new THREE.SphereGeometry(pd.radius,32,32),new THREE.MeshStandardMaterial({map:tpTex(pd.texType),roughness:.82,metalness:.04}));
+  mesh.position.x=pd.orbitR;pivot.add(mesh);pd.mesh=mesh;pd.pivot=pivot;
+  // selection ring
+  const sel=new THREE.Mesh(new THREE.TorusGeometry(pd.radius*1.45,pd.radius*.06,8,32),new THREE.MeshBasicMaterial({color:0xFF6633,transparent:true,opacity:.85}));
+  sel.visible=false;mesh.add(sel);pd.selectionRing=sel;
+  // hit zone (larger)
+  const hitR=Math.max(pd.radius*2.2,.5);
+  const hit=new THREE.Mesh(new THREE.SphereGeometry(hitR,8,8),new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false}));
+  hit.userData.visualMesh=mesh;mesh.add(hit);
+  clickables.push({mesh:hit,data:pd,pd});
+  allPivots.push({obj:pivot,speed:pd.orbitSpeed});
+  allRotating.push({obj:mesh,speed:pd.rotSpeed,dt:true});
+});
+
+// Add TRAPPIST bodies to searchable list
+allSearchable.push({name:'TRAPPIST-1',data:TRAPPIST_STAR_DATA,mesh:trappistStarMesh,type:'Star'});
+TRAPPIST_DATA.forEach(p=>allSearchable.push({name:p.name,data:p,mesh:p.mesh,type:'Exoplanet'}));
+
+// ════════ WARP SYSTEM ════════
+let currentSystem='solar';
+let warpActive=false,warpStart=0,warpTarget='solar';
+const WARP_DUR=3500;
+const warpStartLook=new THREE.Vector3();
+const ambientLight=scene.children.find(c=>c.isAmbientLight);
+
+function initiateWarp(target){
+  if(warpActive)return;
+  warpActive=true;
+  warpStart=performance.now();
+  warpTarget=target;
+  warpStartLook.copy(lookTarget);
+  document.getElementById('warp-hud').classList.add('show');
+  document.getElementById('warp-btn').disabled=true;
+  // Start audio
+  if(audioCtx){
+    try{
+      const o=audioCtx.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(80,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(800,audioCtx.currentTime+1.2);
+      const g=audioCtx.createGain();g.gain.setValueAtTime(0,audioCtx.currentTime);g.gain.linearRampToValueAtTime(.06,audioCtx.currentTime+.5);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+3);
+      o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+3.2);
+    }catch(e){}
+  }
+}
+
+function updateWarp(){
+  if(!warpActive)return;
+  const t=Math.min(1,(performance.now()-warpStart)/WARP_DUR);
+  // Star size streak
+  let streak=0;
+  if(t<.18)streak=t/.18;
+  else if(t<.85)streak=1;
+  else streak=Math.max(0,(1-t)/.15);
+  if(starField)starField.material.size=1.2+16*streak;
+  // HUD text
+  let txt='INITIATING WARP DRIVE',sub='— SPOOLING ENGINES —';
+  if(t>.18){txt='WARP DRIVE ENGAGED';sub='— ACCELERATING —'}
+  if(t>.35){const mt=(t-.35)/.5;const ly=Math.min(39,39*mt).toFixed(1);txt=`TRAVELING · ${ly} LY`;sub=warpTarget==='trappist'?'TO TRAPPIST-1':'TO SOL'}
+  if(t>.88){txt=warpTarget==='trappist'?'TRAPPIST-1 SYSTEM':'SOL SYSTEM';sub=warpTarget==='trappist'?'— 39 LY FROM EARTH —':'— HOME —'}
+  document.getElementById('warp-text').textContent=txt;
+  document.getElementById('warp-sub').textContent=sub;
+  // Camera lerp (moves lookTarget through space)
+  if(t>.2&&t<.88){
+    const mt=(t-.2)/.68;
+    const e=mt*mt*(3-2*mt);
+    const target=warpTarget==='trappist'?TRAPPIST_OFFSET:new THREE.Vector3(0,0,0);
+    lookTarget.lerpVectors(warpStartLook,target,e);
+    tLookTarget.copy(lookTarget);
+  }
+  if(t>=1){
+    warpActive=false;
+    currentSystem=warpTarget;
+    if(starField)starField.material.size=1.2;
+    document.getElementById('warp-hud').classList.remove('show');
+    document.getElementById('warp-btn').disabled=false;
+    document.documentElement.setAttribute('data-system',currentSystem);
+    document.getElementById('warp-btn').textContent=currentSystem==='trappist'?'← Return to Sol':'🚀 Travel to TRAPPIST-1';
+    document.getElementById('sys-ind-name').textContent=currentSystem==='trappist'?'TRAPPIST-1':'SOL SYSTEM';
+    document.getElementById('sys-ind-sub').textContent=currentSystem==='trappist'?'39 LY · M8V DWARF':'YOUR HOME STAR';
+    document.getElementById('sys-ind-dot').style.background=currentSystem==='trappist'?'oklch(64% .22 30)':'oklch(75% .18 70)';
+    document.getElementById('sys-ind-dot').style.boxShadow=`0 0 12px ${currentSystem==='trappist'?'oklch(64% .22 30)':'oklch(75% .18 70)'}`;
+    document.querySelector('#mmap-hdr span:last-child').textContent=currentSystem==='trappist'?'TRP-1':'SOL';
+    document.querySelector('#mmap-hdr span:last-child').style.color=currentSystem==='trappist'?'oklch(64% .22 30)':'oklch(75% .18 70)';
+    // Tint ambient
+    if(ambientLight){if(currentSystem==='trappist'){ambientLight.color.setHex(0x4F1F11)}else{ambientLight.color.setHex(0x334466)}}
+    // Reset view
+    tR=42;
+  }
+}
+
+document.getElementById('warp-btn').addEventListener('click',()=>{
+  initAudio();
+  initiateWarp(currentSystem==='solar'?'trappist':'solar');
+});
+
+// ════════ MINI-MAP — switch arrays based on system ════════
+const _origDrawMmap=drawMmap;
+drawMmap=function(){
+  const w=mmapCv.width,h=mmapCv.height,cx=w/2,cy=h/2;
+  mmapCtx.clearRect(0,0,w,h);
+  mmapCtx.fillStyle='rgba(8,12,22,1)';mmapCtx.fillRect(0,0,w,h);
+  mmapCtx.strokeStyle='rgba(120,140,170,.15)';mmapCtx.lineWidth=1;
+  mmapCtx.beginPath();mmapCtx.arc(cx,cy,Math.min(cx,cy)-4,0,Math.PI*2);mmapCtx.stroke();
+  const inTrappist=currentSystem==='trappist';
+  const planetList=inTrappist?TRAPPIST_DATA:PLANETS;
+  const maxR=inTrappist?15:55;
+  const scale=Math.min(cx,cy)/maxR;
+  const sysOrigin=inTrappist?TRAPPIST_OFFSET:new THREE.Vector3(0,0,0);
+  planetList.forEach(pd=>{
+    mmapCtx.beginPath();
+    mmapCtx.arc(cx,cy,pd.currentOrbitR*scale,0,Math.PI*2);
+    mmapCtx.strokeStyle=(pd.hexColor||'#445566')+'55';
+    mmapCtx.lineWidth=1;mmapCtx.stroke();
+  });
+  mmapCtx.beginPath();mmapCtx.arc(cx,cy,5,0,Math.PI*2);
+  mmapCtx.fillStyle=inTrappist?'#FF5530':'#FFD878';
+  mmapCtx.shadowBlur=8;mmapCtx.shadowColor=mmapCtx.fillStyle;mmapCtx.fill();mmapCtx.shadowBlur=0;
+  planetList.forEach(pd=>{
+    const wp=new THREE.Vector3();pd.mesh.getWorldPosition(wp);
+    const px=cx+(wp.x-sysOrigin.x)*scale,py=cy+(wp.z-sysOrigin.z)*scale;
+    mmapCtx.beginPath();mmapCtx.arc(px,py,3.5,0,Math.PI*2);
+    mmapCtx.fillStyle=pd.hexColor||'#aaa';mmapCtx.fill();
+  });
+  const cpx=cx+(camera.position.x-sysOrigin.x)*scale,cpy=cy+(camera.position.z-sysOrigin.z)*scale;
+  if(Math.abs(cpx-cx)<cx-3&&Math.abs(cpy-cy)<cy-3){
+    mmapCtx.save();mmapCtx.translate(cpx,cpy);mmapCtx.rotate(-camTheta);
+    mmapCtx.beginPath();mmapCtx.moveTo(0,-7);mmapCtx.lineTo(-5,5);mmapCtx.lineTo(5,5);mmapCtx.closePath();
+    mmapCtx.fillStyle=inTrappist?'#FF7548':'#FFD878';
+    mmapCtx.strokeStyle='oklch(8% .022 250)';mmapCtx.lineWidth=1.5;mmapCtx.stroke();mmapCtx.fill();
+    mmapCtx.restore();
+  }
+};
+
+// ════════ Add TRAPPIST labels ════════
+const _origDrawLabels2=drawLabels;
+drawLabels=function(){
+  _origDrawLabels2();
+  if(currentSystem!=='trappist')return;
+  const dpr=devicePixelRatio;
+  const fade=Math.max(0,1-scrollProg*4);
+  if(fade<=0)return;
+  labelCtx.save();labelCtx.scale(dpr,dpr);
+  // TRAPPIST star label
+  {const wp=new THREE.Vector3();trappistStarMesh.getWorldPosition(wp);
+   const sp=wp.clone().project(camera);
+   if(sp.z<1){
+     const sx=(sp.x*.5+.5)*innerWidth,sy=(-sp.y*.5+.5)*innerHeight;
+     const d=camera.position.distanceTo(wp);
+     const a=fade*Math.max(0,Math.min(1,(d-5)/15));
+     if(a>.04){labelCtx.globalAlpha=a;labelCtx.font='700 9px "Chakra Petch",sans-serif';labelCtx.fillStyle='#FF7548';labelCtx.textAlign='center';labelCtx.fillText('TRAPPIST-1',sx,sy-46);labelCtx.beginPath();labelCtx.arc(sx,sy-38,1.5,0,Math.PI*2);labelCtx.fill()}
+   }}
+  TRAPPIST_DATA.forEach(pd=>{
+    const wp=new THREE.Vector3();pd.mesh.getWorldPosition(wp);
+    const sp=wp.clone().project(camera);if(sp.z>=1)return;
+    const sx=(sp.x*.5+.5)*innerWidth,sy=(-sp.y*.5+.5)*innerHeight;
+    const d=camera.position.distanceTo(wp);
+    const a=fade*Math.max(0,Math.min(1,1-d/58))*Math.max(0,Math.min(1,(d-3)/9));
+    if(a<.04)return;
+    labelCtx.globalAlpha=a;
+    labelCtx.font='600 9px "Chakra Petch",sans-serif';
+    labelCtx.fillStyle=pd.hexColor;
+    labelCtx.textAlign='center';
+    const scR=Math.max(10,pd.radius/Math.max(d,.1)*innerWidth*.45);
+    labelCtx.fillText(pd.name.toUpperCase(),sx,sy-scR-10);
+  });
+  labelCtx.restore();labelCtx.globalAlpha=1;
+};
+
+// ════════ HABITABILITY METER + populateOverlay hook ════════
+const _origPopulate=populateOverlay;
+populateOverlay=function(data){
+  _origPopulate(data);
+  const old=document.getElementById('hab-meter');if(old)old.remove();
+  if(typeof data.esi==='number'){
+    const cls=data.esi>.8?'good':data.esi>.6?'mid':'bad';
+    const html=`<div id="hab-meter" class="hab-meter rv" style="animation-delay:.6s">
+      <div class="hab-lbl"><span>Earth Similarity Index</span><strong>${data.esi.toFixed(2)}</strong></div>
+      <div class="hab-bar"><div class="hab-fill ${cls}" style="width:${(data.esi*100).toFixed(0)}%"></div></div>
+      <div class="hab-scale"><span>uninhabitable</span><span>earth-like</span></div>
+    </div>`;
+    document.getElementById('exp-btn').insertAdjacentHTML('afterend',html);
+  }
+};
 
 // HUD update interval
 setInterval(()=>{drawMmap();updateDistHud()},120);
