@@ -231,6 +231,65 @@ body.target{cursor:crosshair !important}
 .kbd-row .desc{color:var(--dim);font-size:.7rem;letter-spacing:.04em}
 kbd{display:inline-block;background:var(--brd2);border:1px solid var(--brd);border-radius:3px;padding:3px 8px;font-family:var(--fd);font-size:.66rem;margin:0 2px;color:var(--tx);font-weight:600;min-width:18px;text-align:center}
 
+/* ── Spaceship cockpit ── */
+#cockpit-bg{position:fixed;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+#cockpit-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at center,transparent 30%,oklch(0% 0 0/.42) 78%,oklch(0% 0 0/.82) 100%)}
+#cockpit-bg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,oklch(75% .12 70/.028) 3px,oklch(75% .12 70/.028) 4px);mix-blend-mode:screen}
+#scan-line{position:absolute;left:0;right:0;top:0;height:80px;background:linear-gradient(180deg,transparent,oklch(75% .18 70/.07) 50%,transparent);animation:scanSweep 8s linear infinite;pointer-events:none}
+html[data-system="trappist"] #scan-line{background:linear-gradient(180deg,transparent,oklch(60% .22 30/.08) 50%,transparent)}
+@keyframes scanSweep{0%{top:-80px}100%{top:100%}}
+
+#cockpit{position:fixed;inset:0;z-index:10;pointer-events:none;font-family:var(--fd)}
+
+/* Corner brackets */
+.cnr{position:absolute;width:48px;height:48px;border:1px solid var(--acc);opacity:.55;pointer-events:none;transition:opacity .3s}
+.cnr::before{content:'';position:absolute;width:5px;height:5px;background:var(--acc);border-radius:50%;box-shadow:0 0 8px var(--acc)}
+.cnr.tl{top:10px;left:10px;border-right:none;border-bottom:none}.cnr.tl::before{top:-3px;left:-3px}
+.cnr.tr{top:10px;right:10px;border-left:none;border-bottom:none}.cnr.tr::before{top:-3px;right:-3px}
+.cnr.bl{bottom:54px;left:10px;border-right:none;border-top:none}.cnr.bl::before{bottom:-3px;left:-3px}
+.cnr.br{bottom:54px;right:10px;border-left:none;border-top:none}.cnr.br::before{bottom:-3px;right:-3px}
+
+/* Center reticle */
+#xhair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:72px;height:72px;opacity:.3;transition:opacity .25s,transform .25s}
+body.point #xhair,body.target #xhair{opacity:.9;transform:translate(-50%,-50%) scale(1.15)}
+#xhair::before,#xhair::after{content:'';position:absolute;background:var(--acc);box-shadow:0 0 6px var(--acc)}
+#xhair::before{top:50%;left:0;width:24%;height:1px;transform:translateY(-50%)}
+#xhair::after{top:50%;right:0;width:24%;height:1px;transform:translateY(-50%)}
+#xhair .ring{position:absolute;top:50%;left:50%;width:22px;height:22px;border:1px solid var(--acc);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 10px oklch(75% .18 70/.4),inset 0 0 6px oklch(75% .18 70/.2)}
+#xhair .ring::after{content:'';position:absolute;top:50%;left:50%;width:2px;height:2px;background:var(--acc);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 4px var(--acc)}
+#xhair .vt{position:absolute;left:50%;width:1px;background:var(--acc);transform:translateX(-50%);box-shadow:0 0 6px var(--acc)}
+#xhair .vt.vt-t{top:0;height:24%}
+#xhair .vt.vt-b{bottom:0;height:24%}
+
+/* Compass */
+#compass{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:300px;height:22px;border:1px solid var(--brd);background:oklch(6% .02 250/.92);overflow:hidden;border-radius:var(--r-sm);box-shadow:0 0 12px oklch(0% 0 0/.5),inset 0 0 14px oklch(0% 0 0/.6)}
+#compass-tape{position:absolute;top:0;height:100%;display:flex;align-items:center;font-family:var(--fd);font-size:.55rem;color:var(--dim);white-space:nowrap;will-change:transform}
+.cm-tick{display:flex;align-items:center;justify-content:center;width:30px;height:100%;border-left:1px solid var(--brd2);flex-shrink:0;letter-spacing:.04em}
+.cm-card{color:var(--acc);font-weight:700;font-size:.64rem;letter-spacing:.08em}
+#compass-needle{position:absolute;top:-1px;bottom:-1px;left:50%;width:1px;background:var(--acc);transform:translateX(-50%);box-shadow:0 0 8px var(--acc)}
+#compass-needle::after{content:'';position:absolute;top:-6px;left:50%;border:5px solid transparent;border-top-color:var(--acc);transform:translateX(-50%);filter:drop-shadow(0 0 4px var(--acc))}
+
+/* Ship status panel */
+#ship-status{position:absolute;bottom:140px;left:20px;background:oklch(6% .02 250/.92);border:1px solid var(--brd);border-radius:var(--r-lg);padding:11px 14px;min-width:158px;pointer-events:none;font-family:var(--fd);box-shadow:0 0 16px oklch(0% 0 0/.4),inset 0 0 14px oklch(0% 0 0/.3)}
+.ss-hdr{font-size:.52rem;letter-spacing:.18em;color:var(--acc);text-transform:uppercase;margin-bottom:10px;border-bottom:1px solid var(--brd2);padding-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.ss-hdr-id{color:var(--dim);font-size:.5rem}
+.ss-row{display:flex;align-items:center;justify-content:space-between;padding:3px 0;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.ss-val{color:var(--tx);font-weight:700;font-size:.68rem;letter-spacing:.02em;display:flex;align-items:center;gap:5px}
+.ss-led{width:6px;height:6px;border-radius:50%;background:oklch(70% .19 145);box-shadow:0 0 6px oklch(70% .19 145/.8);animation:ledPulse 2.4s ease-in-out infinite}
+.ss-led.amber{background:oklch(75% .18 70);box-shadow:0 0 6px oklch(75% .18 70/.8)}
+.ss-led.red{background:oklch(60% .22 25);box-shadow:0 0 8px oklch(60% .22 25/.9);animation-duration:1s}
+@keyframes ledPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.ss-divider{height:1px;background:var(--brd2);margin:7px 0}
+.ss-val.acc{color:var(--acc)}
+
+/* Top-corner ship readouts (velocity, altitude) */
+.cp-readout{position:absolute;top:55px;background:oklch(6% .02 250/.85);border:1px solid var(--brd);border-radius:var(--r-sm);padding:6px 11px;min-width:108px;pointer-events:none;font-family:var(--fd)}
+.cp-readout .ro-lbl{color:var(--dim);font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:2px}
+.cp-readout .ro-v{color:var(--tx);font-size:.78rem;font-weight:700;letter-spacing:.02em}
+.cp-readout .ro-v.acc{color:var(--acc)}
+#vel-pnl{left:170px}
+#alt-pnl{right:170px;text-align:right}
+
 /* ── System indicator HUD ── */
 #sys-ind{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:11;display:flex;align-items:center;gap:10px;background:oklch(8% .022 250/.85);border:1px solid var(--brd2);border-radius:var(--r-lg);padding:7px 16px;pointer-events:none;font-family:var(--fd)}
 #sys-ind-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 12px var(--acc);animation:sysPulse 2.2s ease-in-out infinite}
@@ -285,6 +344,29 @@ html[data-system="trappist"] #sys-ind-name{color:var(--acc)}
 <body class="grab">
 
 <canvas id="canvas"></canvas>
+<div id="cockpit-bg"><div id="scan-line"></div></div>
+<div id="cockpit">
+  <div class="cnr tl"></div><div class="cnr tr"></div><div class="cnr bl"></div><div class="cnr br"></div>
+  <div id="xhair">
+    <div class="vt vt-t"></div><div class="vt vt-b"></div>
+    <div class="ring"></div>
+  </div>
+  <div id="compass">
+    <div id="compass-tape"></div>
+    <div id="compass-needle"></div>
+  </div>
+  <div id="vel-pnl" class="cp-readout"><div class="ro-lbl">Velocity</div><div class="ro-v acc" id="vel-v">0.00 U/S</div></div>
+  <div id="alt-pnl" class="cp-readout"><div class="ro-lbl">Altitude</div><div class="ro-v" id="alt-v">— U</div></div>
+  <div id="ship-status">
+    <div class="ss-hdr"><span>Ship Status</span><span class="ss-hdr-id">SOL-001</span></div>
+    <div class="ss-row"><span>Power</span><div class="ss-val"><div class="ss-led"></div>NOMINAL</div></div>
+    <div class="ss-row"><span>Shields</span><div class="ss-val"><div class="ss-led"></div>100%</div></div>
+    <div class="ss-row"><span>Life Support</span><div class="ss-val"><div class="ss-led"></div>OK</div></div>
+    <div class="ss-row"><span>Comms</span><div class="ss-val"><div class="ss-led amber"></div>LINK</div></div>
+    <div class="ss-divider"></div>
+    <div class="ss-row"><span>Heading</span><div class="ss-val acc" id="ss-heading">000°</div></div>
+  </div>
+</div>
 <canvas id="lens-cv"></canvas>
 <canvas id="label-cv"></canvas>
 <div id="atmo-flash"></div>
@@ -1757,8 +1839,36 @@ populateOverlay=function(data){
   }
 };
 
+// ════════ COCKPIT HUD ════════
+const compassTape=document.getElementById('compass-tape');
+{
+  const cardinals={0:'N',45:'NE',90:'E',135:'SE',180:'S',225:'SW',270:'W',315:'NW'};
+  let html='';
+  for(let c=0;c<2;c++){for(let d=0;d<360;d+=15){const cd=cardinals[d];html+=`<div class="cm-tick ${cd?'cm-card':''}">${cd||d+'°'}</div>`}}
+  compassTape.innerHTML=html;
+}
+const _lastLook=new THREE.Vector3();
+let _lastVelT=performance.now();
+function updateCockpit(){
+  // Compass
+  let h=(camTheta*180/Math.PI)%360;h=((h+360)%360);
+  compassTape.style.transform=`translateX(${150-h*2}px)`;
+  document.getElementById('ss-heading').textContent=Math.round(h).toString().padStart(3,'0')+'°';
+  // Velocity (from lookTarget movement)
+  const now=performance.now();const dt=(now-_lastVelT)/1000;
+  if(dt>.05){
+    const v=lookTarget.distanceTo(_lastLook)/dt;
+    document.getElementById('vel-v').textContent=v.toFixed(2)+' U/S';
+    _lastLook.copy(lookTarget);_lastVelT=now;
+  }
+  // Altitude (distance from current system origin)
+  const sysO=currentSystem==='trappist'?TRAPPIST_OFFSET:new THREE.Vector3(0,0,0);
+  const alt=camera.position.distanceTo(sysO);
+  document.getElementById('alt-v').textContent=alt.toFixed(1)+' U';
+}
+
 // HUD update interval
-setInterval(()=>{drawMmap();updateDistHud()},120);
+setInterval(()=>{drawMmap();updateDistHud();updateCockpit()},100);
 
 animate();
 updateMoonWidget();
