@@ -555,7 +555,14 @@ PLANETS.forEach((pd,idx)=>{
     mMesh.position.x=md.orbitR; mp.add(mMesh);
     const mSel=new THREE.Mesh(new THREE.TorusGeometry(md.radius*1.5,md.radius*.08,8,32),new THREE.MeshBasicMaterial({color:0xFFCC00,transparent:true,opacity:.85}));
     mSel.visible=false; mMesh.add(mSel); md.selectionRing=mSel; md.mesh=mMesh;
-    clickables.push({mesh:mMesh,data:md,pd:md});
+    // Invisible hit-zone — 3× visual radius so moons are easy to click
+    const mHit=new THREE.Mesh(
+      new THREE.SphereGeometry(Math.max(md.radius*3,.3),8,8),
+      new THREE.MeshBasicMaterial({transparent:true,opacity:0,depthWrite:false})
+    );
+    mHit.userData.visualMesh=mMesh;
+    mMesh.add(mHit);
+    clickables.push({mesh:mHit,data:md,pd:md});
     allMoonPivots.push({obj:mp,speed:md.orbitSpeed});
     allRotating.push({obj:mMesh,speed:md.rotSpeed,dt:true});
   });
@@ -1027,20 +1034,24 @@ function animate(){
 
   // Fade solar system at extreme zoom
   const sa=Math.max(0,1-(scrollProg-.6)*3.5);
-  clickables.forEach(c=>{if(c.mesh!==sunMesh&&c.mesh.material){c.mesh.material.opacity=sa;c.mesh.material.transparent=scrollProg>.6}});
+  clickables.forEach(c=>{
+    const visual=c.mesh.userData.visualMesh||c.mesh;
+    if(visual!==sunMesh&&visual.material){visual.material.opacity=sa;visual.material.transparent=scrollProg>.6}
+  });
 
   // Alignment check
   alignFrame++;
   if(alignFrame%180===0)checkAlignments();
 
-  // Hover scale
+  // Hover scale (resolve hit-zones to their visual mesh)
   clickables.forEach(c=>{
-    const mesh=c.mesh;if(mesh===sunMesh)return;
-    const isH=mesh===hoveredMesh;
-    const cur=mesh.userData.hS||1;
+    const visual=c.mesh.userData.visualMesh||c.mesh;
+    if(visual===sunMesh)return;
+    const isH=c.mesh===hoveredMesh;
+    const cur=visual.userData.hS||1;
     const tgt=isH?1.08:1;
-    mesh.userData.hS=cur+(tgt-cur)*.12;
-    mesh.scale.setScalar(mesh.userData.hS);
+    visual.userData.hS=cur+(tgt-cur)*.12;
+    visual.scale.setScalar(visual.userData.hS);
   });
 
   renderer.render(scene,camera);
