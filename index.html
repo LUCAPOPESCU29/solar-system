@@ -11,16 +11,18 @@
   --bg:oklch(5% .02 250);--surf:oklch(10% .02 250);--brd:oklch(22% .015 250);--brd2:oklch(15% .01 250);
   --tx:oklch(88% .01 250);--dim:oklch(55% .01 250);--acc:oklch(75% .18 70);--acc2:oklch(55% .12 70);
   --fd:'Chakra Petch',sans-serif;--fb:'Barlow',sans-serif;
+  --r-sm:4px;--r-lg:12px;
 }
 html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--tx);font-family:var(--fb);user-select:none}
 body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 #canvas{display:block;position:fixed;inset:0;z-index:0}
 #lens-cv{position:fixed;inset:0;z-index:9;pointer-events:none}
+#label-cv{position:fixed;inset:0;z-index:8;pointer-events:none}
 
 /* ── Header ── */
 #header{position:fixed;top:0;left:0;right:0;padding:16px 24px 12px;display:flex;align-items:flex-start;justify-content:space-between;background:linear-gradient(to bottom,oklch(5% .02 250/.9),transparent);z-index:10;pointer-events:none}
 #header>div:first-child{pointer-events:none}
-#header h1{font-family:var(--fd);font-size:1rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase}
+#header h1{font-family:var(--fd);font-size:1.35rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
 #header p{font-size:.65rem;color:var(--dim);letter-spacing:.07em;margin-top:3px}
 #top-btns{display:flex;gap:8px;pointer-events:all;padding-top:2px}
 .hdr-btn{font-family:var(--fd);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;background:oklch(14% .015 250);border:1px solid var(--brd);border-radius:4px;color:var(--dim);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
@@ -34,13 +36,13 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 #wasd-lbl{position:fixed;bottom:48px;left:24px;z-index:10;pointer-events:none;font-family:var(--fd);font-size:.55rem;letter-spacing:.12em;color:oklch(35% .01 250);text-transform:uppercase}
 
 /* ── Time Bar ── */
-#time-bar{position:fixed;bottom:0;left:0;right:0;height:44px;z-index:11;display:flex;align-items:center;gap:10px;padding:0 20px;background:oklch(7% .02 250/.95);border-top:1px solid var(--brd2)}
-.tbtn{font-family:var(--fd);font-size:.65rem;font-weight:600;padding:4px 10px;background:oklch(14% .015 250);border:1px solid var(--brd2);border-radius:3px;color:var(--dim);cursor:pointer;transition:all .15s}
+#time-bar{position:fixed;bottom:0;left:0;right:0;height:48px;z-index:11;display:flex;align-items:center;gap:10px;padding:0 20px;background:oklch(5.5% .028 250/.98);border-top:1px solid oklch(75% .18 70/.25)}
+.tbtn{font-family:var(--fd);font-size:.65rem;font-weight:600;padding:4px 10px;background:oklch(14% .015 250);border:1px solid var(--brd2);border-radius:var(--r-sm);color:var(--dim);cursor:pointer;transition:all .15s}
 .tbtn:hover{background:var(--brd);color:var(--tx)}
 #time-slider{-webkit-appearance:none;appearance:none;height:3px;background:var(--brd2);border-radius:2px;flex:1;max-width:200px;accent-color:var(--acc)}
-#t-speed{font-family:var(--fd);font-size:.7rem;font-weight:600;color:var(--acc);min-width:36px;text-align:center}
+#t-speed{font-family:var(--fd);font-size:.82rem;font-weight:700;color:var(--acc);min-width:44px;text-align:center}
 .tsep{color:var(--brd);margin:0 2px}
-#t-date{font-family:var(--fd);font-size:.65rem;color:var(--dim);letter-spacing:.06em}
+#t-date{font-family:var(--fd);font-size:.72rem;color:var(--tx);letter-spacing:.1em;opacity:.65}
 .t-label{font-family:var(--fd);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:oklch(35% .01 250)}
 
 /* ── Scroll Hint ── */
@@ -58,17 +60,17 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 #galaxy-lbl p{font-size:.75rem;letter-spacing:.1em;color:var(--dim);font-weight:300;max-width:52ch;margin:0 auto;line-height:1.6}
 
 /* ── Alignment Toast ── */
-#align-toast{position:fixed;bottom:130px;left:50%;transform:translateX(-50%) translateY(70px);z-index:20;pointer-events:none;background:oklch(10% .02 250/.96);border:1px solid var(--brd);padding:9px 20px;border-radius:5px;font-family:var(--fd);font-size:.68rem;letter-spacing:.08em;white-space:nowrap;transition:transform .4s cubic-bezier(.22,1,.36,1),opacity .4s}
+#align-toast{position:fixed;bottom:130px;left:50%;transform:translateX(-50%) translateY(70px);z-index:20;pointer-events:none;background:oklch(10% .02 250/.96);border:1px solid var(--brd);padding:9px 20px;border-radius:var(--r-sm);font-family:var(--fd);font-size:.68rem;letter-spacing:.08em;white-space:nowrap;transition:transform .4s cubic-bezier(.22,1,.36,1),opacity .4s}
 #align-toast.show{transform:translateX(-50%) translateY(0)}
 
 /* ── Moon Phase Widget ── */
-#moon-widget{position:fixed;bottom:54px;right:24px;z-index:10;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.75}
+#moon-widget{position:fixed;bottom:56px;right:20px;z-index:10;pointer-events:none;display:flex;flex-direction:column;align-items:center;gap:6px;background:oklch(8% .022 250/.85);border:1px solid var(--brd2);border-radius:var(--r-lg);padding:14px 16px;opacity:.9}
 #moon-cv{border-radius:50%}
-#moon-pname{font-family:var(--fd);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-#moon-next{font-size:.55rem;color:oklch(42% .01 250)}
+#moon-pname{font-family:var(--fd);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tx)}
+#moon-next{font-family:var(--fd);font-size:.6rem;color:var(--dim);letter-spacing:.06em}
 
 /* ── Spacecraft Card ── */
-#sc-card{position:fixed;bottom:120px;right:24px;z-index:30;width:270px;background:oklch(9% .02 250/.96);border:1px solid var(--brd);border-radius:8px;padding:16px 18px;transform:translateY(160%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+#sc-card{position:fixed;bottom:120px;right:24px;z-index:30;width:270px;background:oklch(9% .02 250/.96);border:1px solid var(--brd);border-radius:var(--r-lg);padding:16px 18px;transform:translateY(160%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 #sc-card.show{transform:translateY(0)}
 #sc-card-close{position:absolute;top:10px;right:10px;width:24px;height:24px;background:var(--brd2);border:none;border-radius:50%;color:var(--dim);cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;font-family:var(--fd)}
 #sc-name{font-family:var(--fd);font-size:1rem;font-weight:700;margin-bottom:4px}
@@ -82,7 +84,7 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 .cp-hdr{padding:20px 20px 16px;border-bottom:1px solid var(--brd2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .cp-hdr h3{font-family:var(--fd);font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .cp-hdr-btns{display:flex;gap:6px}
-.cp-btn{font-family:var(--fd);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;background:var(--brd2);border:1px solid var(--brd);border-radius:3px;color:var(--dim);cursor:pointer}
+.cp-btn{font-family:var(--fd);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;background:var(--brd2);border:1px solid var(--brd);border-radius:var(--r-sm);color:var(--dim);cursor:pointer}
 .cp-btn:hover{background:var(--brd);color:var(--tx)}
 #cp-spheres{padding:20px;display:flex;align-items:center;justify-content:space-around;gap:16px;flex-shrink:0}
 .cp-obj{display:flex;flex-direction:column;align-items:center;gap:8px}
@@ -106,7 +108,7 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 #overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .45s}
 #overlay.open{pointer-events:all;opacity:1}
 #ov-bg{position:absolute;inset:0;background:oklch(4% .025 250/.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-#ov-card{position:relative;z-index:1;display:grid;grid-template-columns:42% 58%;max-width:980px;width:92%;max-height:88vh;background:oklch(7% .02 250/.98);border:1px solid var(--brd);border-radius:14px;overflow:hidden;transform:translateY(24px) scale(.98);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+#ov-card{position:relative;z-index:1;display:grid;grid-template-columns:42% 58%;max-width:980px;width:92%;max-height:88vh;background:oklch(7% .02 250/.98);border:1px solid var(--brd);border-radius:var(--r-lg);overflow:hidden;transform:translateY(24px) scale(.98);transition:transform .5s cubic-bezier(.22,1,.36,1)}
 #overlay.open #ov-card{transform:translateY(0) scale(1)}
 #prev-col{position:relative;background:oklch(4.5% .025 250);display:flex;align-items:center;justify-content:center;min-height:360px;overflow:hidden}
 #prev-col::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,oklch(12% .03 250) 0%,oklch(4.5% .025 250) 70%)}
@@ -118,9 +120,9 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 @keyframes revUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .rv{opacity:0;animation:revUp .52s cubic-bezier(.22,1,.36,1) forwards}
 .ov-dot{width:13px;height:13px;border-radius:50%;margin-bottom:12px}
-#ov-name{font-family:var(--fd);font-size:2.2rem;font-weight:700;line-height:1;letter-spacing:-.01em;margin-bottom:9px}
-.ov-badge{display:inline-block;font-family:var(--fd);font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);background:oklch(75% .18 70/.1);padding:3px 10px;border-radius:2px;border:1px solid oklch(75% .18 70/.25);margin-bottom:22px}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd2);border-radius:5px;overflow:hidden;margin-bottom:20px}
+#ov-name{font-family:var(--fd);font-size:3.6rem;font-weight:700;line-height:.9;letter-spacing:-.04em;margin-bottom:14px}
+.ov-badge{display:inline-block;font-family:var(--fd);font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);background:oklch(75% .18 70/.1);padding:3px 10px;border-radius:var(--r-sm);border:1px solid oklch(75% .18 70/.25);margin-bottom:22px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd2);border-radius:var(--r-sm);overflow:hidden;margin-bottom:20px}
 .stat{background:var(--surf);padding:11px 14px}
 .stat.full{grid-column:1/-1}
 .stat-l{font-size:.58rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:3px;font-family:var(--fd)}
@@ -131,7 +133,7 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 #ov-desc{font-size:.85rem;line-height:1.7;color:var(--dim);font-weight:300}
 #exp-btn{background:none;border:none;color:var(--acc2);cursor:pointer;font-family:var(--fd);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 0;margin-bottom:16px;transition:color .2s}
 #exp-btn:hover{color:var(--acc)}
-.fact-card{background:oklch(75% .18 70/.07);border:1px solid oklch(75% .18 70/.22);border-radius:5px;padding:13px 15px;margin-bottom:16px}
+.fact-card{background:oklch(75% .18 70/.07);border:1px solid oklch(75% .18 70/.22);border-radius:var(--r-sm);padding:13px 15px;margin-bottom:16px}
 .fact-lbl{font-family:var(--fd);font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2);margin-bottom:4px}
 .fact-tx{font-size:.8rem;color:var(--acc);line-height:1.55;font-style:italic}
 .moons-row{display:flex;align-items:baseline;gap:10px;padding-top:14px;border-top:1px solid var(--brd2);margin-bottom:16px}
@@ -158,6 +160,7 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 
 <canvas id="canvas"></canvas>
 <canvas id="lens-cv"></canvas>
+<canvas id="label-cv"></canvas>
 <div id="atmo-flash"></div>
 
 <div id="header">
@@ -198,7 +201,7 @@ body.grab{cursor:grab}body.drag{cursor:grabbing}body.point{cursor:pointer}
 <div id="align-toast"></div>
 
 <div id="moon-widget">
-  <canvas id="moon-cv" width="60" height="60"></canvas>
+  <canvas id="moon-cv" width="90" height="90"></canvas>
   <div id="moon-pname"></div>
   <div id="moon-next"></div>
 </div>
@@ -319,6 +322,7 @@ let frameCount=0;
 let toastTimer=null;
 const keys=new Set();
 let dragging=false,lastMX=0,lastMY=0,mdPos=null;
+let hoveredMesh=null;
 
 // ════════ LIGHTS ════════
 scene.add(new THREE.AmbientLight(0x334466,1.2));
@@ -516,17 +520,18 @@ const PLANETS=[
 const clickables=[]; clickables.push({mesh:sunMesh,data:SUN_DATA});
 const allPivots=[],allMoonPivots=[],allRotating=[];
 
-function makeOrbitLine(r){
+function makeOrbitLine(r,col=0x445566){
   const pts=[]; for(let i=0;i<=128;i++){const a=i/128*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*r,0,Math.sin(a)*r))}
   const geo=new THREE.BufferGeometry().setFromPoints(pts);
-  const line=new THREE.Line(geo,new THREE.LineBasicMaterial({color:0x445566,transparent:true,opacity:.18}));
+  const line=new THREE.Line(geo,new THREE.LineBasicMaterial({color:col,transparent:true,opacity:.22}));
   scene.add(line); return line;
 }
 
 PLANETS.forEach((pd,idx)=>{
   pd.currentOrbitR=pd.orbitR; pd.visualOrbitR=pd.orbitR; pd.realisticOrbitR=REAL_R[pd.name]||pd.orbitR;
   const pivot=new THREE.Object3D(); pivot.rotation.y=Math.random()*Math.PI*2; scene.add(pivot);
-  const orbitLine=makeOrbitLine(pd.orbitR); pd.orbitLineGeo=orbitLine.geometry;
+  const hexNum=parseInt((pd.hexColor||'#445566').replace('#',''),16);
+  const orbitLine=makeOrbitLine(pd.orbitR,hexNum); pd.orbitLineGeo=orbitLine.geometry;
   const mesh=new THREE.Mesh(new THREE.SphereGeometry(pd.radius,40,40),new THREE.MeshStandardMaterial({map:pd.texFn(),roughness:.8,metalness:.05}));
   mesh.position.x=pd.orbitR; pivot.add(mesh);
   pd.mesh=mesh; pd.pivot=pivot;
@@ -597,6 +602,7 @@ canvas.addEventListener('mousemove',e=>{
   const allM=clickables.map(c=>c.mesh);
   const sc=scClickables.map(c=>c.sprite);
   const hits=raycaster.intersectObjects([...allM,...sc]);
+  hoveredMesh=hits.length>0&&hits[0].object.isMesh?hits[0].object:null;
   document.body.classList.toggle('point',hits.length>0&&!dragging);
 });
 canvas.addEventListener('mousedown',e=>{mdPos={x:e.clientX,y:e.clientY}});
@@ -624,6 +630,12 @@ document.getElementById('exp-btn').addEventListener('click',()=>{
 
 function openOverlay(data){
   initAudio();
+  // Focus camera on clicked body
+  if(data===SUN_DATA){tLookTarget.set(0,0,0)}
+  else{
+    const pd=PLANETS.find(p=>p.name===data.name)||PLANETS.flatMap(p=>p.moonData).find(m=>m.name===data.name);
+    if(pd&&pd.mesh){const wp=new THREE.Vector3();pd.mesh.getWorldPosition(wp);tLookTarget.copy(wp)}
+  }
   // Atmospheric flash
   const flash=document.getElementById('atmo-flash');
   flash.style.background=`radial-gradient(ellipse at center,${data.hexColor||'#FDB813'}66 0%,${data.hexColor||'#FDB813'}11 45%,transparent 70%)`;
@@ -761,8 +773,8 @@ function getLunarPhase(){
   return{phase,fraction:phase/cycle};
 }
 function drawMoonPhase(ctx,fraction){
-  ctx.clearRect(0,0,60,60);
-  const cx=30,cy=30,r=22;
+  ctx.clearRect(0,0,90,90);
+  const cx=45,cy=45,r=33;
   ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle='#1a1a2e';ctx.fill();
   if(fraction<.01||fraction>.99){return}
   if(fraction<.5){
@@ -818,6 +830,62 @@ function checkAlignments(){
 const lensCv=document.getElementById('lens-cv');
 function resizeLens(){lensCv.width=innerWidth*devicePixelRatio;lensCv.height=innerHeight*devicePixelRatio;lensCv.style.width=innerWidth+'px';lensCv.style.height=innerHeight+'px'}
 resizeLens();
+
+// ════════ PLANET LABELS ════════
+const labelCv=document.getElementById('label-cv');
+const labelCtx=labelCv.getContext('2d');
+function resizeLabels(){labelCv.width=innerWidth*devicePixelRatio;labelCv.height=innerHeight*devicePixelRatio;labelCv.style.width=innerWidth+'px';labelCv.style.height=innerHeight+'px'}
+resizeLabels();
+function drawLabels(){
+  const dpr=devicePixelRatio;
+  labelCtx.clearRect(0,0,labelCv.width,labelCv.height);
+  const fade=Math.max(0,1-scrollProg*4);
+  if(fade<=0)return;
+  labelCtx.save();
+  labelCtx.scale(dpr,dpr);
+  // Sun label
+  {const sp=new THREE.Vector3(0,0,0).project(camera);
+  if(sp.z<1){
+    const sx=(sp.x*.5+.5)*innerWidth,sy=(-sp.y*.5+.5)*innerHeight;
+    const d=camera.position.length();
+    const a=fade*Math.max(0,Math.min(1,(d-5)/15));
+    if(a>.04){
+      labelCtx.globalAlpha=a;
+      labelCtx.font='700 9px "Chakra Petch",sans-serif';
+      labelCtx.fillStyle='#FFD57A';
+      labelCtx.textAlign='center';
+      labelCtx.fillText('SUN',sx,sy-46);
+      labelCtx.beginPath();labelCtx.arc(sx,sy-38,1.5,0,Math.PI*2);labelCtx.fill();
+    }
+  }}
+  // Planet labels
+  PLANETS.forEach(pd=>{
+    const wp=new THREE.Vector3();pd.mesh.getWorldPosition(wp);
+    const sp=wp.clone().project(camera);
+    if(sp.z>=1)return;
+    const sx=(sp.x*.5+.5)*innerWidth,sy=(-sp.y*.5+.5)*innerHeight;
+    const d=camera.position.distanceTo(wp);
+    const a=fade*Math.max(0,Math.min(1,1-d/58))*Math.max(0,Math.min(1,(d-3)/9));
+    if(a<.04)return;
+    labelCtx.globalAlpha=a;
+    labelCtx.font='600 9px "Chakra Petch",sans-serif';
+    labelCtx.fillStyle=pd.hexColor||'#aaa';
+    labelCtx.textAlign='center';
+    const scR=Math.max(10,pd.radius/Math.max(d,.1)*innerWidth*.45);
+    const ly=sy-scR-12;
+    labelCtx.fillText(pd.name.toUpperCase(),sx,ly);
+    // connector
+    labelCtx.globalAlpha=a*.5;
+    labelCtx.strokeStyle=pd.hexColor||'#aaa';
+    labelCtx.lineWidth=.8;
+    labelCtx.beginPath();labelCtx.moveTo(sx,ly+3);labelCtx.lineTo(sx,sy-scR-2);labelCtx.stroke();
+    labelCtx.globalAlpha=a;
+    labelCtx.beginPath();labelCtx.arc(sx,sy-scR+1,1.8,0,Math.PI*2);labelCtx.fillStyle=pd.hexColor||'#aaa';labelCtx.fill();
+  });
+  labelCtx.restore();
+  labelCtx.globalAlpha=1;
+}
+
 function drawLensFlare(){
   const ctx=lensCv.getContext('2d');
   ctx.clearRect(0,0,lensCv.width,lensCv.height);
@@ -879,7 +947,7 @@ window.addEventListener('mousemove',e=>{if(!dragging)return;tTheta-=(e.clientX-l
 window.addEventListener('keydown',e=>{initAudio();keys.add(e.key.toLowerCase())});
 window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
 window.addEventListener('wheel',e=>{if(overlay.classList.contains('open'))return;e.preventDefault();tScroll=Math.max(0,Math.min(1,tScroll-e.deltaY*.0008))},{passive:false});
-window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeLens()});
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);resizeLens();resizeLabels()});
 
 // ════════ ANIMATION LOOP ════════
 const clock=new THREE.Clock();
@@ -965,8 +1033,19 @@ function animate(){
   alignFrame++;
   if(alignFrame%180===0)checkAlignments();
 
+  // Hover scale
+  clickables.forEach(c=>{
+    const mesh=c.mesh;if(mesh===sunMesh)return;
+    const isH=mesh===hoveredMesh;
+    const cur=mesh.userData.hS||1;
+    const tgt=isH?1.08:1;
+    mesh.userData.hS=cur+(tgt-cur)*.12;
+    mesh.scale.setScalar(mesh.userData.hS);
+  });
+
   renderer.render(scene,camera);
   drawLensFlare();
+  drawLabels();
 
   // Preview
   if(previewOpen&&pMesh){pMesh.rotation.y+=.012;pRend.render(pScene,pCamera)}
