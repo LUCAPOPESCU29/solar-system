@@ -328,6 +328,47 @@ html[data-system="trappist"] #sys-ind-name{color:var(--acc)}
 #warp-btn:hover{background:oklch(75% .18 70/.28)}
 #warp-btn:disabled{opacity:.4;cursor:wait}
 
+/* ── Sandbox Mode ── */
+#sandbox-btn{font-family:var(--fd);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;background:transparent;border:1px solid var(--brd);border-radius:var(--r-sm);color:var(--dim);cursor:pointer;transition:all .2s}
+#sandbox-btn:hover{color:var(--tx);border-color:var(--brd)}
+#sandbox-btn.active{background:oklch(50% .22 25/.25);color:oklch(75% .22 25);border-color:oklch(60% .22 25);box-shadow:0 0 12px oklch(60% .22 25/.4)}
+#restore-btn{font-family:var(--fd);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;background:transparent;border:1px solid var(--brd2);border-radius:var(--r-sm);color:var(--dim);cursor:pointer;display:none}
+#restore-btn:hover{color:var(--acc);border-color:var(--acc)}
+
+#sandbox-banner{position:fixed;top:84px;left:50%;transform:translateX(-50%);z-index:11;display:none;padding:5px 16px;background:oklch(50% .22 25/.92);border:1px solid oklch(65% .22 25);border-radius:var(--r-sm);font-family:var(--fd);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:700;animation:dangerPulse 1.5s ease-in-out infinite}
+#sandbox-banner.show{display:block}
+@keyframes dangerPulse{0%,100%{box-shadow:0 0 6px oklch(60% .22 25/.5)}50%{box-shadow:0 0 18px oklch(60% .22 25/.9)}}
+
+#weapons-hud{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);z-index:13;display:none;gap:6px;padding:8px;background:oklch(5% .02 250/.95);border:1px solid var(--brd);border-radius:var(--r-lg);box-shadow:0 0 18px oklch(0% 0 0/.6)}
+#weapons-hud.show{display:flex}
+.wpn-slot{position:relative;width:104px;padding:7px 10px;background:oklch(10% .02 250);border:1px solid var(--brd2);border-radius:var(--r-sm);font-family:var(--fd);text-align:center;overflow:hidden;transition:all .15s;cursor:pointer}
+.wpn-slot.active{border-color:oklch(60% .22 25);background:oklch(50% .22 25/.18)}
+.wpn-slot.active .wpn-name{color:oklch(75% .22 25)}
+.wpn-slot.cooling{opacity:.5}
+.wpn-key{font-size:.5rem;color:var(--dim);letter-spacing:.16em;text-transform:uppercase}
+.wpn-icon{font-size:.95rem;margin:2px 0}
+.wpn-name{font-size:.58rem;color:var(--tx);font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.wpn-bar{position:absolute;bottom:0;left:0;height:2px;background:oklch(60% .22 25);width:0;transition:width .08s linear}
+.wpn-slot.ready .wpn-bar{width:100%;background:oklch(70% .19 145)}
+
+#sb-ship-status{position:fixed;bottom:60px;right:20px;z-index:13;display:none;padding:10px 14px;background:oklch(5% .02 250/.95);border:1px solid var(--brd);border-radius:var(--r-lg);font-family:var(--fd);min-width:200px;color:var(--tx);box-shadow:0 0 14px oklch(0% 0 0/.5)}
+#sb-ship-status.show{display:block}
+.sb-hdr{font-size:.56rem;letter-spacing:.18em;color:oklch(75% .22 25);text-transform:uppercase;margin-bottom:8px;border-bottom:1px solid var(--brd2);padding-bottom:5px;font-weight:700}
+.sb-row{display:flex;justify-content:space-between;padding:3px 0;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.sb-val{color:var(--tx);font-weight:700;font-size:.7rem;letter-spacing:.02em}
+.sb-val.danger{color:oklch(75% .22 25)}
+.sb-hp-bar{position:relative;height:4px;background:var(--brd2);border-radius:2px;overflow:hidden;margin-top:3px;width:100%}
+.sb-hp-fill{position:absolute;top:0;left:0;height:100%;background:oklch(70% .19 145);transition:width .25s,background .25s}
+.sb-hp-fill.mid{background:oklch(75% .18 70)}
+.sb-hp-fill.low{background:oklch(60% .22 25)}
+
+/* Danger accent when sandbox active */
+html[data-sandbox] .cnr{border-color:oklch(60% .22 25);opacity:.7}
+html[data-sandbox] .cnr::before{background:oklch(60% .22 25);box-shadow:0 0 10px oklch(60% .22 25)}
+html[data-sandbox] #xhair::before,html[data-sandbox] #xhair::after,html[data-sandbox] #xhair .vt{background:oklch(60% .22 25);box-shadow:0 0 6px oklch(60% .22 25)}
+html[data-sandbox] #xhair .ring{border-color:oklch(60% .22 25);box-shadow:0 0 10px oklch(60% .22 25/.5),inset 0 0 6px oklch(60% .22 25/.2)}
+html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklch(60% .22 25/.1) 50%,transparent)}
+
 /* ── Onboarding ── */
 #onb{position:fixed;inset:0;z-index:80;pointer-events:none}
 .onb-card{position:absolute;background:oklch(10% .025 250/.97);border:1px solid var(--acc);border-radius:var(--r-lg);padding:14px 18px;font-family:var(--fd);font-size:.72rem;letter-spacing:.06em;color:var(--tx);max-width:220px;opacity:0;line-height:1.5}
@@ -380,7 +421,26 @@ html[data-system="trappist"] #sys-ind-name{color:var(--acc)}
     <button class="hdr-btn" id="scale-btn">⬡ Realistic Scale</button>
     <button class="hdr-btn" id="compare-btn">◎ Compare Mode</button>
     <button id="warp-btn">🚀 Travel to TRAPPIST-1</button>
+    <button id="sandbox-btn">🎮 Sandbox</button>
+    <button id="restore-btn">↺ Restore Planets</button>
   </div>
+</div>
+
+<div id="sandbox-banner">⚠ Sandbox Mode Active ⚠</div>
+
+<div id="weapons-hud">
+  <div class="wpn-slot active ready" data-w="1"><div class="wpn-key">1</div><div class="wpn-icon">⚡</div><div class="wpn-name">Laser</div><div class="wpn-bar"></div></div>
+  <div class="wpn-slot ready" data-w="2"><div class="wpn-key">2</div><div class="wpn-icon">🚀</div><div class="wpn-name">Missile</div><div class="wpn-bar"></div></div>
+  <div class="wpn-slot ready" data-w="3"><div class="wpn-key">3</div><div class="wpn-icon">💣</div><div class="wpn-name">Bomb</div><div class="wpn-bar"></div></div>
+  <div class="wpn-slot ready" data-w="4"><div class="wpn-key">4</div><div class="wpn-icon">🔫</div><div class="wpn-name">Plasma</div><div class="wpn-bar"></div></div>
+</div>
+
+<div id="sb-ship-status">
+  <div class="sb-hdr">SHIP-01 · COMBAT</div>
+  <div class="sb-row"><span>Velocity</span><span class="sb-val" id="sb-vel">0.00 u/s</span></div>
+  <div class="sb-row"><span>Target</span><span class="sb-val" id="sb-target">—</span></div>
+  <div class="sb-row"><span>Target HP</span><span class="sb-val" id="sb-hp">—</span></div>
+  <div class="sb-hp-bar"><div class="sb-hp-fill" id="sb-hp-fill"></div></div>
 </div>
 
 <div id="sys-ind">
@@ -1278,8 +1338,8 @@ function animate(){
     }
   });
 
-  // WASD
-  if(keys.size>0&&!overlay.classList.contains('open')){
+  // WASD (skip when sandbox active — ship controls take over)
+  if(keys.size>0&&!overlay.classList.contains('open')&&!(typeof sandboxMode!=='undefined'&&sandboxMode)){
     const spd=Math.max(.3,camR*.014);
     const fwd=new THREE.Vector3(-Math.sin(camTheta),0,-Math.cos(camTheta));
     const rgt=new THREE.Vector3(Math.cos(camTheta),0,-Math.sin(camTheta));
@@ -1335,6 +1395,7 @@ function animate(){
   });
 
   if(typeof updateWarp==='function')updateWarp();
+  if(typeof updateSandbox==='function')updateSandbox();
   renderer.render(scene,camera);
   if(typeof settings==='undefined'||settings.lens)drawLensFlare();
   if(typeof settings==='undefined'||settings.labels)drawLabels();
@@ -1866,6 +1927,359 @@ function updateCockpit(){
   const alt=camera.position.distanceTo(sysO);
   document.getElementById('alt-v').textContent=alt.toFixed(1)+' U';
 }
+
+// ════════ SANDBOX MODE ════════
+let sandboxMode=false;
+let ship=null;
+const shipVel=new THREE.Vector3();
+let currentWeapon=1;
+const weaponCD={1:0,2:0,3:0,4:0};
+const weaponMaxCD={1:200,2:1500,3:5000,4:400};
+const projectiles=[];
+const bombs=[];
+const planetHealth=new Map();
+const destroyedPlanets=new Set();
+const debrisGroups=[];
+
+function buildShip(spawnPos){
+  const g=new THREE.Group();
+  const mat=new THREE.MeshStandardMaterial({color:0x555566,roughness:.4,metalness:.7,emissive:0x110000});
+  const body=new THREE.Mesh(new THREE.BoxGeometry(.14,.1,.32),mat);
+  const nose=new THREE.Mesh(new THREE.ConeGeometry(.07,.2,8),mat);
+  nose.position.z=-.26;nose.rotation.x=-Math.PI/2;
+  const wing=new THREE.Mesh(new THREE.BoxGeometry(.36,.018,.13),mat);
+  wing.position.set(0,-.025,.02);
+  const cock=new THREE.Mesh(new THREE.SphereGeometry(.055,8,6),new THREE.MeshStandardMaterial({color:0x88AACC,emissive:0x223355,metalness:.9,roughness:.15,transparent:true,opacity:.85}));
+  cock.position.set(0,.04,-.08);cock.scale.y=.6;
+  const th1=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0xFF6620,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+  th1.position.set(-.06,0,.2);th1.scale.set(.18,.18,1);
+  const th2=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0xFF6620,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+  th2.position.set(.06,0,.2);th2.scale.set(.18,.18,1);
+  g.add(body,nose,wing,cock,th1,th2);
+  g.userData.thrusters=[th1,th2];
+  g.position.copy(spawnPos);
+  scene.add(g);
+  return g;
+}
+
+function findNearestPlanet(pos,maxDist){
+  let best=null,bd=maxDist;
+  clickables.forEach(c=>{
+    const m=c.mesh.userData.visualMesh||c.mesh;
+    if(destroyedPlanets.has(m))return;
+    const wp=new THREE.Vector3();m.getWorldPosition(wp);
+    const d=pos.distanceTo(wp);
+    if(d<bd){bd=d;best={mesh:m,pos:wp,data:c.data,dist:d}}
+  });
+  return best;
+}
+
+function spawnDebris(pos,hexColor,size=.18,n=400){
+  const positions=new Float32Array(n*3);
+  const velocities=[];
+  for(let i=0;i<n;i++){
+    positions[i*3]=pos.x;positions[i*3+1]=pos.y;positions[i*3+2]=pos.z;
+    velocities.push(new THREE.Vector3(Math.random()-.5,Math.random()-.5,Math.random()-.5).normalize().multiplyScalar(.05+Math.random()*.2));
+  }
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  const col=new THREE.Color(hexColor||'#FF6622');
+  const mat=new THREE.PointsMaterial({color:col,size:size,transparent:true,opacity:1,blending:THREE.AdditiveBlending,depthWrite:false});
+  const pts=new THREE.Points(geo,mat);
+  pts.userData.vel=velocities;pts.userData.life=0;pts.userData.maxLife=90;
+  scene.add(pts);
+  debrisGroups.push(pts);
+}
+
+function updateDebris(){
+  for(let i=debrisGroups.length-1;i>=0;i--){
+    const d=debrisGroups[i];d.userData.life++;
+    const pos=d.geometry.attributes.position;
+    for(let j=0;j<d.userData.vel.length;j++){
+      pos.array[j*3]+=d.userData.vel[j].x;
+      pos.array[j*3+1]+=d.userData.vel[j].y;
+      pos.array[j*3+2]+=d.userData.vel[j].z;
+    }
+    pos.needsUpdate=true;
+    d.material.opacity=1-d.userData.life/d.userData.maxLife;
+    if(d.userData.life>=d.userData.maxLife){
+      scene.remove(d);d.geometry.dispose();d.material.dispose();
+      debrisGroups.splice(i,1);
+    }
+  }
+}
+
+function getPlanetHealth(mesh){
+  if(!planetHealth.has(mesh))planetHealth.set(mesh,100);
+  return planetHealth.get(mesh);
+}
+
+function damagePlanet(mesh,amount){
+  const newH=getPlanetHealth(mesh)-amount;
+  if(newH<=0){destroyPlanet(mesh);return}
+  planetHealth.set(mesh,newH);
+  const dmg=(100-newH)/100;
+  if(mesh.material&&mesh.material.emissive){
+    mesh.material.emissive.setRGB(dmg*.5,dmg*.06,0);
+    mesh.material.emissiveIntensity=1;
+  }
+}
+
+function destroyPlanet(mesh){
+  if(destroyedPlanets.has(mesh))return;
+  destroyedPlanets.add(mesh);
+  const wp=new THREE.Vector3();mesh.getWorldPosition(wp);
+  const c=clickables.find(c=>(c.mesh.userData.visualMesh||c.mesh)===mesh);
+  const color=c?.data?.hexColor||'#FF6622';
+  const colorNum=parseInt(color.replace('#',''),16);
+  mesh.visible=false;
+  // Hide matching orbit lines
+  const checkLine=(p)=>{p.children.forEach(c=>{if(c.userData.isOrbit&&c.material.color.getHex()===colorNum)c.visible=false;if(c.isGroup||c.children?.length)checkLine(c)})};
+  checkLine(scene);
+  spawnDebris(wp,color,.22,600);
+  playBoom();
+  if(c?.data?.name)showToast('💥 '+c.data.name+' DESTROYED');
+}
+
+function restoreAllPlanets(){
+  destroyedPlanets.forEach(m=>{
+    m.visible=true;
+    if(m.material&&m.material.emissive){m.material.emissive.setHex(0x000000);m.material.emissiveIntensity=0}
+  });
+  // Restore orbit lines (show all)
+  const showLines=(p)=>{p.children.forEach(c=>{if(c.userData.isOrbit&&(typeof settings==='undefined'||settings.orbits))c.visible=true;if(c.isGroup||c.children?.length)showLines(c)})};
+  showLines(scene);
+  destroyedPlanets.clear();planetHealth.clear();
+  // Clear emissive on all clickables
+  clickables.forEach(c=>{const m=c.mesh.userData.visualMesh||c.mesh;if(m.material&&m.material.emissive){m.material.emissive.setHex(0x000000)}});
+  // Clear debris
+  debrisGroups.forEach(d=>{scene.remove(d);d.geometry.dispose();d.material.dispose()});
+  debrisGroups.length=0;
+  showToast('↺ All planets restored');
+}
+
+// Audio
+function playLaser(){
+  if(!audioCtx)return;
+  try{const o=audioCtx.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(1400,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(180,audioCtx.currentTime+.08);const g=audioCtx.createGain();g.gain.setValueAtTime(.06,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+.1);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.15)}catch(e){}
+}
+function playBoom(){
+  if(!audioCtx)return;
+  try{
+    const o=audioCtx.createOscillator();o.type='sine';o.frequency.setValueAtTime(70,audioCtx.currentTime);o.frequency.linearRampToValueAtTime(18,audioCtx.currentTime+1);
+    const g=audioCtx.createGain();g.gain.setValueAtTime(.18,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+1.2);
+    o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+1.3);
+    const buf=audioCtx.createBuffer(1,Math.floor(audioCtx.sampleRate*.8),audioCtx.sampleRate);
+    const ch=buf.getChannelData(0);for(let i=0;i<ch.length;i++)ch[i]=(Math.random()*2-1)*Math.pow(1-i/ch.length,2);
+    const src=audioCtx.createBufferSource();src.buffer=buf;
+    const ng=audioCtx.createGain();ng.gain.value=.09;
+    const flt=audioCtx.createBiquadFilter();flt.type='lowpass';flt.frequency.value=600;
+    src.connect(flt);flt.connect(ng);ng.connect(audioCtx.destination);src.start();
+  }catch(e){}
+}
+function playMissileLaunch(){
+  if(!audioCtx)return;
+  try{const o=audioCtx.createOscillator();o.type='triangle';o.frequency.setValueAtTime(280,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(800,audioCtx.currentTime+.4);const g=audioCtx.createGain();g.gain.setValueAtTime(.05,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+.5);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.55)}catch(e){}
+}
+function playPlasma(){
+  if(!audioCtx)return;
+  try{const o=audioCtx.createOscillator();o.type='triangle';o.frequency.setValueAtTime(440,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(220,audioCtx.currentTime+.18);const g=audioCtx.createGain();g.gain.setValueAtTime(.05,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+.2);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.25)}catch(e){}
+}
+
+// Weapons
+function fireLaser(){
+  const now=performance.now();if(now<weaponCD[1])return;weaponCD[1]=now+weaponMaxCD[1];
+  const origin=ship.position.clone();
+  const dir=new THREE.Vector3(0,0,-1).applyQuaternion(ship.quaternion);
+  const rc=new THREE.Raycaster(origin,dir,0,300);
+  const targets=clickables.filter(c=>!destroyedPlanets.has(c.mesh.userData.visualMesh||c.mesh)).map(c=>c.mesh.userData.visualMesh||c.mesh);
+  const hits=rc.intersectObjects(targets);
+  const endPos=hits.length>0?hits[0].point:origin.clone().addScaledVector(dir,300);
+  const lineGeo=new THREE.BufferGeometry().setFromPoints([origin,endPos]);
+  const line=new THREE.Line(lineGeo,new THREE.LineBasicMaterial({color:0x33FFFF,transparent:true,opacity:1,linewidth:2}));
+  scene.add(line);
+  projectiles.push({type:'laser-beam',mesh:line,ttl:10,maxTtl:10});
+  playLaser();
+  if(hits.length>0){damagePlanet(hits[0].object,5);spawnDebris(hits[0].point,'#33FFFF',.1,40)}
+}
+
+function fireMissile(){
+  const now=performance.now();if(now<weaponCD[2])return;weaponCD[2]=now+weaponMaxCD[2];
+  const origin=ship.position.clone();
+  const dir=new THREE.Vector3(0,0,-1).applyQuaternion(ship.quaternion);
+  origin.addScaledVector(dir,.3);
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0xFFAA22,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+  sp.scale.set(.5,.5,1);sp.position.copy(origin);scene.add(sp);
+  projectiles.push({type:'missile',mesh:sp,vel:dir.clone().multiplyScalar(.7),ttl:480,life:0,damage:35});
+  playMissileLaunch();
+  showToast('🚀 Missile launched');
+}
+
+function fireBomb(){
+  const now=performance.now();if(now<weaponCD[3])return;
+  if(bombs.length>=3){showToast('Max 3 bombs active');return}
+  weaponCD[3]=now+weaponMaxCD[3];
+  const sp=new THREE.Mesh(new THREE.SphereGeometry(.22,12,12),new THREE.MeshBasicMaterial({color:0xFF2200}));
+  sp.position.copy(ship.position);scene.add(sp);
+  bombs.push({mesh:sp,timer:180});
+  showToast('💣 Bomb armed · 3s');
+}
+
+function firePlasma(){
+  const now=performance.now();if(now<weaponCD[4])return;weaponCD[4]=now+weaponMaxCD[4];
+  const origin=ship.position.clone();
+  const fwd=new THREE.Vector3(0,0,-1).applyQuaternion(ship.quaternion);
+  const up=new THREE.Vector3(0,1,0).applyQuaternion(ship.quaternion);
+  for(let i=0;i<5;i++){
+    const ang=(i-2)*.07;
+    const v=fwd.clone().applyAxisAngle(up,ang).multiplyScalar(.85);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:0x88FFAA,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+    sp.scale.set(.3,.3,1);sp.position.copy(origin);scene.add(sp);
+    projectiles.push({type:'plasma',mesh:sp,vel:v,ttl:180,life:0,damage:4});
+  }
+  playPlasma();
+}
+
+function fireWeapon(){
+  if(!sandboxMode||!ship)return;
+  if(currentWeapon===1)fireLaser();
+  else if(currentWeapon===2)fireMissile();
+  else if(currentWeapon===3)fireBomb();
+  else if(currentWeapon===4)firePlasma();
+}
+
+function updateProjectiles(){
+  for(let i=projectiles.length-1;i>=0;i--){
+    const p=projectiles[i];
+    if(p.type==='laser-beam'){
+      p.ttl--;p.mesh.material.opacity=p.ttl/p.maxTtl;
+      if(p.ttl<=0){scene.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.material.dispose();projectiles.splice(i,1)}
+      continue;
+    }
+    if(p.type==='missile'){
+      const target=findNearestPlanet(p.mesh.position,80);
+      if(target){const toT=target.pos.clone().sub(p.mesh.position).normalize().multiplyScalar(.7);p.vel.lerp(toT,.07)}
+      p.mesh.position.add(p.vel);p.life++;
+      const hit=findNearestPlanet(p.mesh.position,.7);
+      if(hit){damagePlanet(hit.mesh,p.damage);spawnDebris(p.mesh.position,'#FFAA22',.12,80);scene.remove(p.mesh);projectiles.splice(i,1);continue}
+      if(p.life>=p.ttl){scene.remove(p.mesh);projectiles.splice(i,1)}
+      continue;
+    }
+    if(p.type==='plasma'){
+      p.mesh.position.add(p.vel);p.life++;
+      const hit=findNearestPlanet(p.mesh.position,.4);
+      if(hit){damagePlanet(hit.mesh,p.damage);spawnDebris(p.mesh.position,'#88FFAA',.08,20);scene.remove(p.mesh);projectiles.splice(i,1);continue}
+      if(p.life>=p.ttl){scene.remove(p.mesh);projectiles.splice(i,1)}
+    }
+  }
+  // Bombs
+  for(let i=bombs.length-1;i>=0;i--){
+    const b=bombs[i];b.timer--;
+    b.mesh.material.color.setRGB(1,b.timer%24<12?.3:0,0);
+    if(b.timer<=0){
+      const hit=findNearestPlanet(b.mesh.position,6);
+      if(hit)damagePlanet(hit.mesh,100);
+      spawnDebris(b.mesh.position,'#FF4400',.3,700);
+      playBoom();
+      scene.remove(b.mesh);b.mesh.geometry.dispose();b.mesh.material.dispose();
+      bombs.splice(i,1);
+    }
+  }
+}
+
+function updateSandboxHud(){
+  const now=performance.now();
+  document.querySelectorAll('.wpn-slot').forEach((el,i)=>{
+    const w=i+1;const cd=Math.max(0,weaponCD[w]-now);
+    const pct=cd>0?100-(cd/weaponMaxCD[w]*100):100;
+    el.classList.toggle('active',w===currentWeapon);
+    el.classList.toggle('ready',cd<=0);
+    el.classList.toggle('cooling',cd>0);
+    el.querySelector('.wpn-bar').style.width=pct+'%';
+  });
+  if(ship){
+    document.getElementById('sb-vel').textContent=shipVel.length().toFixed(2)+' u/s';
+    const tgt=findNearestPlanet(ship.position,99999);
+    if(tgt){
+      document.getElementById('sb-target').textContent=tgt.data.name;
+      const hp=getPlanetHealth(tgt.mesh);
+      document.getElementById('sb-hp').textContent=hp.toFixed(0)+'%';
+      const fill=document.getElementById('sb-hp-fill');
+      fill.style.width=hp+'%';
+      fill.className='sb-hp-fill'+(hp<30?' low':hp<60?' mid':'');
+    }else{document.getElementById('sb-target').textContent='—';document.getElementById('sb-hp').textContent='—'}
+  }
+}
+
+function toggleSandbox(){
+  sandboxMode=!sandboxMode;
+  if(sandboxMode){document.documentElement.setAttribute('data-sandbox','1')}
+  else{document.documentElement.removeAttribute('data-sandbox')}
+  document.getElementById('sandbox-banner').classList.toggle('show',sandboxMode);
+  document.getElementById('weapons-hud').classList.toggle('show',sandboxMode);
+  document.getElementById('sb-ship-status').classList.toggle('show',sandboxMode);
+  document.getElementById('sandbox-btn').classList.toggle('active',sandboxMode);
+  document.getElementById('restore-btn').style.display=sandboxMode?'inline-block':'none';
+  if(sandboxMode){
+    initAudio();
+    const spawn=lookTarget.clone();spawn.y+=1.5;spawn.x+=2;
+    ship=buildShip(spawn);shipVel.set(0,0,0);
+    showToast('🎮 Sandbox active · WASD QE to fly · Space to fire · 1-4 weapons');
+  }else{
+    if(ship){scene.remove(ship);ship=null}
+    projectiles.forEach(p=>scene.remove(p.mesh));bombs.forEach(b=>scene.remove(b.mesh));
+    projectiles.length=0;bombs.length=0;
+    restoreAllPlanets();
+  }
+}
+
+function updateSandbox(){
+  if(!sandboxMode||!ship)return;
+  // Ship controls
+  const fwd=new THREE.Vector3(0,0,-1).applyQuaternion(ship.quaternion);
+  const up=new THREE.Vector3(0,1,0).applyQuaternion(ship.quaternion);
+  const thrust=keys.has('shift')?.06:.022;
+  if(keys.has('w'))shipVel.addScaledVector(fwd,thrust);
+  if(keys.has('s'))shipVel.addScaledVector(fwd,-thrust*.5);
+  const turn=.035;
+  if(keys.has('a'))ship.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),turn));
+  if(keys.has('d'))ship.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0,1,0),-turn));
+  if(keys.has('q'))ship.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),turn));
+  if(keys.has('e'))ship.quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),-turn));
+  shipVel.multiplyScalar(.985);
+  if(shipVel.length()>1.5)shipVel.normalize().multiplyScalar(1.5);
+  ship.position.add(shipVel);
+  // Thruster pulse
+  const thrustAmt=(keys.has('w')?1:0);
+  ship.userData.thrusters.forEach(t=>{
+    t.material.opacity=.4+thrustAmt*.6;
+    t.scale.setScalar(.16+thrustAmt*.12);
+  });
+  // Chase camera override
+  const camDes=ship.position.clone().addScaledVector(fwd,-3.2).addScaledVector(up,.85);
+  camera.position.lerp(camDes,.18);
+  const lookAt=ship.position.clone().addScaledVector(fwd,5);
+  camera.lookAt(lookAt);
+  lookTarget.copy(ship.position);tLookTarget.copy(ship.position);
+  // Projectiles
+  updateProjectiles();
+  updateDebris();
+  updateSandboxHud();
+}
+
+// Event listeners
+document.getElementById('sandbox-btn').addEventListener('click',toggleSandbox);
+document.getElementById('restore-btn').addEventListener('click',restoreAllPlanets);
+document.querySelectorAll('.wpn-slot').forEach(el=>el.addEventListener('click',()=>{currentWeapon=parseInt(el.dataset.w)}));
+window.addEventListener('keydown',e=>{
+  if(!sandboxMode)return;
+  const tag=e.target.tagName;if(tag==='INPUT'||tag==='TEXTAREA')return;
+  if(e.key===' '){e.preventDefault();fireWeapon()}
+  if(e.key==='1')currentWeapon=1;
+  if(e.key==='2')currentWeapon=2;
+  if(e.key==='3')currentWeapon=3;
+  if(e.key==='4')currentWeapon=4;
+});
 
 // HUD update interval
 setInterval(()=>{drawMmap();updateDistHud();updateCockpit()},100);
