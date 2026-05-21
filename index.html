@@ -379,6 +379,154 @@ html[data-sandbox] #xhair::before,html[data-sandbox] #xhair::after,html[data-san
 html[data-sandbox] #xhair .ring{border-color:oklch(60% .22 25);box-shadow:0 0 10px oklch(60% .22 25/.5),inset 0 0 6px oklch(60% .22 25/.2)}
 html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklch(60% .22 25/.1) 50%,transparent)}
 
+/* ── Sandbox Choice Modal ── */
+#sb-choice{position:fixed;inset:0;z-index:85;display:flex;align-items:center;justify-content:center;background:oklch(4% .025 250/.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .35s}
+#sb-choice.show{opacity:1;pointer-events:all}
+#sb-choice-card{background:oklch(8% .022 250);border:1px solid var(--brd);border-radius:16px;padding:36px 40px;text-align:center;width:560px;max-width:94vw}
+.sb-ch-title{font-family:var(--fd);font-size:1rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);margin-bottom:5px}
+.sb-ch-sub{font-size:.7rem;color:var(--dim);letter-spacing:.06em;margin-bottom:28px}
+.sb-choice-btns{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sb-choice-btn{padding:22px 18px;border-radius:12px;border:1px solid var(--brd);background:oklch(11% .022 250);cursor:pointer;transition:all .22s;text-align:left;font-family:var(--fd)}
+.sb-choice-btn:hover{border-color:var(--acc);background:oklch(75% .18 70/.08)}
+.sb-choice-btn .ch-icon{font-size:2.2rem;margin-bottom:10px;display:block}
+.sb-choice-btn .ch-title{font-size:.88rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx);margin-bottom:6px;display:block}
+.sb-choice-btn .ch-desc{font-size:.68rem;color:var(--dim);line-height:1.5;letter-spacing:.03em;display:block}
+#sb-choice-cancel{margin-top:18px;background:none;border:none;color:var(--dim);font-family:var(--fd);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:block;width:100%;padding-top:4px}
+#sb-choice-cancel:hover{color:var(--tx)}
+
+/* ── Creator Dock (left panel) ── */
+#creator-dock{position:fixed;top:0;left:0;bottom:48px;width:268px;z-index:30;background:oklch(6% .02 250/.98);border-right:1px solid var(--brd);transform:translateX(-100%);transition:transform .4s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;overflow:hidden;font-family:var(--fd)}
+#creator-dock.open{transform:translateX(0)}
+#creator-dock.collapsed{transform:translateX(-232px)}
+.ck-hdr{padding:14px 14px 11px;border-bottom:1px solid var(--brd2);flex-shrink:0;display:flex;align-items:center;gap:8px}
+.ck-hdr h3{font-size:.75rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);flex:1}
+#ck-collapse{background:none;border:1px solid var(--brd2);border-radius:4px;width:22px;height:22px;color:var(--dim);cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-family:var(--fd)}
+#ck-collapse:hover{color:var(--acc);border-color:var(--acc)}
+#ck-sysname-row{padding:9px 12px;border-bottom:1px solid var(--brd2);flex-shrink:0;display:flex;align-items:center;gap:7px}
+#ck-sysname-row label{font-size:.56rem;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+#ck-sysname{background:transparent;border:none;border-bottom:1px solid var(--brd2);color:var(--tx);font-family:var(--fd);font-size:.8rem;font-weight:600;width:100%;padding:2px 4px;outline:none;letter-spacing:.06em}
+#ck-sysname:focus{border-color:var(--acc)}
+.ck-section-hdr{font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding:9px 12px 5px;flex-shrink:0;border-bottom:1px solid oklch(15% .01 250/.5)}
+.ck-add-btns{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:8px 10px;flex-shrink:0}
+.ck-add-btn{padding:6px 8px;background:oklch(10% .02 250);border:1px solid var(--brd2);border-radius:6px;color:var(--dim);font-family:var(--fd);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:5px}
+.ck-add-btn:hover{color:var(--acc);border-color:oklch(75% .18 70/.6);background:oklch(75% .18 70/.07)}
+.ck-body-list{flex:1;overflow-y:auto;padding:6px 8px;scrollbar-width:thin;scrollbar-color:var(--brd) transparent}
+.ck-body-item{display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:5px;cursor:pointer;transition:background .15s;font-size:.66rem;color:var(--dim)}
+.ck-body-item:hover{background:var(--brd2);color:var(--tx)}
+.ck-body-item.selected{background:oklch(75% .18 70/.14);color:var(--acc)}
+.ck-body-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.ck-body-name{flex:1;letter-spacing:.04em;font-weight:600}
+.ck-body-type{font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:oklch(38% .01 250)}
+.ck-body-acts{display:flex;gap:2px;opacity:0;transition:opacity .15s}
+.ck-body-item:hover .ck-body-acts{opacity:1}
+.ck-body-acts button{width:17px;height:17px;border:none;background:transparent;color:var(--dim);cursor:pointer;font-size:.62rem;border-radius:3px;display:flex;align-items:center;justify-content:center;transition:all .12s}
+.ck-body-acts button:hover{background:var(--brd2);color:var(--tx)}
+.ck-moon-item{padding-left:20px}
+.ck-empty-hint{color:oklch(35% .01 250);font-size:.62rem;text-align:center;padding:18px 10px;letter-spacing:.06em;line-height:1.5}
+.ck-actions{padding:8px 10px;border-top:1px solid var(--brd2);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.ck-action-btn{padding:7px 8px;border-radius:5px;font-family:var(--fd);font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px}
+.ck-action-btn.sim{background:oklch(12% .025 250);border:1px solid var(--brd);color:var(--dim);grid-column:1/-1}
+.ck-action-btn.sim.on{background:oklch(70% .19 145/.12);border-color:oklch(70% .19 145/.7);color:oklch(70% .19 145)}
+.ck-action-btn.save{background:oklch(75% .18 70/.1);border:1px solid oklch(75% .18 70/.5);color:var(--acc)}
+.ck-action-btn.share{background:oklch(12% .025 250);border:1px solid var(--brd);color:var(--dim)}
+.ck-action-btn.share:hover{color:var(--acc);border-color:oklch(75% .18 70/.5)}
+.ck-action-btn.presets{background:transparent;border:1px solid var(--brd2);color:var(--dim)}
+.ck-action-btn.presets:hover{color:var(--acc);border-color:oklch(75% .18 70/.5)}
+.ck-action-btn.pilot{background:oklch(60% .22 25/.12);border:1px solid oklch(60% .22 25/.7);color:oklch(75% .22 25);grid-column:1/-1}
+.ck-action-btn.bomb{background:oklch(55% .25 15/.12);border:1px solid oklch(55% .25 15/.7);color:oklch(72% .25 18);grid-column:1/-1}
+.ck-action-btn.clear{background:transparent;border:1px solid var(--brd2);color:oklch(40% .01 250);grid-column:1/-1}
+.ck-action-btn.clear:hover{color:oklch(65% .22 25);border-color:oklch(60% .22 25/.5)}
+
+/* ── Body Editor (right panel) ── */
+#body-editor{position:fixed;top:0;right:0;bottom:48px;width:316px;z-index:31;background:oklch(7% .02 250/.98);border-left:1px solid var(--brd);transform:translateX(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;overflow:hidden;font-family:var(--fd)}
+#body-editor.open{transform:translateX(0)}
+.be-hdr{padding:14px 14px 12px;border-bottom:1px solid var(--brd2);flex-shrink:0;display:flex;align-items:center;gap:10px}
+.be-icon{font-size:1.5rem;line-height:1}
+.be-title{flex:1}
+.be-title h4{font-size:.8rem;font-weight:700;letter-spacing:.12em;color:var(--tx);margin-bottom:2px}
+.be-title .be-type-lbl{font-size:.58rem;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+#be-close{width:25px;height:25px;background:var(--brd2);border:none;border-radius:50%;color:var(--dim);cursor:pointer;font-size:.78rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#be-close:hover{color:var(--tx)}
+.be-body{flex:1;overflow-y:auto;padding:12px 14px;scrollbar-width:thin;scrollbar-color:var(--brd) transparent;display:flex;flex-direction:column;gap:0}
+.be-field{margin-bottom:12px}
+.be-label{font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:5px;display:flex;justify-content:space-between;align-items:baseline}
+.be-label .be-val{font-size:.72rem;font-weight:700;color:var(--tx);letter-spacing:.02em;font-family:var(--fd)}
+.be-input{width:100%;background:oklch(10% .02 250);border:1px solid var(--brd2);border-radius:5px;color:var(--tx);font-family:var(--fd);font-size:.76rem;padding:6px 9px;outline:none;transition:border .2s}
+.be-input:focus{border-color:var(--acc)}
+.be-slider{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--brd2);border-radius:2px;accent-color:var(--acc);cursor:pointer}
+.be-select{width:100%;background:oklch(10% .02 250);border:1px solid var(--brd2);border-radius:5px;color:var(--tx);font-family:var(--fd);font-size:.73rem;padding:6px 9px;outline:none;cursor:pointer}
+.be-select:focus{border-color:var(--acc)}
+.be-color-row{display:flex;align-items:center;gap:7px}
+.be-color-swatch{width:28px;height:28px;border-radius:5px;border:1px solid var(--brd2);cursor:pointer;flex-shrink:0;position:relative;overflow:hidden}
+.be-color-swatch input[type=color]{position:absolute;inset:-4px;width:calc(100%+8px);height:calc(100%+8px);border:none;background:none;cursor:pointer;opacity:0}
+.be-color-hex{flex:1;background:oklch(10% .02 250);border:1px solid var(--brd2);border-radius:5px;color:var(--tx);font-family:var(--fd);font-size:.74rem;padding:6px 9px;outline:none}
+.be-color-hex:focus{border-color:var(--acc)}
+.be-presets{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.be-preset-chip{width:19px;height:19px;border-radius:3px;cursor:pointer;transition:transform .15s;border:1px solid transparent}
+.be-preset-chip:hover{transform:scale(1.3);border-color:rgba(255,255,255,.4)}
+.be-section-div{height:1px;background:var(--brd2);margin:12px 0}
+.be-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0}
+.be-toggle-label{font-size:.66rem;color:var(--dim);letter-spacing:.06em}
+.be-toggle{width:28px;height:14px;background:var(--brd2);border-radius:7px;position:relative;transition:background .2s;cursor:pointer;flex-shrink:0;border:none}
+.be-toggle::after{content:'';position:absolute;top:2px;left:2px;width:10px;height:10px;background:var(--dim);border-radius:50%;transition:left .2s,background .2s}
+.be-toggle.on{background:oklch(75% .18 70/.35)}
+.be-toggle.on::after{left:16px;background:var(--acc)}
+.be-footer{padding:10px 14px;border-top:1px solid var(--brd2);flex-shrink:0;display:flex;gap:7px}
+.be-del{flex:1;padding:8px;background:oklch(60% .22 25/.1);border:1px solid oklch(60% .22 25/.6);border-radius:5px;color:oklch(75% .22 25);font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.be-del:hover{background:oklch(60% .22 25/.22)}
+.be-dup{flex:1;padding:8px;background:oklch(12% .025 250);border:1px solid var(--brd);border-radius:5px;color:var(--dim);font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.be-dup:hover{color:var(--acc);border-color:oklch(75% .18 70/.5)}
+
+/* ── Creator Dashboard (bottom bar in creator mode) ── */
+#creator-dash{position:fixed;bottom:48px;left:268px;right:0;z-index:13;height:42px;background:oklch(5% .02 250/.97);border-top:1px solid oklch(75% .18 70/.18);display:none;align-items:center;gap:12px;padding:0 14px;font-family:var(--fd)}
+#creator-dash.show{display:flex}
+.cd-stat{display:flex;align-items:center;gap:5px;font-size:.62rem;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.cd-stat strong{color:var(--tx);font-size:.76rem;font-weight:700;letter-spacing:.02em}
+.cd-sep{width:1px;height:14px;background:var(--brd2)}
+.cd-spacer{flex:1}
+
+/* ── Creator Presets Panel ── */
+#creator-presets{position:fixed;top:0;bottom:48px;left:268px;width:268px;z-index:32;background:oklch(7% .02 250/.98);border-right:1px solid var(--brd);transform:translateX(-536px);transition:transform .4s cubic-bezier(.22,1,.36,1);font-family:var(--fd);display:flex;flex-direction:column;pointer-events:none}
+#creator-presets.open{transform:translateX(0);pointer-events:all}
+.cp2-hdr{padding:14px 14px 12px;border-bottom:1px solid var(--brd2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cp2-hdr h4{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+#cp2-close{background:none;border:1px solid var(--brd2);border-radius:4px;width:22px;height:22px;color:var(--dim);cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+#cp2-close:hover{color:var(--tx);border-color:var(--brd)}
+.cp2-list{flex:1;overflow-y:auto;padding:10px}
+.cp2-item{padding:11px 13px;border-radius:8px;border:1px solid var(--brd2);margin-bottom:7px;cursor:pointer;transition:all .2s}
+.cp2-item:hover{border-color:oklch(75% .18 70/.6);background:oklch(75% .18 70/.06)}
+.cp2-name{font-size:.76rem;font-weight:700;letter-spacing:.1em;color:var(--tx);margin-bottom:3px}
+.cp2-desc{font-size:.61rem;color:var(--dim);letter-spacing:.04em;line-height:1.4}
+
+/* ── Creator Saves Panel ── */
+#creator-saves{position:fixed;top:0;bottom:48px;left:268px;width:256px;z-index:32;background:oklch(7% .02 250/.98);border-right:1px solid var(--brd);transform:translateX(-524px);transition:transform .4s cubic-bezier(.22,1,.36,1);font-family:var(--fd);display:flex;flex-direction:column;pointer-events:none}
+#creator-saves.open{transform:translateX(0);pointer-events:all}
+.cs-hdr{padding:14px 14px 12px;border-bottom:1px solid var(--brd2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cs-hdr h4{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+#cs-close{background:none;border:1px solid var(--brd2);border-radius:4px;width:22px;height:22px;color:var(--dim);cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+#cs-close:hover{color:var(--tx);border-color:var(--brd)}
+.cs-list{flex:1;overflow-y:auto;padding:10px}
+.cs-empty{color:var(--dim);font-size:.66rem;text-align:center;padding:18px 0;letter-spacing:.07em}
+.cs-item{padding:9px 11px;border-radius:7px;border:1px solid var(--brd2);margin-bottom:5px;display:flex;align-items:center;gap:7px;cursor:pointer;transition:all .17s}
+.cs-item:hover{border-color:oklch(75% .18 70/.6);background:oklch(75% .18 70/.06)}
+.cs-item-info{flex:1;min-width:0}
+.cs-item-name{font-size:.73rem;font-weight:700;color:var(--tx);letter-spacing:.05em;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cs-item-meta{font-size:.56rem;color:var(--dim);letter-spacing:.05em}
+.cs-item-del{width:18px;height:18px;border:none;background:transparent;color:var(--dim);cursor:pointer;font-size:.7rem;transition:color .14s;flex-shrink:0}
+.cs-item-del:hover{color:oklch(70% .22 25)}
+
+/* Creator back button */
+#creator-back{position:fixed;top:12px;left:276px;z-index:32;font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;background:oklch(12% .025 250);border:1px solid var(--brd);border-radius:var(--r-sm);color:var(--dim);cursor:pointer;display:none;transition:all .2s}
+#creator-back:hover{color:var(--acc);border-color:oklch(75% .18 70/.5)}
+#creator-back.show{display:block}
+
+/* Creator mode banner */
+#creator-banner{position:fixed;top:84px;left:50%;transform:translateX(-50%);z-index:11;display:none;padding:4px 14px;background:oklch(60% .22 145/.88);border:1px solid oklch(70% .22 145);border-radius:var(--r-sm);font-family:var(--fd);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;font-weight:700;white-space:nowrap}
+#creator-banner.show{display:block}
+
+/* Selection ring pulse */
+@keyframes selPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
 /* ── Onboarding ── */
 #onb{position:fixed;inset:0;z-index:80;pointer-events:none}
 .onb-card{position:absolute;background:oklch(10% .025 250/.97);border:1px solid var(--acc);border-radius:var(--r-lg);padding:14px 18px;font-family:var(--fd);font-size:.72rem;letter-spacing:.06em;color:var(--tx);max-width:220px;opacity:0;line-height:1.5}
@@ -521,6 +669,109 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
     <div class="kbd-row"><span><kbd>?</kbd></span><span class="desc">Show this menu</span></div>
   </div>
 </div>
+
+<!-- ── SANDBOX CHOICE MODAL ── -->
+<div id="sb-choice">
+  <div id="sb-choice-card">
+    <div class="sb-ch-title">🎮 Sandbox Mode</div>
+    <div class="sb-ch-sub">Choose your experience</div>
+    <div class="sb-choice-btns">
+      <button class="sb-choice-btn" id="sb-choose-pilot">
+        <span class="ch-icon">🚀</span>
+        <span class="ch-title">Pilot</span>
+        <span class="ch-desc">Fly through the solar system. Fire lasers, missiles, bombs and plasma at planets. Full combat sandbox.</span>
+      </button>
+      <button class="sb-choice-btn" id="sb-choose-create">
+        <span class="ch-icon">🪐</span>
+        <span class="ch-title">Create</span>
+        <span class="ch-desc">Build your own solar system from scratch. Add stars, planets, moons, belts, comets and nebulae. Then fly through it or blow it up.</span>
+      </button>
+    </div>
+    <button id="sb-choice-cancel">✕ Cancel</button>
+  </div>
+</div>
+
+<!-- ── CREATOR DOCK ── -->
+<div id="creator-dock">
+  <div class="ck-hdr">
+    <h3>System Builder</h3>
+    <button id="ck-collapse" title="Collapse">◀</button>
+  </div>
+  <div id="ck-sysname-row">
+    <label>Name</label>
+    <input id="ck-sysname" type="text" value="My System" maxlength="32" spellcheck="false">
+  </div>
+  <div class="ck-section-hdr">Add Bodies</div>
+  <div class="ck-add-btns">
+    <button class="ck-add-btn" data-type="star">☀ Star</button>
+    <button class="ck-add-btn" data-type="planet">🪐 Planet</button>
+    <button class="ck-add-btn" data-type="moon">🌙 Moon</button>
+    <button class="ck-add-btn" data-type="belt">⚪ Belt</button>
+    <button class="ck-add-btn" data-type="comet">☄ Comet</button>
+    <button class="ck-add-btn" data-type="nebula">🌌 Nebula</button>
+  </div>
+  <div class="ck-section-hdr">Bodies</div>
+  <div class="ck-body-list" id="ck-body-list">
+    <div class="ck-empty-hint">No bodies yet.<br>Add a star to begin.</div>
+  </div>
+  <div class="ck-actions">
+    <button class="ck-action-btn sim" id="ck-sim-btn">▶ Simulate</button>
+    <button class="ck-action-btn save" id="ck-save-btn">💾 Save</button>
+    <button class="ck-action-btn share" id="ck-share-btn">🔗 Share</button>
+    <button class="ck-action-btn presets" id="ck-presets-btn">📚 Presets</button>
+    <button class="ck-action-btn pilot" id="ck-pilot-btn">🚀 Enter as Pilot</button>
+    <button class="ck-action-btn bomb" id="ck-bomb-btn">💥 Bomb Mode</button>
+    <button class="ck-action-btn clear" id="ck-clear-btn">🗑 Clear All</button>
+  </div>
+</div>
+
+<!-- ── BODY EDITOR ── -->
+<div id="body-editor">
+  <div class="be-hdr">
+    <div class="be-icon" id="be-icon">🪐</div>
+    <div class="be-title">
+      <h4 id="be-name-display">Body</h4>
+      <div class="be-type-lbl" id="be-type-display">Planet</div>
+    </div>
+    <button id="be-close">✕</button>
+  </div>
+  <div class="be-body" id="be-body"></div>
+  <div class="be-footer">
+    <button class="be-dup" id="be-dup-btn">⊕ Duplicate</button>
+    <button class="be-del" id="be-del-btn">✕ Delete</button>
+  </div>
+</div>
+
+<!-- ── CREATOR DASHBOARD ── -->
+<div id="creator-dash">
+  <div class="cd-stat">🪐 Bodies <strong id="cd-bodies">0</strong></div>
+  <div class="cd-sep"></div>
+  <div class="cd-stat">⭐ Stars <strong id="cd-stars">0</strong></div>
+  <div class="cd-sep"></div>
+  <div class="cd-stat">⚪ Belts <strong id="cd-belts">0</strong></div>
+  <div class="cd-sep"></div>
+  <div class="cd-stat" id="cd-sim-stat">⏱ <strong id="cd-sim-lbl">Editing</strong></div>
+  <div class="cd-spacer"></div>
+  <div class="cd-stat" style="color:var(--dim);font-size:.56rem">⌘Z undo · ⌘⇧Z redo · Esc deselect</div>
+</div>
+
+<!-- ── CREATOR PRESETS PANEL ── -->
+<div id="creator-presets">
+  <div class="cp2-hdr"><h4>📚 Presets</h4><button id="cp2-close">✕</button></div>
+  <div class="cp2-list" id="cp2-list"></div>
+</div>
+
+<!-- ── CREATOR SAVES PANEL ── -->
+<div id="creator-saves">
+  <div class="cs-hdr"><h4>💾 Saved Systems</h4><button id="cs-close">✕</button></div>
+  <div class="cs-list" id="cs-list"></div>
+</div>
+
+<!-- Creator back button (shown when in pilot mode FROM creator) -->
+<button id="creator-back">🪐 Back to Creator</button>
+
+<!-- Creator active banner -->
+<div id="creator-banner">🪐 Creator Mode</div>
 
 <div id="onb"></div>
 
@@ -1416,6 +1667,7 @@ function animate(){
 
   if(typeof updateWarp==='function')updateWarp();
   if(typeof updateSandbox==='function')updateSandbox();
+  if(typeof updateCreatorSim==='function')updateCreatorSim();
   renderer.render(scene,camera);
   if(typeof settings==='undefined'||settings.lens)drawLensFlare();
   if(typeof settings==='undefined'||settings.labels)drawLabels();
@@ -2233,27 +2485,845 @@ function updateSandboxHud(){
 }
 
 function toggleSandbox(){
-  sandboxMode=!sandboxMode;
-  if(sandboxMode){document.documentElement.setAttribute('data-sandbox','1')}
-  else{document.documentElement.removeAttribute('data-sandbox')}
-  document.getElementById('sandbox-banner').classList.toggle('show',sandboxMode);
-  document.getElementById('weapons-hud').classList.toggle('show',sandboxMode);
-  document.getElementById('sb-ship-status').classList.toggle('show',sandboxMode);
-  document.getElementById('sb-keys').classList.toggle('show',sandboxMode);
-  document.getElementById('sandbox-btn').classList.toggle('active',sandboxMode);
-  document.getElementById('restore-btn').style.display=sandboxMode?'inline-block':'none';
-  if(sandboxMode){
-    initAudio();
-    const spawn=lookTarget.clone();spawn.y+=1.5;spawn.x+=2;
-    ship=buildShip(spawn);shipVel.set(0,0,0);
-    showToast('🎮 Sandbox active · WASD QE to fly · Space to fire · 1-4 weapons');
-  }else{
-    if(ship){scene.remove(ship);ship=null}
-    projectiles.forEach(p=>scene.remove(p.mesh));bombs.forEach(b=>scene.remove(b.mesh));
-    projectiles.length=0;bombs.length=0;
-    restoreAllPlanets();
+  // If already in creator mode, exit it
+  if(creatorMode){exitCreatorMode();return}
+  // If already in pilot sandbox, exit it
+  if(sandboxMode&&!creatorMode){_exitPilotSandbox();return}
+  // Otherwise show the PILOT / CREATE choice modal
+  document.getElementById('sb-choice').classList.add('show');
+}
+
+function _enterPilotSandbox(){
+  sandboxMode=true;
+  document.documentElement.setAttribute('data-sandbox','1');
+  document.getElementById('sandbox-banner').classList.add('show');
+  document.getElementById('weapons-hud').classList.add('show');
+  document.getElementById('sb-ship-status').classList.add('show');
+  document.getElementById('sb-keys').classList.add('show');
+  document.getElementById('sandbox-btn').classList.add('active');
+  document.getElementById('restore-btn').style.display='inline-block';
+  initAudio();
+  const spawn=lookTarget.clone();spawn.y+=1.5;spawn.x+=2;
+  ship=buildShip(spawn);shipVel.set(0,0,0);
+  showToast('🎮 Sandbox active · WASD QE to fly · Space to fire · 1-4 weapons');
+}
+
+function _exitPilotSandbox(){
+  sandboxMode=false;
+  document.documentElement.removeAttribute('data-sandbox');
+  document.getElementById('sandbox-banner').classList.remove('show');
+  document.getElementById('weapons-hud').classList.remove('show');
+  document.getElementById('sb-ship-status').classList.remove('show');
+  document.getElementById('sb-keys').classList.remove('show');
+  document.getElementById('sandbox-btn').classList.remove('active');
+  document.getElementById('restore-btn').style.display='none';
+  if(ship){scene.remove(ship);ship=null}
+  projectiles.forEach(p=>scene.remove(p.mesh));bombs.forEach(b=>scene.remove(b.mesh));
+  projectiles.length=0;bombs.length=0;
+  restoreAllPlanets();
+  document.getElementById('sandbox-btn').textContent='🎮 Sandbox';
+}
+
+// ════════ CREATOR MODE ════════
+let creatorMode=false;
+let creatorSimulating=false;
+let creatorSelected=null;
+let crEditingId=null;
+let crFromCreator=false;
+let crBombMode=false;
+const crBodies=new Map();// id -> {data, mesh, pivot, orbitLine, selRing, lightObj}
+let crNextId=0;
+const crUndo=[],crRedo=[];
+const CREATOR_GROUP=new THREE.Group();
+scene.add(CREATOR_GROUP);
+
+const CR_STAR_PRESETS={
+  'G-type':{color:'#FFD580',lightColor:0xFFE0A0,emissive:'#FF8800',size:1.2},
+  'K-type':{color:'#FFAA55',lightColor:0xFFBB80,emissive:'#FF6600',size:1.0},
+  'M-dwarf':{color:'#FF5533',lightColor:0xFF7755,emissive:'#FF3300',size:0.7},
+  'Red Giant':{color:'#FF4422',lightColor:0xFF6644,emissive:'#FF2200',size:2.8},
+  'Blue Giant':{color:'#AADDFF',lightColor:0xBBDDFF,emissive:'#88BBFF',size:2.2},
+  'White Dwarf':{color:'#EEEEFF',lightColor:0xDDEEFF,emissive:'#BBCCFF',size:0.35},
+  'Neutron Star':{color:'#CCDDFF',lightColor:0xDDEEFF,emissive:'#AABBFF',size:0.2}
+};
+const CR_PLANET_PRESETS={
+  'Rocky':()=>mercuryTex(),
+  'Gas Giant':()=>jupiterTex(),
+  'Ice Giant':()=>uranusTex(),
+  'Lava':()=>{const{c,x}=mk();x.fillStyle='#880800';x.fillRect(0,0,256,256);for(let i=0;i<200;i++){const px=Math.random()*256,py=Math.random()*256,r=3+Math.random()*15;x.beginPath();x.arc(px,py,r,0,Math.PI*2);x.fillStyle=`rgba(${200+Math.floor(Math.random()*55)},${30+Math.floor(Math.random()*60)},0,${.3+Math.random()*.5})`;x.fill()}return tex(c)},
+  'Ocean':()=>{const{c,x}=mk();x.fillStyle='#0A3A6E';x.fillRect(0,0,256,256);for(let i=0;i<40;i++){const py=Math.random()*256;x.beginPath();x.moveTo(0,py);for(let px2=0;px2<=256;px2+=12)x.lineTo(px2,py+Math.sin(px2*.07+i)*8);x.strokeStyle='rgba(40,120,200,.18)';x.lineWidth=4+Math.random()*8;x.stroke()}return tex(c)},
+  'Desert':()=>{const{c,x}=mk();x.fillStyle='#C8923A';x.fillRect(0,0,256,256);for(let i=0;i<100;i++){x.beginPath();x.arc(Math.random()*256,Math.random()*256,2+Math.random()*12,0,Math.PI*2);x.fillStyle=`rgba(${160+Math.floor(Math.random()*60)},${80+Math.floor(Math.random()*40)},20,${.15+Math.random()*.25})`;x.fill()}return tex(c)},
+  'Earth-like':()=>earthTex()
+};
+
+function crMakeStarTex(col,preset){
+  const{c,x}=mk(256,256);
+  const hex=col||'#FFD580';
+  x.fillStyle=hex;x.fillRect(0,0,256,256);
+  for(let i=0;i<800;i++){const px=Math.random()*256,py=Math.random()*256,r=2+Math.random()*10;x.beginPath();x.arc(px,py,r,0,Math.PI*2);x.fillStyle=Math.random()>.5?`rgba(255,220,80,.25)`:` rgba(180,60,0,.1)`;x.fill()}
+  const ld=x.createRadialGradient(128,128,80,128,128,130);ld.addColorStop(0,'rgba(0,0,0,0)');ld.addColorStop(1,'rgba(100,30,0,.35)');x.fillStyle=ld;x.fillRect(0,0,256,256);
+  return tex(c);
+}
+
+function crDefaultBodyData(type){
+  const id='b'+crNextId++;
+  const stars=[...crBodies.values()].filter(b=>b.data.type==='star');
+  const planets=[...crBodies.values()].filter(b=>b.data.type==='planet');
+  const parentStar=stars.length?stars[0].data.id:null;
+  const parentPlanet=planets.length?planets[0].data.id:null;
+  if(type==='star'){return{id,type:'star',name:'New Star',preset:'G-type',size:1.2,color:'#FFD580',luminosity:1.0}}
+  if(type==='planet'){return{id,type:'planet',name:'New Planet',planetPreset:'Rocky',size:0.6,color:'#9E8070',orbitR:Math.max(5,stars.length?6+crBodies.size*3:6),orbitSpeed:.4,eccentricity:0,inclination:0,rotSpeed:.04,axialTilt:0,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:parentStar}}
+  if(type==='moon'){return{id,type:'moon',name:'New Moon',size:0.12,color:'#AAAAAA',orbitR:1.4,orbitSpeed:1.5,rotSpeed:.01,parent:parentPlanet}}
+  if(type==='belt'){return{id,type:'belt',name:'Asteroid Belt',innerR:16,outerR:20,count:2000,color:'#888877',heightVar:.3,parent:parentStar}}
+  if(type==='comet'){return{id,type:'comet',name:'New Comet',periapsis:8,apoapsis:55,tailLength:7,tailColor:'#88CCFF',parent:parentStar}}
+  if(type==='nebula'){return{id,type:'nebula',name:'Nebula Cloud',nebColor:'#8855FF',size:18,density:800,posX:40,posY:5,posZ:0}}
+  return null;
+}
+
+function crBuildMesh(data){
+  let mesh=null,pivot=null,orbitLine=null,selRing=null,lightObj=null,extraMeshes=[];
+  if(data.type==='star'){
+    const pr=CR_STAR_PRESETS[data.preset]||CR_STAR_PRESETS['G-type'];
+    const r=data.size*(pr.size||1.2)*0.85;
+    const starMat=new THREE.MeshStandardMaterial({map:crMakeStarTex(data.color,data.preset),emissive:new THREE.Color(pr.emissive),emissiveIntensity:.7,roughness:1,metalness:0});
+    mesh=new THREE.Mesh(new THREE.SphereGeometry(r,32,32),starMat);
+    const glowS=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:new THREE.Color(data.color),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+    glowS.scale.setScalar(r*5.5*data.luminosity);extraMeshes.push({obj:glowS,parent:mesh});
+    lightObj=new THREE.PointLight(new THREE.Color(pr.lightColor),data.luminosity*5,600,0.6);
+    CREATOR_GROUP.add(mesh);CREATOR_GROUP.add(lightObj);
+    mesh.userData.crId=data.id;
+    selRing=new THREE.Mesh(new THREE.TorusGeometry(r*1.6,.06,8,48),new THREE.MeshBasicMaterial({color:0xFFCC00,transparent:true,opacity:0}));
+    selRing.rotation.x=Math.PI/2;mesh.add(selRing);
+    if(glowS)mesh.add(glowS);
+  } else if(data.type==='planet'||data.type==='moon'){
+    const r=Math.max(.05,data.size);
+    const texFn=data.type==='planet'?(CR_PLANET_PRESETS[data.planetPreset]||CR_PLANET_PRESETS['Rocky']):()=>moonTex(data.color||'#AAAAAA');
+    const mat=new THREE.MeshStandardMaterial({map:texFn(),roughness:.8,metalness:.05});
+    mesh=new THREE.Mesh(new THREE.SphereGeometry(r,32,32),mat);
+    pivot=new THREE.Object3D();pivot.rotation.y=Math.random()*Math.PI*2;
+    // Find parent position for pivot placement
+    const parentBody=crBodies.get(data.parent);
+    if(parentBody&&parentBody.mesh){
+      const wp=new THREE.Vector3();parentBody.mesh.getWorldPosition(wp);
+      pivot.position.copy(wp);
+    }
+    CREATOR_GROUP.add(pivot);
+    mesh.position.x=data.orbitR||6;pivot.add(mesh);
+    // Orbit line
+    const orbitR=data.orbitR||6;
+    const pts=[];for(let i=0;i<=96;i++){const a=i/96*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*orbitR,0,Math.sin(a)*orbitR))}
+    const hexNum=parseInt((data.color||'#445566').replace('#',''),16);
+    const olGeo=new THREE.BufferGeometry().setFromPoints(pts);
+    orbitLine=new THREE.Line(olGeo,new THREE.LineBasicMaterial({color:hexNum,transparent:true,opacity:.2}));
+    orbitLine.userData.isOrbit=true;
+    if(parentBody&&parentBody.mesh){const wp2=new THREE.Vector3();parentBody.mesh.getWorldPosition(wp2);orbitLine.position.copy(wp2)}
+    CREATOR_GROUP.add(orbitLine);
+    // Rings
+    if(data.hasRings&&data.type==='planet'){
+      const rg=new THREE.RingGeometry(r*(data.ringInner||1.4),r*(data.ringOuter||2.8),64);
+      const p2=rg.attributes.position,uv2=rg.attributes.uv;
+      for(let i=0;i<p2.count;i++){const rx=p2.getX(i),ry=p2.getY(i),rr2=Math.sqrt(rx*rx+ry*ry);uv2.setXY(i,(rr2-r*(data.ringInner||1.4))/(r*(data.ringOuter||data.ringInner||1.4)),.5)}
+      const ringMesh=new THREE.Mesh(rg,new THREE.MeshBasicMaterial({map:ringTex(),side:THREE.DoubleSide,transparent:true}));
+      ringMesh.rotation.x=Math.PI*.42;mesh.add(ringMesh);extraMeshes.push({obj:ringMesh,parent:mesh,isRing:true});
+    }
+    selRing=new THREE.Mesh(new THREE.TorusGeometry(r*1.6,.055,8,48),new THREE.MeshBasicMaterial({color:0xFFCC00,transparent:true,opacity:0}));
+    selRing.rotation.x=Math.PI/2;mesh.add(selRing);
+    mesh.userData.crId=data.id;
+  } else if(data.type==='belt'){
+    const n=Math.min(data.count||2000,6000);
+    const positions=new Float32Array(n*3);
+    for(let i=0;i<n;i++){
+      const a=Math.random()*Math.PI*2;
+      const r2=data.innerR+(data.outerR-data.innerR)*Math.random();
+      positions[i*3]=Math.cos(a)*r2;positions[i*3+1]=(Math.random()-.5)*(data.heightVar||.3)*2;positions[i*3+2]=Math.sin(a)*r2;
+    }
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+    const col=new THREE.Color(data.color||'#888877');
+    mesh=new THREE.Points(geo,new THREE.PointsMaterial({color:col,size:.08,transparent:true,opacity:.7}));
+    const parentBody=crBodies.get(data.parent);
+    if(parentBody&&parentBody.mesh){const wp=new THREE.Vector3();parentBody.mesh.getWorldPosition(wp);mesh.position.copy(wp)}
+    CREATOR_GROUP.add(mesh);mesh.userData.crId=data.id;
+  } else if(data.type==='comet'){
+    const geo=new THREE.BufferGeometry();
+    const a=data.periapsis||8,b=data.apoapsis||55;
+    const ecc=(b-a)/(b+a);const sma=(a+b)/2;
+    const pts=[];for(let i=0;i<=128;i++){const theta=i/128*Math.PI*2;const r=sma*(1-ecc*ecc)/(1+ecc*Math.cos(theta));pts.push(new THREE.Vector3(Math.cos(theta)*r,0,Math.sin(theta)*r))}
+    geo.setFromPoints(pts);
+    orbitLine=new THREE.Line(geo,new THREE.LineBasicMaterial({color:0x88CCFF,transparent:true,opacity:.25,dashed:false}));
+    orbitLine.userData.isOrbit=true;CREATOR_GROUP.add(orbitLine);
+    // Comet head
+    mesh=new THREE.Mesh(new THREE.SphereGeometry(.15,12,12),new THREE.MeshStandardMaterial({color:0xCCDDEE,roughness:.7}));
+    mesh.position.x=a;CREATOR_GROUP.add(mesh);mesh.userData.crId=data.id;
+    // Tail sprite
+    const tailS=new THREE.Sprite(new THREE.SpriteMaterial({map:GT,color:new THREE.Color(data.tailColor||'#88CCFF'),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.6}));
+    tailS.scale.set(data.tailLength||7,.8,1);tailS.position.x=(data.tailLength||7)*.5+.15;mesh.add(tailS);
+    selRing=new THREE.Mesh(new THREE.TorusGeometry(.3,.05,8,32),new THREE.MeshBasicMaterial({color:0xFFCC00,transparent:true,opacity:0}));
+    selRing.rotation.x=Math.PI/2;mesh.add(selRing);
+  } else if(data.type==='nebula'){
+    const n=Math.min(data.density||800,3000);
+    const positions=new Float32Array(n*3);const colors=new Float32Array(n*3);
+    const col=new THREE.Color(data.nebColor||'#8855FF');
+    const sz=data.size||18;
+    for(let i=0;i<n;i++){
+      positions[i*3]=(Math.random()-.5)*sz+(data.posX||0);positions[i*3+1]=(Math.random()-.5)*sz*.4+(data.posY||0);positions[i*3+2]=(Math.random()-.5)*sz+(data.posZ||0);
+      const t=Math.random();colors[i*3]=col.r*.5+t*.5;colors[i*3+1]=col.g*.5+t*.3;colors[i*3+2]=col.b*.5+t*.5;
+    }
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(positions,3));geo.setAttribute('color',new THREE.BufferAttribute(colors,3));
+    mesh=new THREE.Points(geo,new THREE.PointsMaterial({vertexColors:true,size:.4,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false}));
+    CREATOR_GROUP.add(mesh);mesh.userData.crId=data.id;
+  }
+  return{mesh,pivot,orbitLine,selRing,lightObj,extraMeshes};
+}
+
+function crAddBody(type){
+  const data=crDefaultBodyData(type);
+  if(!data)return;
+  crPushUndo();
+  const built=crBuildMesh(data);
+  crBodies.set(data.id,{data,...built});
+  crRefreshDock();
+  crUpdateDash();
+  crSelectBody(data.id);
+  crOpenEditor(data.id);
+  // Add to creator clickables
+  if(built.mesh&&(type==='star'||type==='planet'||type==='moon')){
+    clickables.push({mesh:built.mesh,data:crMakeInfoData(data),pd:crMakeInfoData(data),_crId:data.id});
+  }
+  playCreatorChime();
+}
+
+function crMakeInfoData(data){
+  const gravity=(data.type==='star'?274:data.type==='planet'?9.81*(data.size||0.5)*2:1.6).toFixed(1);
+  const yearDays=data.orbitR?Math.round(Math.pow(data.orbitR/11,1.5)*365):null;
+  const stats=[];
+  if(data.size)stats.push({l:'Size',v:(data.size).toFixed(2)+' (rel.)'});
+  if(data.orbitR)stats.push({l:'Orbit Radius',v:(data.orbitR).toFixed(1)+' units'});
+  if(yearDays)stats.push({l:'Year Length',v:'~'+yearDays+' sim days'});
+  stats.push({l:'Gravity',v:'~'+gravity+' m/s²'},{l:'Type',v:data.planetPreset||data.preset||data.type});
+  return{
+    name:data.name,type:'Custom '+(data.type.charAt(0).toUpperCase()+data.type.slice(1)),
+    hexColor:data.color||data.nebColor||'#AAAAAA',gravityMS2:parseFloat(gravity),
+    desc:'User-created '+data.type+' in a custom solar system. Parameters are user-defined.',
+    fact:'This body was hand-crafted in Creator Mode!',stats,moons:0,moonData:[],
+    texFn:()=>moonTex(data.color||'#AAAAAA')
+  };
+}
+
+function crSelectBody(id){
+  // Deselect previous
+  if(creatorSelected&&crBodies.has(creatorSelected)){
+    const prev=crBodies.get(creatorSelected);
+    if(prev.selRing)prev.selRing.material.opacity=0;
+  }
+  creatorSelected=id;
+  document.querySelectorAll('.ck-body-item').forEach(el=>el.classList.toggle('selected',el.dataset.id===id));
+  if(id&&crBodies.has(id)){
+    const b=crBodies.get(id);
+    if(b.selRing)b.selRing.material.opacity=.85;
   }
 }
+
+function crDeselectAll(){
+  crSelectBody(null);
+  crCloseEditor();
+}
+
+function crDeleteBody(id){
+  if(!crBodies.has(id))return;
+  crPushUndo();
+  const b=crBodies.get(id);
+  if(b.mesh)CREATOR_GROUP.remove(b.mesh);
+  if(b.pivot)CREATOR_GROUP.remove(b.pivot);
+  if(b.orbitLine)CREATOR_GROUP.remove(b.orbitLine);
+  if(b.lightObj)CREATOR_GROUP.remove(b.lightObj);
+  // Remove from clickables
+  const ci=clickables.findIndex(c=>c._crId===id);
+  if(ci>=0)clickables.splice(ci,1);
+  crBodies.delete(id);
+  if(creatorSelected===id){creatorSelected=null;crCloseEditor()}
+  crRefreshDock();crUpdateDash();
+  playCreatorDelete();
+}
+
+function crDuplicateBody(id){
+  if(!crBodies.has(id))return;
+  crPushUndo();
+  const orig=JSON.parse(JSON.stringify(crBodies.get(id).data));
+  orig.id='b'+crNextId++;
+  orig.name=orig.name+' Copy';
+  if(orig.orbitR)orig.orbitR+=2;
+  if(orig.posX!==undefined)orig.posX+=5;
+  const built=crBuildMesh(orig);
+  crBodies.set(orig.id,{data:orig,...built});
+  if(built.mesh&&(orig.type==='star'||orig.type==='planet'||orig.type==='moon')){
+    clickables.push({mesh:built.mesh,data:crMakeInfoData(orig),pd:crMakeInfoData(orig),_crId:orig.id});
+  }
+  crRefreshDock();crUpdateDash();crSelectBody(orig.id);crOpenEditor(orig.id);
+}
+
+function crUpdateBodyField(id,field,value){
+  if(!crBodies.has(id))return;
+  const b=crBodies.get(id);
+  b.data[field]=value;
+  // Live update the mesh where possible
+  const {mesh,pivot,orbitLine,lightObj,data}=b;
+  if(field==='name'){crRefreshDock();const el=document.querySelector(`#ck-body-list .ck-body-item[data-id="${id}"] .ck-body-name`);if(el)el.textContent=data.name;document.getElementById('be-name-display').textContent=data.name;return}
+  if(field==='size'||field==='color'||field==='preset'||field==='planetPreset'||field==='luminosity'||field==='hasRings'||field==='ringColor'||field==='ringInner'||field==='ringOuter'||field==='count'||field==='innerR'||field==='outerR'||field==='heightVar'||field==='nebColor'||field==='density'||field==='posX'||field==='posY'||field==='posZ'||field==='tailColor'||field==='tailLength'||field==='periapsis'||field==='apoapsis'){
+    // Full rebuild for structural changes
+    crRebuildBody(id);return;
+  }
+  if(field==='orbitR'&&(data.type==='planet'||data.type==='moon')&&pivot&&mesh){
+    mesh.position.x=value;
+    // Rebuild orbit line
+    if(orbitLine){CREATOR_GROUP.remove(orbitLine);orbitLine.geometry.dispose();orbitLine.material.dispose()}
+    const pts=[];for(let i=0;i<=96;i++){const a=i/96*Math.PI*2;pts.push(new THREE.Vector3(Math.cos(a)*value,0,Math.sin(a)*value))}
+    const hexNum=parseInt((data.color||'#445566').replace('#',''),16);
+    const newLine=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:hexNum,transparent:true,opacity:.2}));
+    newLine.userData.isOrbit=true;
+    if(pivot.position)newLine.position.copy(pivot.position);
+    CREATOR_GROUP.add(newLine);b.orbitLine=newLine;
+  }
+  if(field==='orbitSpeed'){}// handled in animate
+  if(field==='rotSpeed'){}// handled in animate
+}
+
+function crRebuildBody(id){
+  if(!crBodies.has(id))return;
+  const b=crBodies.get(id);
+  const data=JSON.parse(JSON.stringify(b.data));
+  // Remove old
+  if(b.mesh)CREATOR_GROUP.remove(b.mesh);
+  if(b.pivot)CREATOR_GROUP.remove(b.pivot);
+  if(b.orbitLine)CREATOR_GROUP.remove(b.orbitLine);
+  if(b.lightObj)CREATOR_GROUP.remove(b.lightObj);
+  const ci=clickables.findIndex(c=>c._crId===id);if(ci>=0)clickables.splice(ci,1);
+  // Rebuild
+  const built=crBuildMesh(data);
+  crBodies.set(id,{data,...built});
+  if(built.mesh&&(data.type==='star'||data.type==='planet'||data.type==='moon')){
+    clickables.push({mesh:built.mesh,data:crMakeInfoData(data),pd:crMakeInfoData(data),_crId:id});
+  }
+  if(creatorSelected===id&&built.selRing)built.selRing.material.opacity=.85;
+}
+
+function crOpenEditor(id){
+  if(!crBodies.has(id))return;
+  crEditingId=id;
+  const{data}=crBodies.get(id);
+  const editor=document.getElementById('body-editor');
+  editor.classList.add('open');
+  document.getElementById('be-name-display').textContent=data.name;
+  const icons={star:'☀',planet:'🪐',moon:'🌙',belt:'⚪',comet:'☄',nebula:'🌌'};
+  document.getElementById('be-icon').textContent=icons[data.type]||'●';
+  document.getElementById('be-type-display').textContent=data.type.charAt(0).toUpperCase()+data.type.slice(1);
+  crRenderEditorBody(data);
+}
+
+function crCloseEditor(){
+  crEditingId=null;
+  document.getElementById('body-editor').classList.remove('open');
+}
+
+function crField(label,inputHtml,cls=''){
+  return`<div class="be-field ${cls}">${label}${inputHtml}</div>`;
+}
+function crLbl(text,valId=''){
+  return`<div class="be-label">${text}${valId?`<span class="be-val" id="${valId}"></span>`:''}</div>`;
+}
+function crSlider(field,min,max,step,val,valId){
+  return`<input class="be-slider" type="range" min="${min}" max="${max}" step="${step}" value="${val}" data-field="${field}" oninput="crOnSlider(this,'${valId}')">`;
+}
+function crColorField(field,val){
+  const chips=['#FF4422','#FF8833','#FFD580','#AADDFF','#88CCFF','#4488FF','#AA44FF','#FF44BB','#44FF88','#44FFBB','#EEEEFF','#CCBBAA','#887766','#555566','#222244','#FFFFFF'].map(c=>`<div class="be-preset-chip" style="background:${c}" data-color="${c}" onclick="crOnColorChip(this,'${field}','${c}')"></div>`).join('');
+  return`<div class="be-field"><div class="be-label">Color</div><div class="be-color-row"><div class="be-color-swatch" id="swatch-${field}" style="background:${val}"><input type="color" value="${val}" oninput="crOnColorPicker(this,'${field}')"></div><input class="be-color-hex" type="text" value="${val}" data-field="${field}" onchange="crOnColorHex(this,'${field}')"></div><div class="be-presets">${chips}</div></div>`;
+}
+
+function crRenderEditorBody(data){
+  const body=document.getElementById('be-body');
+  let html='';
+  // Name
+  html+=`<div class="be-field"><div class="be-label">Name</div><input class="be-input" type="text" value="${data.name}" data-field="name" oninput="crOnInput(this,'name')"></div>`;
+  if(data.type==='star'){
+    html+=`<div class="be-field"><div class="be-label">Star Type</div><select class="be-select" data-field="preset" onchange="crOnSelect(this,'preset')">${Object.keys(CR_STAR_PRESETS).map(p=>`<option${p===data.preset?' selected':''}>${p}</option>`).join('')}</select></div>`;
+    html+=`<div class="be-field">${crLbl('Size','sl-size-v')}${crSlider('size',.3,4,.05,data.size,'sl-size-v')}</div>`;
+    html+=crColorField('color',data.color||'#FFD580');
+    html+=`<div class="be-field">${crLbl('Luminosity','sl-lum-v')}${crSlider('luminosity',.1,4,.05,data.luminosity,'sl-lum-v')}</div>`;
+  } else if(data.type==='planet'){
+    html+=`<div class="be-field"><div class="be-label">Surface Type</div><select class="be-select" data-field="planetPreset" onchange="crOnSelect(this,'planetPreset')">${Object.keys(CR_PLANET_PRESETS).map(p=>`<option${p===data.planetPreset?' selected':''}>${p}</option>`).join('')}</select></div>`;
+    html+=`<div class="be-field">${crLbl('Size','sl-size-v')}${crSlider('size',.1,3,.05,data.size,'sl-size-v')}</div>`;
+    html+=crColorField('color',data.color||'#9E8070');
+    const stars=[...crBodies.values()].filter(b=>b.data.type==='star');
+    if(stars.length>1)html+=`<div class="be-field"><div class="be-label">Parent Star</div><select class="be-select" data-field="parent" onchange="crOnSelect(this,'parent')">${stars.map(s=>`<option value="${s.data.id}"${s.data.id===data.parent?' selected':''}>${s.data.name}</option>`).join('')}</select></div>`;
+    html+=`<div class="be-field">${crLbl('Orbit Radius','sl-orb-v')}${crSlider('orbitR',2,60,.5,data.orbitR,'sl-orb-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Orbit Speed','sl-spd-v')}${crSlider('orbitSpeed',.02,3,.02,data.orbitSpeed,'sl-spd-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Rotation Speed','sl-rot-v')}${crSlider('rotSpeed',-.2,.2,.005,data.rotSpeed,'sl-rot-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Inclination °','sl-inc-v')}${crSlider('inclination',-45,45,1,data.inclination||0,'sl-inc-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Axial Tilt °','sl-tlt-v')}${crSlider('axialTilt',0,90,1,data.axialTilt||0,'sl-tlt-v')}</div>`;
+    html+=`<div class="be-section-div"></div>`;
+    html+=`<div class="be-field"><div class="be-toggle-row"><span class="be-toggle-label">Rings</span><button class="be-toggle${data.hasRings?' on':''}" data-field="hasRings" onclick="crOnToggle(this,'hasRings')"></button></div></div>`;
+    if(data.hasRings){
+      html+=crColorField('ringColor',data.ringColor||'#D4C896');
+      html+=`<div class="be-field">${crLbl('Ring Inner','sl-ri-v')}${crSlider('ringInner',1.1,2,.05,data.ringInner||1.4,'sl-ri-v')}</div>`;
+      html+=`<div class="be-field">${crLbl('Ring Outer','sl-ro-v')}${crSlider('ringOuter',1.5,4,.1,data.ringOuter||2.8,'sl-ro-v')}</div>`;
+    }
+  } else if(data.type==='moon'){
+    const planets=[...crBodies.values()].filter(b=>b.data.type==='planet');
+    if(planets.length)html+=`<div class="be-field"><div class="be-label">Parent Planet</div><select class="be-select" data-field="parent" onchange="crOnSelect(this,'parent')">${planets.map(p=>`<option value="${p.data.id}"${p.data.id===data.parent?' selected':''}>${p.data.name}</option>`).join('')}</select></div>`;
+    html+=`<div class="be-field">${crLbl('Size','sl-size-v')}${crSlider('size',.05,.6,.01,data.size,'sl-size-v')}</div>`;
+    html+=crColorField('color',data.color||'#AAAAAA');
+    html+=`<div class="be-field">${crLbl('Orbit Radius','sl-orb-v')}${crSlider('orbitR',.5,5,.1,data.orbitR,'sl-orb-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Orbit Speed','sl-spd-v')}${crSlider('orbitSpeed',.1,4,.05,data.orbitSpeed,'sl-spd-v')}</div>`;
+  } else if(data.type==='belt'){
+    html+=`<div class="be-field">${crLbl('Inner Radius','sl-ir-v')}${crSlider('innerR',4,40,1,data.innerR,'sl-ir-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Outer Radius','sl-or-v')}${crSlider('outerR',6,60,1,data.outerR,'sl-or-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Particle Count','sl-cnt-v')}${crSlider('count',200,6000,100,data.count,'sl-cnt-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Height Variance','sl-hv-v')}${crSlider('heightVar',0,3,.1,data.heightVar,'sl-hv-v')}</div>`;
+    html+=crColorField('color',data.color||'#888877');
+  } else if(data.type==='comet'){
+    html+=`<div class="be-field">${crLbl('Periapsis (near)','sl-per-v')}${crSlider('periapsis',2,30,1,data.periapsis,'sl-per-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Apoapsis (far)','sl-apo-v')}${crSlider('apoapsis',10,120,2,data.apoapsis,'sl-apo-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Tail Length','sl-tl-v')}${crSlider('tailLength',1,20,.5,data.tailLength,'sl-tl-v')}</div>`;
+    html+=crColorField('tailColor',data.tailColor||'#88CCFF');
+  } else if(data.type==='nebula'){
+    html+=crColorField('nebColor',data.nebColor||'#8855FF');
+    html+=`<div class="be-field">${crLbl('Size','sl-sz-v')}${crSlider('size',5,50,1,data.size||18,'sl-sz-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Density','sl-den-v')}${crSlider('density',100,3000,50,data.density||800,'sl-den-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Position X','sl-px-v')}${crSlider('posX',-100,100,1,data.posX||0,'sl-px-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Position Y','sl-py-v')}${crSlider('posY',-50,50,1,data.posY||0,'sl-py-v')}</div>`;
+    html+=`<div class="be-field">${crLbl('Position Z','sl-pz-v')}${crSlider('posZ',-100,100,1,data.posZ||0,'sl-pz-v')}</div>`;
+  }
+  body.innerHTML=html;
+  // Initialize slider value displays
+  body.querySelectorAll('.be-slider').forEach(sl=>{
+    const valId=sl.getAttribute('oninput').match(/'([^']+)'\)/)?.[1];
+    if(valId){const el=document.getElementById(valId);if(el)el.textContent=parseFloat(sl.value).toFixed(2)}
+  });
+}
+
+// Editor event handlers (called inline)
+window.crOnInput=(el,field)=>{if(crEditingId)crUpdateBodyField(crEditingId,field,el.value)};
+window.crOnSlider=(el,valId)=>{
+  if(valId){const v=document.getElementById(valId);if(v)v.textContent=parseFloat(el.value).toFixed(2)}
+  const field=el.dataset.field;const val=parseFloat(el.value);
+  if(crEditingId)crUpdateBodyField(crEditingId,field,val);
+};
+window.crOnSelect=(el,field)=>{if(crEditingId)crUpdateBodyField(crEditingId,field,el.value)};
+window.crOnToggle=(el,field)=>{
+  el.classList.toggle('on');const val=el.classList.contains('on');
+  if(crEditingId){crUpdateBodyField(crEditingId,field,val);setTimeout(()=>crOpenEditor(crEditingId),50)}
+};
+window.crOnColorPicker=(el,field)=>{
+  const col=el.value;
+  const swatch=document.getElementById('swatch-'+field);if(swatch)swatch.style.background=col;
+  const hex=el.closest('.be-field')?.querySelector('.be-color-hex');if(hex)hex.value=col;
+  if(crEditingId)crUpdateBodyField(crEditingId,field,col);
+};
+window.crOnColorHex=(el,field)=>{
+  const col=el.value;if(!/^#[0-9A-Fa-f]{6}$/.test(col))return;
+  const swatch=document.getElementById('swatch-'+field);if(swatch)swatch.style.background=col;
+  if(crEditingId)crUpdateBodyField(crEditingId,field,col);
+};
+window.crOnColorChip=(el,field,col)=>{
+  const swatch=document.getElementById('swatch-'+field);if(swatch)swatch.style.background=col;
+  const hex=el.closest('.be-field')?.querySelector('.be-color-hex');if(hex)hex.value=col;
+  if(crEditingId)crUpdateBodyField(crEditingId,field,col);
+};
+
+function crRefreshDock(){
+  const list=document.getElementById('ck-body-list');
+  if(crBodies.size===0){list.innerHTML='<div class="ck-empty-hint">No bodies yet.<br>Add a star to begin.</div>';return}
+  const stars=[...crBodies.values()].filter(b=>b.data.type==='star');
+  const planets=[...crBodies.values()].filter(b=>b.data.type==='planet');
+  const moons=[...crBodies.values()].filter(b=>b.data.type==='moon');
+  const others=[...crBodies.values()].filter(b=>!['star','planet','moon'].includes(b.data.type));
+  const icons={star:'☀',planet:'🪐',moon:'🌙',belt:'⚪',comet:'☄',nebula:'🌌'};
+  const makeItem=(b,extraClass='')=>`<div class="ck-body-item${extraClass}" data-id="${b.data.id}" onclick="crSelectBody('${b.data.id}');crOpenEditor('${b.data.id}')">
+    <div class="ck-body-dot" style="background:${b.data.color||b.data.nebColor||b.data.tailColor||'#888'}"></div>
+    <div class="ck-body-name">${b.data.name}</div>
+    <div class="ck-body-type">${b.data.type}</div>
+    <div class="ck-body-acts">
+      <button onclick="event.stopPropagation();crDuplicateBody('${b.data.id}')" title="Duplicate">⊕</button>
+      <button onclick="event.stopPropagation();crDeleteBody('${b.data.id}')" title="Delete">✕</button>
+    </div>
+  </div>`;
+  let html='';
+  stars.forEach(b=>html+=makeItem(b));
+  planets.forEach(p=>{
+    html+=makeItem(p);
+    moons.filter(m=>m.data.parent===p.data.id).forEach(m=>html+=makeItem(m,' ck-moon-item'));
+  });
+  moons.filter(m=>!planets.some(p=>p.data.id===m.data.parent)).forEach(m=>html+=makeItem(m,' ck-moon-item'));
+  others.forEach(b=>html+=makeItem(b));
+  list.innerHTML=html;
+  // Re-apply selection
+  if(creatorSelected)document.querySelectorAll('.ck-body-item').forEach(el=>el.classList.toggle('selected',el.dataset.id===creatorSelected));
+}
+
+function crUpdateDash(){
+  const total=crBodies.size;
+  const stars=[...crBodies.values()].filter(b=>b.data.type==='star').length;
+  const belts=[...crBodies.values()].filter(b=>b.data.type==='belt').length;
+  document.getElementById('cd-bodies').textContent=total;
+  document.getElementById('cd-stars').textContent=stars;
+  document.getElementById('cd-belts').textContent=belts;
+  document.getElementById('cd-sim-lbl').textContent=creatorSimulating?'Simulating':'Editing';
+}
+
+function crExportJSON(){
+  return{name:document.getElementById('ck-sysname').value||'My System',created:Date.now(),bodies:[...crBodies.values()].map(b=>b.data)};
+}
+
+function crImportJSON(json){
+  crClearAll(false);
+  document.getElementById('ck-sysname').value=json.name||'My System';
+  json.bodies.forEach(data=>{
+    crNextId=Math.max(crNextId,parseInt(data.id.replace('b',''))+1);
+    const built=crBuildMesh(data);
+    crBodies.set(data.id,{data:{...data},...built});
+    if(built.mesh&&(data.type==='star'||data.type==='planet'||data.type==='moon')){
+      clickables.push({mesh:built.mesh,data:crMakeInfoData(data),pd:crMakeInfoData(data),_crId:data.id});
+    }
+  });
+  crRefreshDock();crUpdateDash();
+}
+
+function crSave(){
+  const json=crExportJSON();
+  const name=json.name;
+  const saves=JSON.parse(localStorage.getItem('creator-systems')||'[]');
+  const idx=saves.findIndex(s=>s.name===name);
+  if(idx>=0)saves[idx]={...json};else saves.unshift(json);
+  localStorage.setItem('creator-systems',JSON.stringify(saves.slice(0,20)));
+  showToast('💾 Saved as "'+name+'"');
+  crRenderSavesList();
+  playCreatorSave();
+}
+
+function crShare(){
+  const json=crExportJSON();
+  const enc=btoa(unescape(encodeURIComponent(JSON.stringify(json))));
+  const url=location.origin+location.pathname+'#system='+enc;
+  navigator.clipboard.writeText(url).then(()=>showToast('🔗 Link copied — share to let others fly through your system!')).catch(()=>{prompt('Copy this link:',url)});
+}
+
+function crCheckUrlHash(){
+  try{
+    const h=location.hash;
+    if(h.startsWith('#system=')){
+      const enc=h.slice(8);
+      const json=JSON.parse(decodeURIComponent(escape(atob(enc))));
+      if(json&&json.bodies){
+        setTimeout(()=>{
+          if(!creatorMode)enterCreatorMode();
+          crImportJSON(json);
+          showToast('🔗 Loaded shared system: '+json.name);
+        },1200);
+      }
+    }
+  }catch(e){}
+}
+
+function crRenderSavesList(){
+  const saves=JSON.parse(localStorage.getItem('creator-systems')||'[]');
+  const list=document.getElementById('cs-list');
+  if(!saves.length){list.innerHTML='<div class="cs-empty">No saved systems yet.</div>';return}
+  list.innerHTML=saves.map((s,i)=>`<div class="cs-item" onclick="crLoadSave(${i})">
+    <div class="cs-item-info"><div class="cs-item-name">${s.name}</div><div class="cs-item-meta">${s.bodies.length} bodies · ${new Date(s.created).toLocaleDateString()}</div></div>
+    <button class="cs-item-del" onclick="event.stopPropagation();crDeleteSave(${i})" title="Delete">✕</button>
+  </div>`).join('');
+}
+
+window.crLoadSave=(idx)=>{
+  const saves=JSON.parse(localStorage.getItem('creator-systems')||'[]');
+  if(saves[idx]){crImportJSON(saves[idx]);showToast('📂 Loaded: '+saves[idx].name);document.getElementById('creator-saves').classList.remove('open')}
+};
+window.crDeleteSave=(idx)=>{
+  const saves=JSON.parse(localStorage.getItem('creator-systems')||'[]');
+  saves.splice(idx,1);localStorage.setItem('creator-systems',JSON.stringify(saves));crRenderSavesList();
+};
+
+function crClearAll(confirm2=true){
+  if(confirm2&&crBodies.size>0&&!confirm('Clear all bodies?'))return;
+  crPushUndo();
+  [...crBodies.keys()].forEach(id=>{
+    const b=crBodies.get(id);
+    if(b.mesh)CREATOR_GROUP.remove(b.mesh);if(b.pivot)CREATOR_GROUP.remove(b.pivot);
+    if(b.orbitLine)CREATOR_GROUP.remove(b.orbitLine);if(b.lightObj)CREATOR_GROUP.remove(b.lightObj);
+    const ci=clickables.findIndex(c=>c._crId===id);if(ci>=0)clickables.splice(ci,1);
+  });
+  crBodies.clear();creatorSelected=null;crEditingId=null;
+  crCloseEditor();crRefreshDock();crUpdateDash();
+}
+
+function crPushUndo(){
+  const state=JSON.stringify([...crBodies.values()].map(b=>b.data));
+  crUndo.push(state);if(crUndo.length>30)crUndo.shift();crRedo.length=0;
+}
+
+function crUndo2(){
+  if(!crUndo.length)return;
+  const cur=JSON.stringify([...crBodies.values()].map(b=>b.data));
+  crRedo.push(cur);
+  const prev=JSON.parse(crUndo.pop());
+  crImportJSON({name:document.getElementById('ck-sysname').value,bodies:prev});
+  showToast('↩ Undo');
+}
+
+function crRedo2(){
+  if(!crRedo.length)return;
+  const prev=JSON.parse(crRedo.pop());
+  crPushUndo();
+  crImportJSON({name:document.getElementById('ck-sysname').value,bodies:prev});
+  showToast('↪ Redo');
+}
+
+// Presets
+const CR_PRESETS=[
+  {name:'Binary Drift',desc:'Two stars orbiting each other with 3 planets.',bodies:[
+    {id:'s0',type:'star',name:'Alpha',preset:'G-type',size:1.1,color:'#FFD580',luminosity:1.2},
+    {id:'s1',type:'star',name:'Beta',preset:'K-type',size:.8,color:'#FFAA55',luminosity:.7},
+    {id:'p0',type:'planet',name:'Pyrene',planetPreset:'Rocky',size:.5,color:'#C8923A',orbitR:14,orbitSpeed:.35,eccentricity:0,inclination:0,rotSpeed:.04,axialTilt:12,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'p1',type:'planet',name:'Valcea',planetPreset:'Earth-like',size:.65,color:'#2E86AB',orbitR:22,orbitSpeed:.22,eccentricity:.1,inclination:5,rotSpeed:.05,axialTilt:23,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'p2',type:'planet',name:'Glauca',planetPreset:'Ice Giant',size:1.0,color:'#7DE8E8',orbitR:36,orbitSpeed:.12,eccentricity:.05,inclination:3,rotSpeed:.09,axialTilt:97,hasRings:true,ringColor:'#AACCEE',ringInner:1.3,ringOuter:2.5,parent:'s0'}
+  ]},
+  {name:'Hot Jupiter',desc:'One star with a massive gas giant in tight orbit.',bodies:[
+    {id:'s0',type:'star',name:'Torva',preset:'G-type',size:1.3,color:'#FFE090',luminosity:1.5},
+    {id:'p0',type:'planet',name:'Behemoth',planetPreset:'Gas Giant',size:1.8,color:'#C88B3A',orbitR:4,orbitSpeed:1.8,eccentricity:.05,inclination:0,rotSpeed:.2,axialTilt:5,hasRings:true,ringColor:'#C8A870',ringInner:1.2,ringOuter:2.2,parent:'s0'},
+    {id:'b0',type:'belt',name:'Debris Ring',innerR:8,outerR:12,count:1500,color:'#887766',heightVar:.2,parent:'s0'}
+  ]},
+  {name:'Pulsar Garden',desc:'Neutron star with dense asteroid rings.',bodies:[
+    {id:'s0',type:'star',name:'PSR-J001',preset:'Neutron Star',size:.6,color:'#CCDDFF',luminosity:3.5},
+    {id:'b0',type:'belt',name:'Inner Ring',innerR:3,outerR:6,count:3000,color:'#8899BB',heightVar:1.2,parent:'s0'},
+    {id:'b1',type:'belt',name:'Outer Ring',innerR:9,outerR:14,count:2000,color:'#667799',heightVar:.5,parent:'s0'},
+    {id:'n0',type:'nebula',name:'Remnant Cloud',nebColor:'#4488BB',size:25,density:1200,posX:0,posY:0,posZ:0}
+  ]},
+  {name:'Tatooine',desc:'Binary suns with a desert planet and two moons.',bodies:[
+    {id:'s0',type:'star',name:'Tatoo I',preset:'G-type',size:1.0,color:'#FFD060',luminosity:1.0},
+    {id:'s1',type:'star',name:'Tatoo II',preset:'K-type',size:.75,color:'#FFAA44',luminosity:.6},
+    {id:'p0',type:'planet',name:'Tatooine',planetPreset:'Desert',size:.55,color:'#C8923A',orbitR:18,orbitSpeed:.28,eccentricity:.15,inclination:3,rotSpeed:.04,axialTilt:5,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'m0',type:'moon',name:'Ghomrassen',size:.08,color:'#B09070',orbitR:1.2,orbitSpeed:2.2,rotSpeed:.01,parent:'p0'},
+    {id:'m1',type:'moon',name:'Chenini',size:.06,color:'#998866',orbitR:1.8,orbitSpeed:1.4,rotSpeed:.01,parent:'p0'}
+  ]},
+  {name:'Nebula Cradle',desc:'Two young stars shrouded in colourful nebula clouds.',bodies:[
+    {id:'s0',type:'star',name:'Nebulax A',preset:'Blue Giant',size:1.6,color:'#AADDFF',luminosity:2.5},
+    {id:'s1',type:'star',name:'Nebulax B',preset:'Blue Giant',size:1.2,color:'#88BBFF',luminosity:1.8},
+    {id:'n0',type:'nebula',name:'Azure Cloud',nebColor:'#4488FF',size:35,density:1500,posX:0,posY:8,posZ:0},
+    {id:'n1',type:'nebula',name:'Violet Shroud',nebColor:'#8855FF',size:28,density:900,posX:20,posY:-5,posZ:10},
+    {id:'p0',type:'planet',name:'Cribella',planetPreset:'Ocean',size:.7,color:'#2244AA',orbitR:16,orbitSpeed:.25,eccentricity:.05,inclination:8,rotSpeed:.06,axialTilt:20,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'}
+  ]},
+  {name:'Miniature Solar System',desc:'A compact version of our Solar System to get started.',bodies:[
+    {id:'s0',type:'star',name:'Sol',preset:'G-type',size:1.2,color:'#FFD580',luminosity:1.0},
+    {id:'p0',type:'planet',name:'Mercurio',planetPreset:'Rocky',size:.28,color:'#9E8070',orbitR:5,orbitSpeed:.8,eccentricity:.1,inclination:0,rotSpeed:.012,axialTilt:0,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'p1',type:'planet',name:'Eartha',planetPreset:'Earth-like',size:.5,color:'#2E86AB',orbitR:11,orbitSpeed:.44,eccentricity:0,inclination:0,rotSpeed:.05,axialTilt:23,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'p2',type:'planet',name:'Jovia',planetPreset:'Gas Giant',size:1.35,color:'#C88B3A',orbitR:22,orbitSpeed:.2,eccentricity:.05,inclination:1,rotSpeed:.12,axialTilt:3,hasRings:false,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'p3',type:'planet',name:'Saturnia',planetPreset:'Gas Giant',size:1.1,color:'#E4D191',orbitR:32,orbitSpeed:.13,eccentricity:.05,inclination:2,rotSpeed:.1,axialTilt:27,hasRings:true,ringColor:'#D4C896',ringInner:1.4,ringOuter:2.8,parent:'s0'},
+    {id:'b0',type:'belt',name:'Asteroid Belt',innerR:15,outerR:17,count:2000,color:'#887766',heightVar:.3,parent:'s0'}
+  ]}
+];
+
+function crRenderPresets(){
+  const list=document.getElementById('cp2-list');
+  list.innerHTML=CR_PRESETS.map((p,i)=>`<div class="cp2-item" onclick="crLoadPreset(${i})"><div class="cp2-name">${p.name}</div><div class="cp2-desc">${p.desc}</div></div>`).join('');
+}
+window.crLoadPreset=(i)=>{
+  const p=CR_PRESETS[i];
+  if(crBodies.size&&!confirm('Load preset? This will replace the current system.'))return;
+  crImportJSON({name:p.name,bodies:p.bodies.map(d=>({...d}))});
+  document.getElementById('creator-presets').classList.remove('open');
+  showToast('📚 Loaded preset: '+p.name);
+};
+
+// Creator simulate loop
+function updateCreatorSim(){
+  if(!creatorMode||!creatorSimulating)return;
+  const dt=timeScale*(paused?0:1);
+  crBodies.forEach(b=>{
+    const{data,pivot,mesh}=b;
+    if(pivot&&(data.type==='planet'||data.type==='moon')){
+      pivot.rotation.y+=data.orbitSpeed*.006*dt;
+    }
+    if(mesh&&(data.type==='planet'||data.type==='moon')&&data.rotSpeed){
+      mesh.rotation.y+=data.rotSpeed*dt;
+    }
+    // Pulsing selection ring
+    if(creatorSelected===data.id&&b.selRing){
+      const t=performance.now()*.002;
+      b.selRing.material.opacity=.6+Math.sin(t*2)*.25;
+      const s=1+Math.sin(t*2)*.03;
+      b.selRing.scale.setScalar(s);
+    }
+  });
+}
+
+// Enter pilot mode from creator
+function crEnterPilot(bombMode2=false){
+  if(crBodies.size===0){showToast('Add some bodies first!');return}
+  crFromCreator=true;crBombMode=bombMode2;
+  document.getElementById('creator-dock').classList.remove('open');
+  document.getElementById('body-editor').classList.remove('open');
+  document.getElementById('creator-dash').classList.remove('show');
+  document.getElementById('creator-banner').classList.remove('show');
+  document.getElementById('creator-back').classList.add('show');
+  document.getElementById('sb-keys').classList.add('show');
+  // Enter pilot
+  sandboxMode=true;
+  document.documentElement.setAttribute('data-sandbox','1');
+  document.getElementById('sandbox-banner').textContent=bombMode2?'⚠ BOMB MODE — CUSTOM SYSTEM ⚠':'⚠ Pilot — Custom System ⚠';
+  document.getElementById('sandbox-banner').classList.add('show');
+  document.getElementById('weapons-hud').classList.add('show');
+  document.getElementById('sb-ship-status').classList.add('show');
+  initAudio();
+  // Spawn at first star or origin
+  const firstStar=[...crBodies.values()].find(b=>b.data.type==='star');
+  const spawnPos=firstStar&&firstStar.mesh?firstStar.mesh.position.clone().add(new THREE.Vector3(5,2,0)):new THREE.Vector3(5,2,0);
+  ship=buildShip(spawnPos);shipVel.set(0,0,0);
+  if(bombMode2){currentWeapon=3}
+  showToast(bombMode2?'💥 Bomb Mode active — unlimited ammo!':'🚀 Flying through your custom system · Esc → back to creator');
+}
+
+function crExitPilot(){
+  crFromCreator=false;
+  sandboxMode=false;
+  document.documentElement.removeAttribute('data-sandbox');
+  document.getElementById('sandbox-banner').textContent='⚠ Sandbox Mode Active ⚠';
+  document.getElementById('sandbox-banner').classList.remove('show');
+  document.getElementById('weapons-hud').classList.remove('show');
+  document.getElementById('sb-ship-status').classList.remove('show');
+  document.getElementById('sb-keys').classList.remove('show');
+  document.getElementById('creator-back').classList.remove('show');
+  if(ship){scene.remove(ship);ship=null}
+  projectiles.forEach(p=>scene.remove(p.mesh));bombs.forEach(b=>scene.remove(b.mesh));
+  projectiles.length=0;bombs.length=0;
+  restoreAllPlanets();
+  // Restore creator UI
+  document.getElementById('creator-dock').classList.add('open');
+  document.getElementById('creator-dash').classList.add('show');
+  document.getElementById('creator-banner').classList.add('show');
+  crUpdateDash();
+}
+
+// Enter / Exit Creator mode
+function enterCreatorMode(){
+  creatorMode=true;
+  // Hide main solar system orbit lines temporarily
+  scene.children.forEach(c=>{if(c.userData.isOrbit)c.visible=false});
+  // Hide existing PLANETS labels temporarily (they still exist)
+  document.getElementById('creator-dock').classList.add('open');
+  document.getElementById('creator-dash').classList.add('show');
+  document.getElementById('creator-banner').classList.add('show');
+  document.getElementById('sandbox-btn').classList.add('active');
+  document.getElementById('sandbox-btn').textContent='🪐 Creating';
+  // Move camera to a nice creation view
+  tR=55;tTheta=.5;tPhi=1.05;tLookTarget.set(0,0,0);
+  crRenderPresets();crRenderSavesList();
+  showToast('🪐 Creator Mode · Add bodies with the left panel');
+}
+
+function exitCreatorMode(){
+  if(sandboxMode&&crFromCreator)crExitPilot();
+  creatorMode=false;crFromCreator=false;
+  // Restore orbit lines
+  scene.children.forEach(c=>{if(c.userData.isOrbit&&(typeof settings==='undefined'||settings.orbits))c.visible=true});
+  // Clear creator scene
+  crClearAll(false);
+  document.getElementById('creator-dock').classList.remove('open');
+  document.getElementById('body-editor').classList.remove('open');
+  document.getElementById('creator-dash').classList.remove('show');
+  document.getElementById('creator-banner').classList.remove('show');
+  document.getElementById('creator-presets').classList.remove('open');
+  document.getElementById('creator-saves').classList.remove('open');
+  document.getElementById('creator-back').classList.remove('show');
+  document.getElementById('sandbox-btn').classList.remove('active');
+  document.getElementById('sandbox-btn').textContent='🎮 Sandbox';
+  creatorSelected=null;crEditingId=null;crNextId=0;crUndo.length=0;crRedo.length=0;
+}
+
+// Audio helpers for creator
+function playCreatorChime(){
+  if(!audioCtx)return;
+  try{[440,550,660].forEach((f,i)=>{const o=audioCtx.createOscillator();o.type='sine';o.frequency.value=f;const g=audioCtx.createGain();g.gain.setValueAtTime(0,audioCtx.currentTime+i*.08);g.gain.linearRampToValueAtTime(.06,audioCtx.currentTime+i*.08+.04);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+i*.08+.3);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+i*.08+.35)})}catch(e){}
+}
+function playCreatorDelete(){
+  if(!audioCtx)return;
+  try{const o=audioCtx.createOscillator();o.type='sawtooth';o.frequency.setValueAtTime(300,audioCtx.currentTime);o.frequency.linearRampToValueAtTime(80,audioCtx.currentTime+.25);const g=audioCtx.createGain();g.gain.setValueAtTime(.06,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+.3);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.35)}catch(e){}
+}
+function playCreatorSave(){
+  if(!audioCtx)return;
+  try{const o=audioCtx.createOscillator();o.type='sine';o.frequency.value=880;const g=audioCtx.createGain();g.gain.setValueAtTime(.07,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+.4);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+.45)}catch(e){}
+}
+
+// Wire up choice modal
+document.getElementById('sb-choose-pilot').addEventListener('click',()=>{
+  document.getElementById('sb-choice').classList.remove('show');
+  _enterPilotSandbox();
+});
+document.getElementById('sb-choose-create').addEventListener('click',()=>{
+  document.getElementById('sb-choice').classList.remove('show');
+  initAudio();
+  if(!creatorMode)enterCreatorMode();
+});
+document.getElementById('sb-choice-cancel').addEventListener('click',()=>{
+  document.getElementById('sb-choice').classList.remove('show');
+});
+
+// Dock buttons
+document.getElementById('ck-sysname').addEventListener('input',e=>{});// just for UX, name read on export
+document.getElementById('ck-sim-btn').addEventListener('click',()=>{
+  creatorSimulating=!creatorSimulating;
+  document.getElementById('ck-sim-btn').classList.toggle('on',creatorSimulating);
+  document.getElementById('ck-sim-btn').textContent=creatorSimulating?'⏸ Pause Sim':'▶ Simulate';
+  crUpdateDash();
+});
+document.getElementById('ck-save-btn').addEventListener('click',()=>{initAudio();crSave()});
+document.getElementById('ck-share-btn').addEventListener('click',crShare);
+document.getElementById('ck-pilot-btn').addEventListener('click',()=>{initAudio();crEnterPilot(false)});
+document.getElementById('ck-bomb-btn').addEventListener('click',()=>{initAudio();crEnterPilot(true)});
+document.getElementById('ck-clear-btn').addEventListener('click',()=>crClearAll(true));
+document.getElementById('ck-presets-btn').addEventListener('click',()=>{
+  const p=document.getElementById('creator-presets');p.classList.toggle('open');
+  document.getElementById('creator-saves').classList.remove('open');
+});
+document.querySelectorAll('.ck-add-btn').forEach(btn=>btn.addEventListener('click',()=>{initAudio();crAddBody(btn.dataset.type)}));
+
+// Collapse dock
+let dockCollapsed=false;
+document.getElementById('ck-collapse').addEventListener('click',()=>{
+  dockCollapsed=!dockCollapsed;
+  document.getElementById('creator-dock').classList.toggle('collapsed',dockCollapsed);
+  document.getElementById('ck-collapse').textContent=dockCollapsed?'▶':'◀';
+});
+
+// Body editor buttons
+document.getElementById('be-close').addEventListener('click',()=>{crCloseEditor();crDeselectAll()});
+document.getElementById('be-del-btn').addEventListener('click',()=>{if(crEditingId)crDeleteBody(crEditingId)});
+document.getElementById('be-dup-btn').addEventListener('click',()=>{if(crEditingId)crDuplicateBody(crEditingId)});
+
+// Presets / saves close
+document.getElementById('cp2-close').addEventListener('click',()=>document.getElementById('creator-presets').classList.remove('open'));
+document.getElementById('cs-close').addEventListener('click',()=>document.getElementById('creator-saves').classList.remove('open'));
+
+// Creator back button (from pilot to creator)
+document.getElementById('creator-back').addEventListener('click',()=>crExitPilot());
+
+// Esc handling (add to existing esc or add new)
+window.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('sb-choice').classList.contains('show')){document.getElementById('sb-choice').classList.remove('show');return}
+    if(creatorMode&&crFromCreator){crExitPilot();return}
+    if(creatorMode&&crEditingId){crCloseEditor();crDeselectAll();return}
+    if(creatorMode&&!sandboxMode){exitCreatorMode();return}
+  }
+  if(creatorMode&&!sandboxMode){
+    if((e.metaKey||e.ctrlKey)&&e.shiftKey&&e.key==='z'){e.preventDefault();crRedo2();return}
+    if((e.metaKey||e.ctrlKey)&&e.key==='z'){e.preventDefault();crUndo2();return}
+  }
+});
+
+// Click on creator meshes in scene
+// (handled via existing raycaster/clickables — crMakeInfoData wires into info panel)
+
+// Check for shared system in URL on load
+setTimeout(crCheckUrlHash,600);
 
 function updateSandbox(){
   if(!sandboxMode||!ship)return;
