@@ -538,6 +538,70 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
 .onb-card.c2{animation:onbFC .55s cubic-bezier(.22,1,.36,1) 4.5s forwards,onbO .5s ease-in 8s forwards}
 @keyframes onbFC{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}
 @keyframes onbO{to{opacity:0}}
+
+/* ── History Panel ── */
+#hp-toggle{font-family:var(--fd);font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;background:oklch(14% .015 250);border:1px solid var(--brd2);border-radius:var(--r-sm);color:var(--dim);cursor:pointer;transition:all .15s;white-space:nowrap}
+#hp-toggle:hover{background:var(--brd);color:var(--tx)}
+#hp-toggle.active{background:oklch(75% .18 70/.15);border-color:var(--acc);color:var(--acc)}
+#history-panel{position:fixed;bottom:48px;left:0;right:0;z-index:20;background:oklch(7% .022 250/.98);border-top:1px solid var(--brd);padding:14px 20px;transform:translateY(100%);transition:transform .4s cubic-bezier(.22,1,.36,1);max-height:220px}
+#history-panel.open{transform:translateY(0)}
+#history-panel h4{font-family:var(--fd);font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:10px}
+#hp-grid{display:flex;flex-wrap:wrap;gap:7px;overflow-y:auto;max-height:160px}
+.hp-card{font-family:var(--fd);font-size:.6rem;cursor:pointer;padding:7px 11px;background:oklch(10% .022 250);border:1px solid var(--brd2);border-radius:var(--r-sm);transition:all .18s;min-width:130px;max-width:200px}
+.hp-card:hover{border-color:var(--acc);background:oklch(75% .18 70/.1);color:var(--acc)}
+.hp-date{font-size:.56rem;color:var(--dim);letter-spacing:.1em;margin-bottom:3px}
+.hp-name{font-weight:700;letter-spacing:.06em;color:var(--tx);line-height:1.3}
+
+/* ── Chart Overlay ── */
+#chart-overlay{position:fixed;inset:0;z-index:55;background:oklch(4% .025 250/.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
+#chart-overlay.open{display:flex}
+#chart-card{background:oklch(8% .022 250);border:1px solid var(--brd);border-radius:var(--r-lg);padding:28px 32px;width:min(900px,94vw);max-height:88vh;overflow:hidden;display:flex;flex-direction:column;gap:16px}
+.chart-hdr{display:flex;align-items:center;gap:12px}
+.chart-hdr h3{font-family:var(--fd);font-size:.9rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);flex:1}
+.chart-tabs{display:flex;gap:6px}
+.chart-tab{font-family:var(--fd);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 14px;background:var(--brd2);border:1px solid var(--brd);border-radius:var(--r-sm);color:var(--dim);cursor:pointer;transition:all .15s}
+.chart-tab.active{background:oklch(75% .18 70/.15);border-color:var(--acc);color:var(--acc)}
+#chart-close{width:28px;height:28px;border-radius:50%;background:var(--brd2);border:1px solid var(--brd);color:var(--dim);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center;font-family:var(--fd);transition:all .2s}
+#chart-close:hover{background:var(--brd);color:var(--tx)}
+#chart-body{flex:1;overflow:auto}
+#size-tab{display:flex;align-items:flex-end;gap:14px;padding:16px 0;flex-wrap:wrap;justify-content:center}
+.sz-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:opacity .2s}
+.sz-item:hover{opacity:.75}
+.sz-circle{border-radius:50%;flex-shrink:0}
+.sz-name{font-family:var(--fd);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:center}
+#data-tab{display:none}
+#data-tab table{width:100%;border-collapse:collapse;font-size:.72rem}
+#data-tab th{font-family:var(--fd);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:8px 12px;text-align:left;border-bottom:1px solid var(--brd2);cursor:pointer;user-select:none;white-space:nowrap}
+#data-tab th:hover{color:var(--acc)}
+#data-tab td{padding:8px 12px;border-bottom:1px solid oklch(15% .01 250);color:var(--tx);font-family:var(--fd);font-size:.7rem;letter-spacing:.04em}
+#data-tab tr:hover td{background:oklch(75% .18 70/.06)}
+
+/* ── Quiz Card ── */
+#quiz-card{position:fixed;bottom:56px;right:24px;z-index:40;width:320px;background:oklch(8% .022 250/.98);border:1px solid var(--brd);border-radius:var(--r-lg);padding:20px;transform:translateY(calc(100% + 64px));transition:transform .4s cubic-bezier(.22,1,.36,1)}
+#quiz-card.open{transform:translateY(0)}
+.qz-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.qz-hdr h4{font-family:var(--fd);font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+#quiz-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:1rem;font-family:var(--fd)}
+#quiz-close:hover{color:var(--tx)}
+#quiz-progress{font-family:var(--fd);font-size:.58rem;color:var(--dim);letter-spacing:.08em;margin-bottom:4px}
+#quiz-q{font-size:.84rem;line-height:1.5;color:var(--tx);margin-bottom:14px;min-height:42px}
+.qz-opts{display:flex;flex-direction:column;gap:7px;margin-bottom:12px}
+.qz-opt{font-family:var(--fd);font-size:.7rem;letter-spacing:.06em;padding:9px 13px;background:oklch(11% .02 250);border:1px solid var(--brd2);border-radius:var(--r-sm);cursor:pointer;text-align:left;color:var(--tx);transition:all .15s}
+.qz-opt:hover:not(:disabled){border-color:var(--acc);background:oklch(75% .18 70/.1);color:var(--acc)}
+.qz-opt.correct{border-color:oklch(70% .19 145);background:oklch(70% .19 145/.12);color:oklch(75% .2 145)}
+.qz-opt.wrong{border-color:oklch(60% .22 25);background:oklch(60% .22 25/.12);color:oklch(70% .22 25)}
+.qz-opt:disabled{cursor:default;opacity:.7}
+#quiz-fact{font-size:.72rem;color:var(--dim);line-height:1.5;margin-bottom:10px;display:none;font-style:italic}
+#quiz-next{font-family:var(--fd);font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:8px 18px;background:oklch(75% .18 70/.15);border:1px solid var(--acc);border-radius:var(--r-sm);color:var(--acc);cursor:pointer;display:none;transition:all .2s}
+#quiz-next:hover{background:oklch(75% .18 70/.28)}
+.qz-score{font-family:var(--fd);text-align:center;padding:10px 0}
+.qz-grade{font-size:3rem;font-weight:700;margin-bottom:6px}
+.qz-score-sub{font-size:.8rem;color:var(--dim);letter-spacing:.1em}
+#quiz-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;background:oklch(60% .22 25);border-radius:50%;border:2px solid oklch(8% .022 250);display:none;animation:badgePulse 1.5s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 0 0 oklch(60% .22 25/.7)}50%{box-shadow:0 0 0 5px oklch(60% .22 25/.0)}}
+
+/* ── Habitable Zone Ring ── */
+/* (handled via Three.js mesh, no extra CSS needed) */
 </style>
 </head>
 <body class="grab">
@@ -578,6 +642,8 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
   <div id="top-btns">
     <button class="hdr-btn" id="scale-btn">⬡ Realistic Scale</button>
     <button class="hdr-btn" id="compare-btn">◎ Compare Mode</button>
+    <button class="hdr-btn" id="chart-btn">◉ Scale Chart</button>
+    <div style="position:relative;display:inline-block"><button class="hdr-btn" id="quiz-btn">? Quiz</button><div id="quiz-badge"></div></div>
     <button id="warp-btn">🚀 Travel to TRAPPIST-1</button>
     <button id="sandbox-btn">🎮 Sandbox</button>
     <button id="restore-btn">↺ Restore Planets</button>
@@ -634,6 +700,8 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
   <div class="set-row on" data-toggle="labels"><span>Labels</span><div class="set-toggle"></div></div>
   <div class="set-row on" data-toggle="audio"><span>Audio</span><div class="set-toggle"></div></div>
   <div class="set-row on" data-toggle="lens"><span>Lens Flare</span><div class="set-toggle"></div></div>
+  <div class="set-row" data-toggle="habzone"><span>Habitable Zone</span><div class="set-toggle"></div></div>
+  <div class="set-row" data-toggle="constellations"><span>Constellations</span><div class="set-toggle"></div></div>
 </div>
 
 <div id="bm-panel">
@@ -775,6 +843,37 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
 
 <div id="onb"></div>
 
+<!-- ── CHART OVERLAY ── -->
+<div id="chart-overlay">
+  <div id="chart-card">
+    <div class="chart-hdr">
+      <h3>Scale &amp; Data</h3>
+      <div class="chart-tabs">
+        <button class="chart-tab active" id="chart-tab-size">Size</button>
+        <button class="chart-tab" id="chart-tab-data">Data</button>
+      </div>
+      <button id="chart-close">✕</button>
+    </div>
+    <div id="chart-body">
+      <div id="size-tab"></div>
+      <div id="data-tab"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── QUIZ CARD ── -->
+<div id="quiz-card">
+  <div class="qz-hdr">
+    <h4>Solar Quiz</h4>
+    <button id="quiz-close">✕</button>
+  </div>
+  <div id="quiz-progress">Q 1 / 20</div>
+  <div id="quiz-q"></div>
+  <div class="qz-opts" id="quiz-opts"></div>
+  <div id="quiz-fact"></div>
+  <button id="quiz-next">Next →</button>
+</div>
+
 <div id="load-scr">
   <div class="ld-title">Booting Solar System</div>
   <div class="ld-bar"></div>
@@ -785,6 +884,11 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
   <div class="key w">W</div><div class="key a">A</div><div class="key s">S</div><div class="key d">D</div>
 </div>
 <div id="wasd-lbl">Navigate</div>
+
+<div id="history-panel">
+  <h4>Historical Events</h4>
+  <div id="hp-grid"></div>
+</div>
 
 <div id="time-bar">
   <span class="t-label">Time</span>
@@ -798,6 +902,7 @@ html[data-sandbox] #scan-line{background:linear-gradient(180deg,transparent,oklc
   <button class="sp-btn" data-sp="4">Fast</button>
   <span class="tsep">·</span>
   <span id="t-date">—</span>
+  <button id="hp-toggle" class="tbtn">⏳ Events</button>
 </div>
 
 <div id="scroll-hint">
@@ -1754,7 +1859,7 @@ function updateDistHud(){
 }
 
 // ════════ SETTINGS ════════
-const settings={stars:true,orbits:true,labels:true,audio:true,lens:true};
+const settings={stars:true,orbits:true,labels:true,audio:true,lens:true,habzone:false,constellations:false};
 document.getElementById('settings-btn').addEventListener('click',e=>{
   e.stopPropagation();
   document.getElementById('settings-menu').classList.toggle('open');
@@ -3375,6 +3480,320 @@ window.addEventListener('keydown',e=>{
 
 // HUD update interval
 setInterval(()=>{drawMmap();updateDistHud();updateCockpit()},100);
+
+// ════════ FEATURE 1: HISTORICAL EVENTS TIMELINE ════════
+const HISTORY_EVENTS=[
+  {date:'1969-07-20',name:'Apollo 11 Moon Landing',desc:'Neil Armstrong and Buzz Aldrin become the first humans to walk on the Moon.',planet:'Moon',y:1969,mo:7,d:20},
+  {date:'1977-09-05',name:'Voyager 1 Launch',desc:'NASA launches Voyager 1, which will eventually become the first human-made object to reach interstellar space.',planet:'Jupiter',y:1977,mo:9,d:5},
+  {date:'1986-02-09',name:"Halley's Comet Perihelion",desc:"Halley's Comet reaches its closest point to the Sun, visible to observers on Earth.",planet:'Saturn',y:1986,mo:2,d:9},
+  {date:'1994-07-16',name:'Shoemaker-Levy 9 Impact',desc:'Comet Shoemaker-Levy 9 crashes into Jupiter in the first observed collision of two Solar System objects.',planet:'Jupiter',y:1994,mo:7,d:16},
+  {date:'2004-07-01',name:'Cassini Arrives at Saturn',desc:'The Cassini spacecraft enters orbit around Saturn, beginning a 13-year mission of discovery.',planet:'Saturn',y:2004,mo:7,d:1},
+  {date:'2015-07-14',name:'New Horizons Pluto Flyby',desc:'New Horizons spacecraft makes the first close flyby of Pluto, revealing mountains, plains and a heart-shaped nitrogen ice region.',planet:'Neptune',y:2015,mo:7,d:14},
+  {date:'2020-12-21',name:'Great Conjunction',desc:'Jupiter and Saturn appear closer together in the sky than they have since 1623, a spectacular double planet conjunction.',planet:'Jupiter',y:2020,mo:12,d:21},
+  {date:'2021-12-25',name:'James Webb Space Telescope Launch',desc:'JWST launches on Christmas Day, destined to become the most powerful space telescope ever built.',planet:'Earth',y:2021,mo:12,d:25},
+  {date:'2024-04-08',name:'Total Solar Eclipse',desc:'A total solar eclipse crosses North America, from Mexico through the United States and Canada.',planet:'Earth',y:2024,mo:4,d:8},
+  {date:'1990-04-24',name:'Hubble Space Telescope Launch',desc:'NASA launches the Hubble Space Telescope, transforming our view of the universe.',planet:'Earth',y:1990,mo:4,d:24},
+  {date:'2006-08-24',name:'Pluto Reclassified',desc:"The IAU redefines 'planet', demoting Pluto to dwarf planet status.",planet:'Neptune',y:2006,mo:8,d:24},
+  {date:'1610-01-07',name:'Galileo Discovers Jupiter Moons',desc:'Galileo Galilei observes four moons orbiting Jupiter, proving not everything orbits Earth.',planet:'Jupiter',y:1610,mo:1,d:7},
+  {date:'1781-03-13',name:'Uranus Discovered',desc:"William Herschel discovers Uranus, the first planet found with a telescope, doubling the known size of the Solar System.",planet:'Uranus',y:1781,mo:3,d:13},
+  {date:'1846-09-23',name:'Neptune Discovered',desc:'Neptune is discovered using mathematical predictions — the first planet found by calculation rather than observation.',planet:'Neptune',y:1846,mo:9,d:23},
+  {date:'2012-08-25',name:'Voyager 1 Enters Interstellar Space',desc:'Voyager 1 becomes the first human-made object to leave the heliosphere and enter interstellar space.',planet:'Jupiter',y:2012,mo:8,d:25},
+];
+(function buildHpGrid(){
+  const grid=document.getElementById('hp-grid');
+  HISTORY_EVENTS.forEach(ev=>{
+    const card=document.createElement('div');card.className='hp-card';
+    card.innerHTML=`<div class="hp-date">${ev.date}</div><div class="hp-name">${ev.name}</div>`;
+    card.addEventListener('click',()=>{
+      simDate=new Date(ev.y,ev.mo-1,ev.d);
+      const target=PLANETS.find(p=>p.name===ev.planet)||PLANETS[2];
+      const wp=new THREE.Vector3();target.mesh.getWorldPosition(wp);
+      tLookTarget.copy(wp);tR=30;
+      document.getElementById('history-panel').classList.remove('open');
+      document.getElementById('hp-toggle').classList.remove('active');
+      showToast('📅 '+ev.name+' — '+ev.desc.substring(0,80)+'…');
+    });
+    grid.appendChild(card);
+  });
+})();
+document.getElementById('hp-toggle').addEventListener('click',()=>{
+  const panel=document.getElementById('history-panel');
+  const btn=document.getElementById('hp-toggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active',panel.classList.contains('open'));
+});
+
+// ════════ FEATURE 2: CONSTELLATION OVERLAY ════════
+const CONSTELLATIONS=[
+  {name:'Orion',stars:[[.4,-.2,.9],[.5,0,.87],[.35,.1,.93],[.55,.1,.84],[.3,.3,.91],[.6,.3,.81]]},
+  {name:'Ursa Major',stars:[[-.6,.4,.7],[-.5,.45,.74],[-.4,.5,.77],[-.3,.52,.8],[-.2,.5,.84],[-.1,.48,.88],[-.15,.35,.92]]},
+  {name:'Cassiopeia',stars:[[-.8,.6,.2],[-.7,.65,.28],[-.6,.6,.55],[-.5,.65,.56],[-.4,.6,.7]]},
+  {name:'Leo',stars:[[.7,.3,.64],[.75,.2,.63],[.8,.1,.6],[.85,.2,.49],[.88,.35,.32],[.78,.4,.48]]},
+  {name:'Scorpius',stars:[[.1,-.5,.86],[.15,-.55,.82],[.2,-.6,.78],[.25,-.55,.79],[.3,-.45,.83],[.35,-.3,.89]]},
+  {name:'Gemini',stars:[[.6,.5,.62],[.65,.55,.52],[.55,.6,.58],[.6,.65,.45],[.65,.4,.65],[.7,.35,.63]]},
+  {name:'Cygnus',stars:[[-.3,.6,.74],[-.25,.55,.8],[-.2,.5,.84],[-.15,.45,.88],[-.25,.65,.71],[-.35,.5,.79]]},
+  {name:'Aquila',stars:[[.2,.1,.97],[.25,.15,.96],[.3,.1,.95],[.22,.2,.95],[.28,.05,.96]]},
+  {name:'Perseus',stars:[[-.7,.5,.51],[-.65,.55,.52],[-.6,.6,.55],[-.55,.5,.66],[-.6,.45,.66]]},
+  {name:'Andromeda',stars:[[-.55,.7,.45],[-.5,.75,.43],[-.45,.7,.56],[-.4,.65,.66],[-.35,.7,.62]]},
+];
+function drawConstellations(){
+  if(!settings.constellations||scrollProg<0.55)return;
+  const dpr=devicePixelRatio;
+  const fade=Math.max(0,Math.min(1,(scrollProg-.55)*5));
+  if(fade<.01)return;
+  const CRAD=7000;
+  labelCtx.save();labelCtx.scale(dpr,dpr);
+  CONSTELLATIONS.forEach(con=>{
+    const pts=con.stars.map(s=>{
+      const v=new THREE.Vector3(s[0],s[1],s[2]).normalize().multiplyScalar(CRAD);
+      const sp=v.clone().project(camera);
+      if(sp.z>=1)return null;
+      return{x:(sp.x*.5+.5)*innerWidth,y:(-sp.y*.5+.5)*innerHeight};
+    }).filter(Boolean);
+    if(pts.length<2)return;
+    // draw connecting lines
+    labelCtx.globalAlpha=fade*.25;
+    labelCtx.strokeStyle='rgba(180,200,255,1)';
+    labelCtx.lineWidth=.8;
+    labelCtx.setLineDash([4,6]);
+    labelCtx.beginPath();pts.forEach((p,i)=>{i===0?labelCtx.moveTo(p.x,p.y):labelCtx.lineTo(p.x,p.y)});
+    labelCtx.stroke();labelCtx.setLineDash([]);
+    // draw name at centroid
+    const cx=pts.reduce((a,p)=>a+p.x,0)/pts.length;
+    const cy=pts.reduce((a,p)=>a+p.y,0)/pts.length;
+    labelCtx.globalAlpha=fade*.7;
+    labelCtx.font='600 10px "Chakra Petch",sans-serif';
+    labelCtx.fillStyle='rgba(180,200,255,1)';
+    labelCtx.textAlign='center';
+    labelCtx.fillText(con.name.toUpperCase(),cx,cy);
+    // star dots
+    labelCtx.globalAlpha=fade*.4;
+    labelCtx.fillStyle='rgba(220,230,255,1)';
+    pts.forEach(p=>{labelCtx.beginPath();labelCtx.arc(p.x,p.y,2,0,Math.PI*2);labelCtx.fill()});
+  });
+  labelCtx.restore();labelCtx.globalAlpha=1;
+}
+
+// ════════ FEATURE 3: SPACECRAFT TRACKER ════════
+const SPACECRAFT=[
+  {name:'Hubble ST',mission:'Space Telescope',launch:1990,dist:'569 km (LEO)',discovery:'Confirmed universe expansion acceleration',color:'#88CCFF',pos:()=>{const wp=new THREE.Vector3();PLANETS[2].mesh.getWorldPosition(wp);return wp.clone().add(new THREE.Vector3(1.2,0.3,0.8))}},
+  {name:'JWST',mission:'Space Telescope / L2',launch:2021,dist:'1.5M km from Earth',discovery:'Earliest galaxies, exoplanet atmospheres',color:'#FFDD88',pos:()=>{const wp=new THREE.Vector3();PLANETS[2].mesh.getWorldPosition(wp);return wp.clone().add(new THREE.Vector3(2.5,0.1,0.4))}},
+  {name:'New Horizons',mission:'Kuiper Belt Explorer',launch:2006,dist:'~7.8 billion km',discovery:'Pluto mountains and heart-shaped ice plains',color:'#AAFFCC',pos:()=>new THREE.Vector3(65,2,8)},
+  {name:'Voyager 1',mission:'Interstellar Probe',launch:1977,dist:'~24 billion km',discovery:'First object in interstellar space',color:'#FFAAEE',pos:()=>new THREE.Vector3(-88,15,-22)},
+  {name:'Voyager 2',mission:'Interstellar Probe',launch:1977,dist:'~20 billion km',discovery:'Only spacecraft to visit Uranus & Neptune',color:'#FFCCAA',pos:()=>new THREE.Vector3(76,-18,32)},
+];
+const scMeshes=[];
+SPACECRAFT.forEach(sc=>{
+  // invisible hit sphere
+  const geo=new THREE.SphereGeometry(1.2,8,8);
+  const mat=new THREE.MeshBasicMaterial({transparent:true,opacity:0});
+  const mesh=new THREE.Mesh(geo,mat);
+  scene.add(mesh);
+  // glow sprite
+  const spMat=new THREE.SpriteMaterial({map:GT,color:new THREE.Color(sc.color),transparent:true,opacity:.85,depthTest:false});
+  const sprite=new THREE.Sprite(spMat);sprite.scale.setScalar(.8);
+  mesh.add(sprite);
+  sc.mesh=mesh;sc.sprite=sprite;
+  scMeshes.push(mesh);
+  // wire into clickables and allSearchable
+  const data={name:sc.name,hexColor:sc.color,type:'Spacecraft',
+    stats:[{l:'Mission',v:sc.mission},{l:'Launched',v:sc.launch},{l:'Distance',v:sc.dist},{l:'Key Discovery',v:sc.discovery}],
+    desc:sc.discovery,fact:sc.discovery,moons:0,radius:.4,gravityMS2:0};
+  clickables.push({mesh,data});
+  allSearchable.push({name:sc.name,data,mesh,type:'Spacecraft'});
+  sc.data=data;
+});
+function updateSpacecraft(){
+  SPACECRAFT.forEach(sc=>{
+    const p=sc.pos();sc.mesh.position.copy(p);
+    sc.sprite.material.opacity=scrollProg<.3?.85:Math.max(0,.85-(scrollProg-.3)*5);
+  });
+}
+// Draw spacecraft labels on label canvas
+const _origDrawLabels=drawLabels;
+drawLabels=function(){
+  _origDrawLabels();
+  const dpr=devicePixelRatio;
+  const fade=Math.max(0,1-scrollProg*3.5);
+  if(fade<.02)return;
+  SPACECRAFT.forEach(sc=>{
+    const wp=sc.mesh.position.clone();
+    const sp=wp.clone().project(camera);
+    if(sp.z>=1)return;
+    const sx=(sp.x*.5+.5)*innerWidth,sy=(-sp.y*.5+.5)*innerHeight;
+    const d=camera.position.distanceTo(wp);
+    const a=fade*Math.max(0,Math.min(1,1-d/120))*Math.max(0,Math.min(1,(d-1)/5));
+    if(a<.03)return;
+    labelCtx.save();labelCtx.scale(dpr,dpr);
+    labelCtx.globalAlpha=a;
+    labelCtx.font='600 8px "Chakra Petch",sans-serif';
+    labelCtx.fillStyle=sc.color;
+    labelCtx.textAlign='center';
+    labelCtx.fillText('✦ '+sc.name.toUpperCase(),sx/dpr,(sy-16)/dpr);
+    labelCtx.restore();labelCtx.globalAlpha=1;
+  });
+};
+
+// ════════ FEATURE 4: SCALE COMPARISON CHART ════════
+(function initChart(){
+  const overlay=document.getElementById('chart-overlay');
+  const closeBtn=document.getElementById('chart-close');
+  const tabSize=document.getElementById('chart-tab-size');
+  const tabData=document.getElementById('chart-tab-data');
+  const sizeDiv=document.getElementById('size-tab');
+  const dataDiv=document.getElementById('data-tab');
+
+  function showTab(t){
+    sizeDiv.style.display=t==='size'?'flex':'none';
+    dataDiv.style.display=t==='data'?'block':'none';
+    tabSize.classList.toggle('active',t==='size');
+    tabData.classList.toggle('active',t==='data');
+  }
+  tabSize.addEventListener('click',()=>showTab('size'));
+  tabData.addEventListener('click',()=>showTab('data'));
+
+  // Build size tab
+  const allBodies=[{name:'Sun',hexColor:'#FDB813',radius:5},...PLANETS];
+  const maxR=5;
+  const maxPx=180;
+  allBodies.forEach(b=>{
+    const px=Math.max(6,Math.round((b.radius/maxR)*maxPx));
+    const item=document.createElement('div');item.className='sz-item';
+    item.innerHTML=`<div class="sz-circle" style="width:${px}px;height:${px}px;background:${b.hexColor||'#888'}"></div><div class="sz-name">${b.name}</div>`;
+    item.addEventListener('click',()=>{
+      const target=PLANETS.find(p=>p.name===b.name);
+      if(target){const wp=new THREE.Vector3();target.mesh.getWorldPosition(wp);tLookTarget.copy(wp);tR=Math.max(8,b.radius*12);}
+      else{tLookTarget.set(0,0,0);tR=20;}
+      overlay.classList.remove('open');
+      showToast('→ Flying to '+b.name);
+    });
+    sizeDiv.appendChild(item);
+  });
+
+  // Build data table
+  let sortCol=0,sortDir=1;
+  const cols=['Name','Diameter','Mass','Gravity','Moons','Orbital Period','Temp'];
+  const rows=PLANETS.map(p=>[p.name,p.stats.find(s=>s.l==='Diameter')?.v||'—',p.stats.find(s=>s.l==='Mass')?.v||'—',p.gravityMS2.toFixed(2)+' m/s²',p.moons,p.stats.find(s=>s.l==='Orbital Period')?.v||'—',p.stats.find(s=>s.l==='Temperature')?.v||'—']);
+  function renderTable(){
+    const sorted=[...rows].sort((a,b)=>{
+      const av=a[sortCol],bv=b[sortCol];
+      return(typeof av==='number'&&typeof bv==='number'?(av-bv):String(av).localeCompare(String(bv)))*sortDir;
+    });
+    dataDiv.innerHTML=`<table><thead><tr>${cols.map((c,i)=>`<th data-col="${i}">${c}${i===sortCol?(sortDir>0?' ↑':' ↓'):''}</th>`).join('')}</tr></thead><tbody>${sorted.map(r=>`<tr>${r.map(v=>`<td>${v}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+    dataDiv.querySelectorAll('th').forEach(th=>th.addEventListener('click',()=>{const c=parseInt(th.dataset.col);if(c===sortCol)sortDir*=-1;else{sortCol=c;sortDir=1;}renderTable()}));
+  }
+  renderTable();
+
+  document.getElementById('chart-btn').addEventListener('click',()=>{overlay.classList.add('open');showTab('size')});
+  closeBtn.addEventListener('click',()=>overlay.classList.remove('open'));
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('open')});
+  window.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open')});
+})();
+
+// ════════ FEATURE 5: HABITABLE ZONE RING ════════
+const habInner=9.5,habOuter=12.5;
+const habGeo=new THREE.RingGeometry(habInner,habOuter,96);
+const habMat=new THREE.MeshBasicMaterial({color:0x22FF66,transparent:true,opacity:.09,side:THREE.DoubleSide});
+const habRing=new THREE.Mesh(habGeo,habMat);
+habRing.rotation.x=Math.PI/2;habRing.visible=false;
+scene.add(habRing);
+// The existing settings toggle listener handles settings[k] toggling.
+// We just need to react to habzone changes — watch via animate or patch the existing toggle.
+// Patch: after the existing set-row listeners are set, add a post-click handler.
+document.querySelectorAll('.set-row[data-toggle="habzone"]').forEach(row=>{
+  row.addEventListener('click',()=>{setTimeout(()=>{habRing.visible=!!settings.habzone},0)});
+});
+
+// ════════ FEATURE 6: FACT QUIZ MODE ════════
+(function initQuiz(){
+  const QUESTIONS=[
+    {q:'Which planet has the most moons?',a:'Saturn',opts:()=>['Saturn','Jupiter','Uranus'],fact:'Saturn has 146 known moons — the most of any planet in the Solar System.'},
+    {q:'Which planet has a ring system visible from Earth?',a:'Saturn',opts:()=>['Saturn','Uranus','Neptune'],fact:"Saturn's rings span 282,000 km but are only about 10 metres thick."},
+    {q:'Which is the largest planet in our Solar System?',a:'Jupiter',opts:()=>['Jupiter','Saturn','Neptune'],fact:'Jupiter is so massive it exceeds the combined mass of all other planets twice over.'},
+    {q:'Which planet has the hottest surface temperature?',a:'Venus',opts:()=>['Venus','Mercury','Mars'],fact:"Venus reaches 462°C due to its runaway greenhouse effect — hotter than Mercury despite being farther from the Sun."},
+    {q:'Which planet has the longest day (rotation period)?',a:'Venus',opts:()=>['Venus','Mercury','Mars'],fact:'A day on Venus (243 Earth days) is actually longer than its year (225 Earth days).'},
+    {q:'Which planet rotates backwards (retrograde)?',a:'Venus',opts:()=>['Venus','Uranus','Neptune'],fact:'Both Venus and Uranus have unusual rotations — Venus spins retrograde, Uranus rolls on its side.'},
+    {q:'Which planet features the Great Red Spot?',a:'Jupiter',opts:()=>['Jupiter','Saturn','Neptune'],fact:"Jupiter's Great Red Spot is a storm that has raged for at least 350 years and is wider than Earth."},
+    {q:"Which moon might harbour life beneath its ice?",a:'Europa',opts:()=>['Europa','Titan','Ganymede'],fact:"Europa has a global ocean of liquid water kept warm by Jupiter's tidal forces — a prime candidate for life."},
+    {q:'Which planet is farthest from the Sun?',a:'Neptune',opts:()=>['Neptune','Uranus','Saturn'],fact:'Neptune orbits at 4.5 billion km from the Sun and takes 165 Earth years to complete one orbit.'},
+    {q:'Which planet has the fastest winds in the Solar System?',a:'Neptune',opts:()=>['Neptune','Saturn','Jupiter'],fact:"Neptune's winds reach 2,100 km/h — the fastest in the Solar System."},
+    {q:'What is the largest moon in the Solar System?',a:'Ganymede',opts:()=>['Ganymede','Titan','Callisto'],fact:'Ganymede (orbiting Jupiter) is larger than the planet Mercury and has its own magnetic field.'},
+    {q:'Which planet tilts so much it essentially rolls along its orbit?',a:'Uranus',opts:()=>['Uranus','Saturn','Neptune'],fact:"Uranus has an axial tilt of 98°, likely caused by a massive ancient collision."},
+    {q:'Which planet is least dense — so light it could float on water?',a:'Saturn',opts:()=>['Saturn','Uranus','Neptune'],fact:"Saturn's average density (0.69 g/cm³) is less than water."},
+    {q:'Which moon has active volcanoes — the most of any body?',a:'Io',opts:()=>['Io','Titan','Enceladus'],fact:"Io is heated by Jupiter's tidal forces so intensely that it has hundreds of active volcanoes and zero impact craters."},
+    {q:'Which moon shoots geysers of water hundreds of km into space?',a:'Enceladus',opts:()=>['Enceladus','Europa','Titan'],fact:"Enceladus shoots water 500 km into space, feeding Saturn's E ring."},
+    {q:'Which is the smallest planet in the Solar System?',a:'Mercury',opts:()=>['Mercury','Mars','Venus'],fact:'Mercury is only slightly larger than Earth\'s Moon.'},
+    {q:'Which planet has the shortest year (orbital period)?',a:'Mercury',opts:()=>['Mercury','Venus','Mars'],fact:'Mercury orbits the Sun every 88 Earth days.'},
+    {q:'Which moon of Titan has lakes of liquid methane on its surface?',a:'Titan',opts:()=>['Titan','Europa','Ganymede'],fact:"Titan is the only moon with a thick atmosphere and rivers of liquid methane."},
+    {q:'Which planet generates more internal heat than it receives from the Sun?',a:'Neptune',opts:()=>['Neptune','Jupiter','Saturn'],fact:"Neptune radiates 2.6 times more energy than it receives, driving its supersonic storms."},
+    {q:'Which moon has the tallest cliff in the Solar System (Verona Rupes)?',a:'Miranda',opts:()=>['Miranda','Triton','Callisto'],fact:"Miranda's Verona Rupes is ~20 km tall — 10 times taller than Everest."},
+  ];
+
+  let qIdx=0,score=0,answered=false,quizActive=false;
+  const card=document.getElementById('quiz-card');
+  const progEl=document.getElementById('quiz-progress');
+  const qEl=document.getElementById('quiz-q');
+  const optsEl=document.getElementById('quiz-opts');
+  const factEl=document.getElementById('quiz-fact');
+  const nextBtn=document.getElementById('quiz-next');
+  const badge=document.getElementById('quiz-badge');
+
+  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+  function showQ(){
+    if(qIdx>=QUESTIONS.length){showResult();return}
+    const q=QUESTIONS[qIdx];
+    progEl.textContent=`Q ${qIdx+1} / ${QUESTIONS.length}  ·  Score: ${score}`;
+    qEl.textContent=q.q;
+    const opts=shuffle([...q.opts()]);
+    optsEl.innerHTML='';
+    opts.forEach(opt=>{
+      const btn=document.createElement('button');btn.className='qz-opt';btn.textContent=opt;
+      btn.addEventListener('click',()=>{
+        if(answered)return;answered=true;
+        const correct=opt===q.a;
+        if(correct)score++;
+        optsEl.querySelectorAll('.qz-opt').forEach(b=>{
+          b.disabled=true;
+          if(b.textContent===q.a)b.classList.add('correct');
+          else if(b===btn&&!correct)b.classList.add('wrong');
+        });
+        factEl.textContent=q.fact;factEl.style.display='block';
+        nextBtn.style.display='block';
+        badge.style.display='block';
+      });
+      optsEl.appendChild(btn);
+    });
+    factEl.style.display='none';nextBtn.style.display='none';answered=false;
+  }
+
+  function showResult(){
+    const pct=Math.round(score/QUESTIONS.length*100);
+    const grade=pct>=90?'A':pct>=75?'B':pct>=60?'C':'D';
+    const gradeColor=pct>=90?'oklch(70% .19 145)':pct>=75?'var(--acc)':pct>=60?'oklch(72% .17 70)':'oklch(60% .22 25)';
+    qEl.innerHTML='';progEl.textContent='Quiz Complete!';
+    optsEl.innerHTML=`<div class="qz-score"><div class="qz-grade" style="color:${gradeColor}">${grade}</div><div class="qz-score-sub">${score} / ${QUESTIONS.length} correct · ${pct}%</div></div>`;
+    factEl.style.display='none';
+    nextBtn.textContent='Restart';nextBtn.style.display='block';
+    nextBtn.onclick=()=>{qIdx=0;score=0;nextBtn.textContent='Next →';badge.style.display='none';nextBtn.onclick=()=>{qIdx++;showQ()};showQ()};
+    badge.style.display='none';quizActive=false;
+  }
+
+  nextBtn.onclick=()=>{qIdx++;showQ()};
+
+  document.getElementById('quiz-btn').addEventListener('click',()=>{
+    card.classList.toggle('open');
+    if(card.classList.contains('open')&&!quizActive){quizActive=true;qIdx=0;score=0;showQ()}
+  });
+  document.getElementById('quiz-close').addEventListener('click',()=>card.classList.remove('open'));
+})();
+
+// ════════ ANIMATE HOOKS FOR NEW FEATURES ════════
+// Spacecraft positions update via interval (positions change with planet orbits)
+setInterval(updateSpacecraft,50);
+// Chain constellation drawing after all other label drawing
+const _prevDrawLabelsConst=drawLabels;
+drawLabels=function(){_prevDrawLabelsConst();drawConstellations()};
 
 animate();
 updateMoonWidget();
